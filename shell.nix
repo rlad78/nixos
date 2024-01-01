@@ -20,7 +20,7 @@
     # richard settings
     users.users.richard = {
         isNormalUser = true;
-        extraGroups = [ "wheel" ]
+        extraGroups = [ "wheel" ];
         packages = with pkgs; [
             gh
             xonsh
