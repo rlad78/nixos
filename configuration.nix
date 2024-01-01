@@ -8,6 +8,9 @@
   # enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # allow unfree
+  nixpkgs.config.allowUnfree = true;
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
