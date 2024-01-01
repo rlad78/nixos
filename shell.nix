@@ -22,6 +22,7 @@
         isNormalUser = true;
         extraGroups = [ "wheel" ]
         packages = with pkgs; [
+            gh
             xonsh
         ];
         hashedPassword = "$6$SkIi1e6zfsLHIUvR$Xg3ZYvL5EsEh/jzcvHX2s6O0a5Z7RmyWRyeLGMMsh6XJnCcTZmrM4EC4N0n08WlIiJP2radM56K6UpLXvb122/";
