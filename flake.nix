@@ -20,6 +20,7 @@
             ./configuration.nix
             ./shell.nix
             ./network.nix
+            ./software/*
           ];
         };
 
