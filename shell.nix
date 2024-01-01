@@ -37,6 +37,7 @@
         ls = "lsd";
         ll = "lsd -l";
         la = "lsd -la";
+        nxr = "nixos-rebuild switch --flake .#default";
     };
 
     programs.zsh = {
