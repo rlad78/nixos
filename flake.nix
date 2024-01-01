@@ -20,7 +20,7 @@
             ./configuration.nix
             ./shell.nix
             ./network.nix
-            ./software/*
+            ./software/fah.nix
           ];
         };
 
