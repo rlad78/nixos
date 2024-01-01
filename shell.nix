@@ -29,7 +29,7 @@
     };
 
     users.users.richard.shell = pkgs.zsh;
-    services.openssh.settings.AllowUsers = [ "richard" ]
+    services.openssh.settings.AllowUsers = [ "richard" ];
 
 
     #shell settings
