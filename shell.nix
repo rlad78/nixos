@@ -10,6 +10,7 @@
         zsh
         lsd
         tldr
+        btop
     ];
 
 
