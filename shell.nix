@@ -35,6 +35,7 @@
 
     #shell settings
     environment.shellAliases = {
+        sudo = "sudo ";
         ls = "lsd";
         ll = "lsd -l";
         la = "lsd -la";
