@@ -40,7 +40,7 @@
         ll = "lsd -l";
         la = "lsd -la";
         nxupd = "cd /users/richard/nixos/ && gh repo sync";
-        nxr = "nixos-rebuild switch --flake .#default";
+        nxs = "nixos-rebuild switch --flake .#default";
         nxb = "nixos-rebuild boot --flake .#default";
         nxt = "nixos-rebuild test --flake .#default";
     };
