@@ -13,9 +13,12 @@
     };
   };
 
+  services.tailscale.enable = true;
+  environment.systemPackages = with pkgs; [ tailscale ];
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedUDPPorts = [ ${services.tailscale.port} ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 }
