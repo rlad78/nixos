@@ -40,16 +40,18 @@
     let
         update-cmd = "cd /home/richard/nixos/ && gh repo sync";
     in
-    environment.shellAliases = {
-        sudo = "sudo ";
-        ls = "lsd";
-        ll = "lsd -l";
-        la = "lsd -la";
-        nxupd = update-cmd;
-        nxupg = update-cmd;
-        nxs = "nixos-rebuild switch --flake .#default";
-        nxb = "nixos-rebuild boot --flake .#default";
-        nxt = "nixos-rebuild test --flake .#default";
+    {
+        environment.shellAliases = {
+            sudo = "sudo ";
+            ls = "lsd";
+            ll = "lsd -l";
+            la = "lsd -la";
+            nxupd = update-cmd;
+            nxupg = update-cmd;
+            nxs = "nixos-rebuild switch --flake .#default";
+            nxb = "nixos-rebuild boot --flake .#default";
+            nxt = "nixos-rebuild test --flake .#default";
+        };
     };
 
     programs.zsh = {
