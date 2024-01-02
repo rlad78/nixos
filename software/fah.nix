@@ -8,6 +8,7 @@
         extraArgs = [
             "--allow=127.0.0.1 10.0.0.1-10.0.3.254"
             "--web-allow=10.0.0.1-10.0.3.254"
+            "--password=FAHArfFAH@93"
         ];
     };
 
