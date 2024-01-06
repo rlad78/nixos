@@ -42,8 +42,7 @@
         ls = "lsd";
         ll = "lsd -l";
         la = "lsd -la";
-        nxupd = "cd /home/richard/nixos/ && gh repo sync";
-        nxupg = "cd /home/richard/nixos/ && gh repo sync";
+        nxsync = "cd /home/richard/nixos/ && gh repo sync";
         nxs = "sudo nixos-rebuild switch --flake .#default";
         nxb = "sudo nixos-rebuild boot --flake .#default";
         nxt = "sudo nixos-rebuild test --flake .#default";
