@@ -9,6 +9,7 @@ let
     sync_addrs = addresses: port: lib.lists.flatten (
         lib.lists.forEach addresses (x: addr_gen { addr=x; port=port; })
     );
+    all_devices = [ "silverblue-go" "Samsung S23" "snoothome" "the-doghouse" ];
 in
 {
     users.groups = {
@@ -42,14 +43,38 @@ in
                     addresses = sync_addrs ["10.0.3.10" "100.126.192.113"] "22000";
                     id = "HWZTYWZ-3KK6OWJ-727AB6U-44K5TJF-E2F6NSK-K65WT5C-77UCPT6-7ZCTTAA";
                 };
+                "Samsung S23" = {
+                    addresses = sync_addrs ["10.0.3.13" "100.68.133.55"] "22000";
+                    id = "FVMMLEQ-E2J6XRX-G2OIBLH-7AVNNQI-4B2TUKN-VNIQB6U-5JTHPYI-MY4EOQP";
+                };
+                "snoothome" = {
+                    addresses = sync_addrs [ "10.0.2.111" ] "40788";
+                    id = "GD3K7RZ-QWETD4W-W34FV4W-KJZJS5O-3FEWHMH-LOBQGCA-QMUFSRH-QM6U5QV";
+                };
+                "the-doghouse" = {
+                    addresses = sync_addrs [ "10.0.1.2" "100.68.24.62" ] "22000";
+                    id = "35RITKL-BGKLWI3-RC3L3M5-R3OSQ4B-RZIVOTP-CS7H7UW-7ZKD2FX-ZLSB7QQ";
+                };
             };
 
             folders = {
                 notes = {
                     id = "qprzc-nackh";
-                    devices = [ "silverblue-go" ];
+                    devices = all_devices;
                     path = sync_dir + "/Notes";
                     label = "Notes";
+                };
+                snoothome_backups = {
+                    id = "walwu-ctntf";
+                    devices = all_devices;
+                    path = sync_dir + "/snoothome_backups";
+                    label = "snoothome-backups";
+                };
+                wallpapers = {
+                    id = "im7nn-kztqd";
+                    devices = all_devices;
+                    path = sync_dir + "/wallpapers";
+                    label = "Wallpapers";
                 };
             };
 
