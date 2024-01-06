@@ -29,7 +29,7 @@ in
     services.syncthing = {
         enable = true;
         user = "syncthing";
-        group = "syncthing":
+        group = "syncthing";
 
         openDefaultPorts = true;
 
