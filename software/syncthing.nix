@@ -1,7 +1,7 @@
 { config, pkgs, lib, ... }:
 
 let
-    sync_dir = "/home/richard/syncthing";
+    sync_dir = "/syncthing";
     addr_gen = {addr, port}: [
         ("tcp://" + addr + ":" + port)
         ("quic://" + addr + ":" + port)
