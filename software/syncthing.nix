@@ -45,10 +45,11 @@ in
             };
 
             folders = {
-                "/home/richard/syncthing/Notes" = {
+                notes = {
                     id = "qprzc-nackh";
                     devices = [ "silverblue-go" ];
-                    name = "Notes";
+                    path = sync_dir + "/Notes";
+                    label = "Notes";
                 };
             };
 
