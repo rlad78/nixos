@@ -48,7 +48,7 @@ in
                     id = "FVMMLEQ-E2J6XRX-G2OIBLH-7AVNNQI-4B2TUKN-VNIQB6U-5JTHPYI-MY4EOQP";
                 };
                 "snoothome" = {
-                    addresses = sync_addrs [ "10.0.2.111" ] "40788";
+                    addresses = sync_addrs [ "10.0.2.111" ] "22003";
                     id = "GD3K7RZ-QWETD4W-W34FV4W-KJZJS5O-3FEWHMH-LOBQGCA-QMUFSRH-QM6U5QV";
                 };
                 "the-doghouse" = {
