@@ -26,6 +26,8 @@ in
         ("d " + sync_dir + " 0770 syncthing syncthing")
     ];
 
+    networking.firewall.allowedTCPPorts = [ 8384 ];
+
     services.syncthing = {
         enable = true;
         user = "syncthing";
