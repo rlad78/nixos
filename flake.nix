@@ -21,6 +21,7 @@
             ./shell.nix
             ./network.nix
             ./software/fah.nix
+            ./software/syncthing.nix
           ];
         };
 
