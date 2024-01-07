@@ -14,6 +14,11 @@
         group = "storage";
         home = "/storage/torrents";
         downloadDirPermissions = "775";
+
+        settings = {
+            rpc-bind-address = "0.0.0.0";
+        };
+        
         openRPCPort = true;
         openPeerPorts = true;
     };
