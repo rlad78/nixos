@@ -12,7 +12,7 @@
         enable = true;
         package = pkgs.transmission_4;
         group = "storage";
-        home = /storage/torrents;
+        home = "/storage/torrents";
         downloadDirPermissions = "775";
         openRPCPort = true;
         openPeerPorts = true;
