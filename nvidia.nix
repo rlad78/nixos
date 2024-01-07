@@ -1,4 +1,4 @@
-{ config, pkgs, ... }
+{ config, pkgs, ... }:
 
 {
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
