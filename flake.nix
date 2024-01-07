@@ -22,6 +22,7 @@
             ./network.nix
             ./software/fah.nix
             ./software/syncthing.nix
+            ./nvidia.nix
           ];
         };
 
