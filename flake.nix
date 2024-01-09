@@ -23,6 +23,7 @@
             ./software/fah.nix
             ./software/syncthing.nix
             ./software/torrent.nix
+            ./software/netdata.nix
             ./nvidia.nix
           ];
         };
