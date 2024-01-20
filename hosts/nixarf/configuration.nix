@@ -11,6 +11,19 @@
   # allow unfree
   nixpkgs.config.allowUnfree = true;
 
+  # networking
+  networking.hostName = "nixarf"; # Define your hostname.
+  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+
+  # Enable the OpenSSH daemon.
+  services.openssh = {
+    enable = true;
+    openFirewall = true;
+    settings = {
+      PermitRootLogin = "no";
+    };
+  };
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix

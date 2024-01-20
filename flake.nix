@@ -25,9 +25,9 @@
         };
         
         modules = [ 
-          ./configuration.nix
+          ./hosts/nixarf/configuration.nix
           ./shell.nix
-          ./network.nix
+          ./tailscale.nix
           ./software/fah.nix
           ./software/syncthing.nix
           ./software/torrent.nix
