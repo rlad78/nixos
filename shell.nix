@@ -11,9 +11,9 @@
         lsd
         tldr
         btop
-        neovim
     ];
 
+    programs.neovim.enable = true;
     programs.neovim.configure = {
         customRC = ''
             set tabstop=2
