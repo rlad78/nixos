@@ -14,6 +14,14 @@
         neovim
     ];
 
+    programs.neovim.configure = {
+        customRC = ''
+            set tabstop=2
+            set shiftwidth=2
+            set expandtab
+            set smartindent
+        '';
+    };
 
     # root settings
     users.users.root.hashedPassword = "$6$vsOaxNJFEUCh3Z0K$2te0jZJfabO18pj58vXSr.J345ECzAZsUtCoHJL2NgZ/FE9m00Vt0asxXiX.aDWBtad./f5kelep1uVNjbeKE/";
