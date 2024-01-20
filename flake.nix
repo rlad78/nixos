@@ -6,7 +6,13 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
+  let
+    me = {
+      nix_dir = "~/nixos/";
+    };
+  in
+  {
     nixosConfigurations = {
       
       nixarf = nixpkgs.lib.nixosSystem {  
@@ -15,6 +21,7 @@
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
+          inherit me;
         };
         
         modules = [ 

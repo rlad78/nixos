@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, me, ... }:
 
 {
     # immutable users
@@ -57,9 +57,9 @@
         ll = "lsd -l";
         la = "lsd -la";
         nxsync = "cd /home/richard/nixos/ && gh repo sync";
-        nxs = "sudo nixos-rebuild switch --flake .#default";
-        nxb = "sudo nixos-rebuild boot --flake .#default";
-        nxt = "sudo nixos-rebuild test --flake .#default";
+        nxs = "sudo nixos-rebuild switch --flake " + me.nix_dir;
+        nxb = "sudo nixos-rebuild boot --flake " + me.nix_dir;
+        nxt = "sudo nixos-rebuild test --flake " + me.nix_dir;
     };
 
     programs.zsh = {
