@@ -15,7 +15,10 @@
     {
     
       nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit inputs;};
+          specialArgs = {
+            inherit inputs;
+            inherit pkgs-unstable;
+          };
           modules = [ 
             ./configuration.nix
             ./shell.nix
