@@ -11,6 +11,7 @@
         lsd
         tldr
         btop
+        broot
     ];
 
     programs.neovim = {
