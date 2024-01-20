@@ -11,6 +11,7 @@
         lsd
         tldr
         btop
+	neovim
     ];
 
 
@@ -73,3 +74,4 @@
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
 }
+
