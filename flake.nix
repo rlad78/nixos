@@ -6,30 +6,28 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
-      pkgs-unstable = nixpkgs-unstable.legacyPackages.${system};
-    in
-    {
-    
-      nixosConfigurations.default = nixpkgs.lib.nixosSystem {
-          specialArgs = {
-            inherit inputs;
-            inherit pkgs-unstable;
+  outputs = { self, nixpkgs, nixpkgs-unstable, ... }@inputs: {
+    nixosConfigurations = {
+      
+      nixarf = nixpkgs.lib.nixosSystem {  
+        specialArgs = {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
           };
-          modules = [ 
-            ./configuration.nix
-            ./shell.nix
-            ./network.nix
-            ./software/fah.nix
-            ./software/syncthing.nix
-            ./software/torrent.nix
-            ./software/netdata.nix
-            ./nvidia.nix
-          ];
         };
-
+        
+        modules = [ 
+          ./configuration.nix
+          ./shell.nix
+          ./network.nix
+          ./software/fah.nix
+          ./software/syncthing.nix
+          ./software/torrent.nix
+          ./software/netdata.nix
+          ./nvidia.nix
+        ];
+      };
     };
+  };
 }
