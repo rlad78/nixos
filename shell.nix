@@ -11,7 +11,7 @@
         lsd
         tldr
         btop
-	neovim
+        neovim
     ];
 
 
