@@ -12,6 +12,8 @@
         tldr
         btop
         broot
+        duf
+        du-dust
     ];
 
     programs.neovim = {
