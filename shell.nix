@@ -6,7 +6,7 @@
 
 
     # user packages
-    environment.systemPackages = with pkgs-unstable; [
+    environment.systemPackages = with pkgs; [
         zsh
         lsd
         tldr
@@ -14,7 +14,6 @@
     ];
 
     programs.neovim = {
-        package = pkgs-unstable.neovim-unwrapped;
         enable = true;
         defaultEditor = true;
         vimAlias = true;
@@ -36,7 +35,7 @@
     users.users.richard = {
         isNormalUser = true;
         extraGroups = [ "wheel" ];
-        packages = with pkgs-unstable; [
+        packages = with pkgs; [
             gh
             xonsh
         ];
@@ -46,7 +45,7 @@
         ];
     };
 
-    users.users.richard.shell = pkgs-unstable.zsh;
+    users.users.richard.shell = pkgs.zsh;
     services.openssh.settings.AllowUsers = [ "richard" ];
 
 
@@ -77,13 +76,13 @@
             enable = true;
             plugins = [ "systemd" ];
             theme = "candy";
-            customPkgs = with pkgs-unstable; [
+            customPkgs = with pkgs; [
                 nix-zsh-completions
             ];
         };
     };
 
-    fonts.packages = with pkgs-unstable; [
+    fonts.packages = with pkgs; [
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
 }
