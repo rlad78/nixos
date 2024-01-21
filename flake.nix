@@ -39,19 +39,19 @@
 
       "nix-go" = nixpkgs-unstable.lib.nixosSystem {
         specialArgs = {
-	  pkgs = import nixpkgs-unstable {
-	    system = "x86_64-linux";
-	    config.allowUnfree = true;
-	  };
-	  inherit me;
-	};
+          pkgs = import nixpkgs-unstable {
+	          system = "x86_64-linux";
+	          config.allowUnfree = true;
+	        };
+	        inherit me;
+	      };
 
-	modules = [
-	  ./hosts/nix-go/configuration.nix
-	  ./shell.nix
-	  ./tailscale.nix
+    	  modules = [
+	        ./hosts/nix-go/configuration.nix
+	        ./shell.nix
+	        ./tailscale.nix
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
-	];
+	      ];
       };
     };
   };
