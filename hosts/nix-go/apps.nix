@@ -16,5 +16,6 @@
 
   services.flatpak.packages = [
     "org.libretro.RetroArch"
+    "com.mattjakeman.ExtensionManager"
   ];
 }
