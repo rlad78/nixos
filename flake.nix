@@ -5,9 +5,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, ... }@inputs:
   let
     me = {
       nix_dir = "~/nixos/";
@@ -51,6 +52,7 @@
 	          config.allowUnfree = true;
 	        };
 	        inherit me;
+          inherit nix-flatpak;
           uncommon = {
             omz = {
               theme = "dpoggi";
@@ -65,6 +67,7 @@
 	        ./shell.nix
 	        ./tailscale.nix
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
+          nix-flatpak.nixosModules.nix-flatpak
 	      ];
       };
     };

@@ -2,7 +2,7 @@
 {
   users.users.richard = {
     packages = with pkgs; [
-      retroarchFull
+      # retroarchFull
       floorp
       space-cadet-pinball
       blackbox-terminal
@@ -10,4 +10,11 @@
       telegram-desktop
     ];
   }; 
+
+  services.flatpak.enable = true;
+  services.flatpak.update.onActivation = true;
+
+  services.flatpak.packages = [
+    "org.libretro.RetroArch"
+  ];
 }
