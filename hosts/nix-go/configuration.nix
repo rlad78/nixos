@@ -11,6 +11,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./hw-tweaks.nix
+      ./apps.nix
     ];
 
   # Bootloader.

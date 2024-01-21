@@ -23,10 +23,17 @@
             config.allowUnfree = true;
           };
           inherit me;
+          uncommon = {
+            omz = {
+              theme = "candy";
+              plugins = [ "systemd" ];
+            };
+          };
         };
         
         modules = [ 
           ./hosts/nixarf/configuration.nix
+          ./richard.nix
           ./shell.nix
           ./tailscale.nix
           ./software/fah.nix
@@ -44,10 +51,17 @@
 	          config.allowUnfree = true;
 	        };
 	        inherit me;
+          uncommon = {
+            omz = {
+              theme = "dpoggi";
+              plugins = [ "systemd" ];
+            };
+          };
 	      };
 
     	  modules = [
 	        ./hosts/nix-go/configuration.nix
+          ./richard.nix
 	        ./shell.nix
 	        ./tailscale.nix
           nixos-hardware.nixosModules.microsoft-surface-pro-intel

@@ -1,10 +1,6 @@
-{ config, pkgs, me, ... }:
+{ config, pkgs, me, uncommon, ... }:
 
 {
-    # immutable users
-    users.mutableUsers = false;
-
-
     # user packages
     environment.systemPackages = with pkgs; [
         zsh
@@ -14,6 +10,7 @@
         broot
         duf
         du-dust
+        gh
     ];
 
     programs.neovim = {
@@ -30,27 +27,8 @@
         };
     };
 
-    # root settings
-    users.users.root.hashedPassword = "$6$vsOaxNJFEUCh3Z0K$2te0jZJfabO18pj58vXSr.J345ECzAZsUtCoHJL2NgZ/FE9m00Vt0asxXiX.aDWBtad./f5kelep1uVNjbeKE/";
-
-
-    # richard settings
-    users.users.richard = {
-        isNormalUser = true;
-        extraGroups = [ "wheel" ];
-        packages = with pkgs; [
-            gh
-            xonsh
-        ];
-        hashedPassword = "$6$SkIi1e6zfsLHIUvR$Xg3ZYvL5EsEh/jzcvHX2s6O0a5Z7RmyWRyeLGMMsh6XJnCcTZmrM4EC4N0n08WlIiJP2radM56K6UpLXvb122/";
-        openssh.authorizedKeys.keys = [
-            "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKc2jzGXOAiQxBeec8qe8cqemg5O1/uCC/OWEDFJFvax richard@silverblue-go"
-        ];
-    };
-
     users.users.richard.shell = pkgs.zsh;
     services.openssh.settings.AllowUsers = [ "richard" ];
-
 
     #shell settings
     environment.shellAliases = {
@@ -77,8 +55,8 @@
 
         ohMyZsh = {
             enable = true;
-            plugins = [ "systemd" ];
-            theme = "candy";
+            plugins = uncommon.omz.plugins;
+            theme = uncommon.omz.theme; 
             customPkgs = with pkgs; [
                 nix-zsh-completions
             ];
