@@ -10,6 +10,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./hw-tweaks.nix
     ];
 
   # Bootloader.
@@ -18,11 +19,6 @@
 
   boot.initrd.luks.devices."luks-6e545722-9bab-4c89-9e03-30652b5513c6".device = "/dev/disk/by-uuid/6e545722-9bab-4c89-9e03-30652b5513c6";
   networking.hostName = "nix-go"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
