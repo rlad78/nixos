@@ -9,7 +9,7 @@ let
     sync_addrs = addresses: port: lib.lists.flatten (
         lib.lists.forEach addresses (x: addr_gen { addr=x; port=port; })
     );
-    all_devices = [ "silverblue-go" "Samsung S23" "snoothome" "the-doghouse" ];
+    all_devices = [ "Samsung S23" "snoothome" "the-doghouse" ];
     # sync-hosts = lib.filterAttrs (n: v: lib.hasAttrByPath [ "sync-id" ] v) me.hosts
 in
 {
