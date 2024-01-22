@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, me, ... }:
 
 let
     sync_dir = "/syncthing";
@@ -10,6 +10,7 @@ let
         lib.lists.forEach addresses (x: addr_gen { addr=x; port=port; })
     );
     all_devices = [ "silverblue-go" "Samsung S23" "snoothome" "the-doghouse" ];
+    # sync-hosts = lib.filterAttrs (n: v: lib.hasAttrByPath [ "sync-id" ] v) me.hosts
 in
 {
     users.groups = {
@@ -39,10 +40,6 @@ in
 
         settings = {
             devices = {
-                "silverblue-go" = {
-                    addresses = sync_addrs ["10.0.3.10" "100.126.192.113"] "22000";
-                    id = "HWZTYWZ-3KK6OWJ-727AB6U-44K5TJF-E2F6NSK-K65WT5C-77UCPT6-7ZCTTAA";
-                };
                 "Samsung S23" = {
                     addresses = sync_addrs ["10.0.3.13" "100.68.133.55"] "22000";
                     id = "FVMMLEQ-E2J6XRX-G2OIBLH-7AVNNQI-4B2TUKN-VNIQB6U-5JTHPYI-MY4EOQP";

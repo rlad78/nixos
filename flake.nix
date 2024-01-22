@@ -12,6 +12,41 @@
   let
     me = {
       nix_dir = "~/nixos/";
+      hosts = {
+
+        nixarf = {
+          tail-ip = "100.126.98.98";
+          local-ip = "10.0.0.101";
+          sync-id = "4HSWZPG-DE4VAWM-32OQEZS-OPKP6T2-NRA6XQL-LV2DJDY-4PAEQR3-LNLCDQ7";
+        };
+
+        nix-go = {
+          tail-ip = "100.96.155.115";
+          local-ip = "10.0.3.10";
+          sync-id = "";
+        };
+
+        samsung-s23 = {
+          tail-ip = "100.68.133.55";
+          local-ip = "10.0.3.13";
+          sync-id = "FVMMLEQ-E2J6XRX-G2OIBLH-7AVNNQI-4B2TUKN-VNIQB6U-5JTHPYI-MY4EOQP";
+        };
+
+        the-doghouse = {
+          tail-ip = "100.68.24.62";
+          local-ip = "10.0.1.2";
+          sync-id = "35RITKL-BGKLWI3-RC3L3M5-R3OSQ4B-RZIVOTP-CS7H7UW-7ZKD2FX-ZLSB7QQ";
+        };
+
+        snootflix4 = {
+          tail-ip = "100.83.200.46";
+        };
+
+        snootflix-site = {
+          tail-ip = "100.65.85.130";
+        };
+ 
+      };
     };
   in
   {
@@ -25,6 +60,7 @@
           };
           inherit me;
           uncommon = {
+            host = "nixarf";
             omz = {
               theme = "candy";
               plugins = [ "systemd" ];
@@ -54,6 +90,7 @@
 	        inherit me;
           inherit nix-flatpak;
           uncommon = {
+            host = "nix-go";
             omz = {
               theme = "dpoggi";
               plugins = [ "systemd" ];
@@ -66,6 +103,7 @@
           ./richard.nix
 	        ./shell.nix
 	        ./tailscale.nix
+          ./software/syncthing.nix
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
           nix-flatpak.nixosModules.nix-flatpak
 	      ];
