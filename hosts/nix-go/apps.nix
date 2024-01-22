@@ -8,6 +8,8 @@
       blackbox-terminal
       vesktop
       telegram-desktop
+      sublime4
+      obsidian
     ];
   }; 
 
