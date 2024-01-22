@@ -11,4 +11,6 @@
     options iwlwifi power_save=Y
     options iwldvm force_cam=N
   '';
+
+  microsoft-surface.ipts.enable = lib.mkForce false;
 }
