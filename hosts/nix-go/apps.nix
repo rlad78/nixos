@@ -2,14 +2,12 @@
 {
   users.users.richard = {
     packages = with pkgs; [
-      # retroarchFull
       floorp
       space-cadet-pinball
       blackbox-terminal
       vesktop
       telegram-desktop
-      sublime4
-      obsidian
+      # sublime4
     ];
   }; 
 
@@ -19,5 +17,6 @@
   services.flatpak.packages = [
     "org.libretro.RetroArch"
     "com.mattjakeman.ExtensionManager"
+    "md.obsidian.Obsidian"
   ];
 }
