@@ -103,7 +103,7 @@
           ./richard.nix
 	        ./shell.nix
 	        ./tailscale.nix
-          ./software/syncthing.nix
+          # ./software/syncthing.nix
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
           nix-flatpak.nixosModules.nix-flatpak
 	      ];
