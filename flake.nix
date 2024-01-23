@@ -45,6 +45,10 @@
         snootflix-site = {
           tail-ip = "100.65.85.130";
         };
+
+        snoothome = {
+          local-ip = "10.0.2.111";
+        };
  
       };
     };
