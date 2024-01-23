@@ -11,6 +11,7 @@
         duf
         du-dust
         gh
+        lazygit
     ];
 
     programs.neovim = {
@@ -39,7 +40,7 @@
         nxsync = "cd /home/richard/nixos/ && gh repo sync";
         nxs = "sudo nixos-rebuild switch --flake " + me.nix_dir;
         nxb = "sudo nixos-rebuild boot --flake " + me.nix_dir;
-        nxt = "sudo nixos-rebuild test --flake " + me.nix_dir;
+        lzgit = "lazygit";
     };
 
     programs.zsh = {
