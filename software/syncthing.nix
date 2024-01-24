@@ -1,4 +1,4 @@
-{ config, pkgs, lib, me, ... }:
+{ config, pkgs, lib, me, uncommon, ... }:
 
 let
     sync_dir = "/syncthing";
@@ -9,8 +9,12 @@ let
     sync_addrs = addresses: port: lib.lists.flatten (
         lib.lists.forEach addresses (x: addr_gen { addr=x; port=port; })
     );
-    all_devices = [ "Samsung S23" "snoothome" "the-doghouse" ];
-    # sync-hosts = lib.filterAttrs (n: v: lib.hasAttrByPath [ "sync-id" ] v) me.hosts
+
+    syncthing-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["sync-id"] v) me.hosts;
+    syncthing-hosts-names = lib.attrsets.mapAttrsToList (n: v: n) syncthing-hosts;
+
+    exists = name: attrset: lib.lists.optional (builtins.hasAttr name attrset) attrset.${name}; 
+    get-host-ips = host: (exists "tail-ip" host) ++ (exists "local-ip" host);
 in
 {
     users.groups = {
@@ -39,37 +43,29 @@ in
         openDefaultPorts = true;
 
         settings = {
-            devices = {
-                "Samsung S23" = {
-                    addresses = sync_addrs ["10.0.3.13" "100.68.133.55"] "22000";
-                    id = "FVMMLEQ-E2J6XRX-G2OIBLH-7AVNNQI-4B2TUKN-VNIQB6U-5JTHPYI-MY4EOQP";
-                };
-                "snoothome" = {
-                    addresses = sync_addrs [ "10.0.2.111" ] "40788";
-                    id = "GD3K7RZ-QWETD4W-W34FV4W-KJZJS5O-3FEWHMH-LOBQGCA-QMUFSRH-QM6U5QV";
-                };
-                "the-doghouse" = {
-                    addresses = sync_addrs [ "10.0.1.2" "100.68.24.62" ] "22000";
-                    id = "35RITKL-BGKLWI3-RC3L3M5-R3OSQ4B-RZIVOTP-CS7H7UW-7ZKD2FX-ZLSB7QQ";
-                };
-            };
+            devices = with lib.attrsets; concatMapAttrs (n: v: {
+              "${n}" = {
+                addresses = sync_addrs (get-host-ips v) v.sync-port;
+                id = v.sync-id;
+              };
+            }) ( removeAttrs syncthing-hosts [uncommon.host] );
 
             folders = {
                 notes = {
                     id = "qprzc-nackh";
-                    devices = all_devices;
+                    devices = syncthing-hosts-names;
                     path = sync_dir + "/Notes";
                     label = "Notes";
                 };
                 snoothome_backups = {
                     id = "walwu-ctntf";
-                    devices = all_devices;
+                    devices = syncthing-hosts-names;
                     path = sync_dir + "/snoothome_backups";
                     label = "snoothome-backups";
                 };
                 wallpapers = {
                     id = "im7nn-kztqd";
-                    devices = all_devices;
+                    devices = syncthing-hosts-names;
                     path = sync_dir + "/wallpapers";
                     label = "Wallpapers";
                 };
