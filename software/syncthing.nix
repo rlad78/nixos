@@ -10,7 +10,7 @@ let
         lib.lists.forEach addresses (x: addr_gen { addr=x; port=port; })
     );
 
-    syncthing-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["sync-id"] v) me.hosts;
+    syncthing-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["sync-id"] v) (removeAttrs me.hosts [uncommon.host]);
     syncthing-hosts-names = lib.attrsets.mapAttrsToList (n: v: n) syncthing-hosts;
 
     exists = name: attrset: lib.lists.optional (builtins.hasAttr name attrset) attrset.${name}; 
@@ -48,7 +48,7 @@ in
                 addresses = sync_addrs (get-host-ips v) v.sync-port;
                 id = v.sync-id;
               };
-            }) ( removeAttrs syncthing-hosts [uncommon.host] );
+            }) syncthing-hosts;
 
             folders = {
                 notes = {
