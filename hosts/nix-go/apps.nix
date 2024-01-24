@@ -6,6 +6,7 @@
       space-cadet-pinball
       blackbox-terminal
       vesktop
+      # armcord
       telegram-desktop
       # sublime4
     ];
@@ -18,5 +19,6 @@
     "org.libretro.RetroArch"
     "com.mattjakeman.ExtensionManager"
     "md.obsidian.Obsidian"
+    "com.github.tchx84.Flatseal"
   ];
 }
