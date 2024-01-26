@@ -19,5 +19,6 @@
     "md.obsidian.Obsidian"
     "com.github.tchx84.Flatseal"
     "com.cassidyjames.butler"
+    "io.github.giantpinkrobots.varia"
   ];
 }
