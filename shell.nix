@@ -41,6 +41,7 @@
         nxs = "sudo nixos-rebuild switch --flake " + me.nix_dir;
         nxb = "sudo nixos-rebuild boot --flake " + me.nix_dir;
         lzgit = "lazygit";
+        fup = "cd " + me.nix_dir + " && sudo nix flake update && sudo nixos-rebuild switch --flake " + me.nix_dir; 
     };
 
     programs.zsh = {
