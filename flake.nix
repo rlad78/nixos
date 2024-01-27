@@ -80,7 +80,7 @@
           ./hosts/nixarf/configuration.nix
           ./richard.nix
           ./shell.nix
-          ./tailscale.nix
+          ./services/tailscale.nix
           ./services/fah.nix
           ./services/syncthing.nix
           ./services/torrent.nix
@@ -109,7 +109,7 @@
 	        ./hosts/nix-go/configuration.nix
           ./richard.nix
 	        ./shell.nix
-	        ./tailscale.nix
+	        ./services/tailscale.nix
           ./services/syncthing.nix
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
           nix-flatpak.nixosModules.nix-flatpak
