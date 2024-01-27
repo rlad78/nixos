@@ -12,6 +12,7 @@
         du-dust
         gh
         lazygit
+	aria2
     ];
 
     programs.neovim = {
