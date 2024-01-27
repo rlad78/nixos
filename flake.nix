@@ -107,6 +107,7 @@
 
     	  modules = [
 	        ./hosts/nix-go/configuration.nix
+          ./gnome
           ./apps.nix
           ./richard.nix
 	        ./shell.nix
