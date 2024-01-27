@@ -85,7 +85,6 @@
           ./services/syncthing.nix
           ./services/torrent.nix
           ./services/netdata.nix
-          ./nvidia.nix
         ];
       };
 

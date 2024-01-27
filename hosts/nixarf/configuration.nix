@@ -5,6 +5,12 @@
 { config, lib, pkgs, ... }:
 
 {
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
+      ../common/nvidia.nix
+    ];
+
   # enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -23,11 +29,6 @@
       PermitRootLogin = "no";
     };
   };
-
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-    ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
@@ -52,13 +53,7 @@
   hardware.pulseaudio.enable = false;
   services.xserver.libinput.enable = false;
 
-  # required system packages
-  environment.systemPackages = with pkgs; [
-    git
-    vim
-    wget
-    curl
-  ];
+  users.users.richard.extraGroups = [ "networkmanager" "wheel" ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
