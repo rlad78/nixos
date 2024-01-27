@@ -12,5 +12,7 @@
     options iwldvm force_cam=N
   '';
 
+  # disable ipts, causes systemd errors and
+  #  touchscreen works fine without it
   microsoft-surface.ipts.enable = lib.mkForce false;
 }
