@@ -3,6 +3,8 @@
 {
     # user packages
     environment.systemPackages = with pkgs; [
+        git
+        curl
         zsh
         lsd
         tldr
@@ -12,7 +14,7 @@
         du-dust
         gh
         lazygit
-	aria2
+	      aria2
     ];
 
     programs.neovim = {
