@@ -39,6 +39,7 @@
         ll = "lsd -l";
         la = "lsd -la";
         nxsync = "cd /home/richard/nixos/ && gh repo sync";
+        nxclean = "sudo nix-store --gc";
         nxs = "sudo nixos-rebuild switch --flake " + me.nix_dir;
         nxb = "sudo nixos-rebuild boot --flake " + me.nix_dir;
         lzgit = "lazygit";
