@@ -7,6 +7,7 @@
       blackbox-terminal
       vesktop
       telegram-desktop
+      pinta
     ];
   }; 
 
