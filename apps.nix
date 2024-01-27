@@ -4,7 +4,6 @@
     packages = with pkgs; [
       floorp
       space-cadet-pinball
-      blackbox-terminal
       vesktop
       telegram-desktop
       pinta
@@ -16,7 +15,6 @@
 
   services.flatpak.packages = [
     "org.libretro.RetroArch"
-    "com.mattjakeman.ExtensionManager"
     "md.obsidian.Obsidian"
     "com.github.tchx84.Flatseal"
     "com.cassidyjames.butler"
