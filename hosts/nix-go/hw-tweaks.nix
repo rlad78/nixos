@@ -15,4 +15,16 @@
   # disable ipts, causes systemd errors and
   #  touchscreen works fine without it
   microsoft-surface.ipts.enable = lib.mkForce false;
+
+  systemd.services.padfix = {
+    enable = true;
+    description = "Reset hid-multitouch on resume from suspend";
+    unitConfig = {
+      After = "suspend.target";
+    };
+    serviceConfig = {
+      ExecStart = "modprobe -r hid-multitouch && modprobe hid-multitouch";
+    };
+    wantedBy = [ "hibernate.target" ];
+  };
 }
