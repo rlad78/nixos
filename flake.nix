@@ -81,10 +81,10 @@
           ./richard.nix
           ./shell.nix
           ./tailscale.nix
-          ./software/fah.nix
-          ./software/syncthing.nix
-          ./software/torrent.nix
-          ./software/netdata.nix
+          ./services/fah.nix
+          ./services/syncthing.nix
+          ./services/torrent.nix
+          ./services/netdata.nix
           ./nvidia.nix
         ];
       };
@@ -111,7 +111,7 @@
           ./richard.nix
 	        ./shell.nix
 	        ./tailscale.nix
-          ./software/syncthing.nix
+          ./services/syncthing.nix
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
           nix-flatpak.nixosModules.nix-flatpak
 	      ];
