@@ -27,6 +27,7 @@
     openFirewall = true;
     settings = {
       PermitRootLogin = "yes";
+      AllowUsers = [ "root" ];
     };
   };
 
