@@ -5,6 +5,15 @@
 { config, pkgs, ... }:
 
 {
+  # config for importing builds from nixarf
+  nix.binaryCachePublicKeys = [
+    "nixarf:w5V0h5xBBqipR5xoY0oFE8udibTjIoh/K5GKaQbDWlc="
+  ];
+  nix.trustedBinaryCaches = [
+    "ssh-ng://nixarf"
+    "ssh://nixarf"
+  ];
+
   # allow flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
