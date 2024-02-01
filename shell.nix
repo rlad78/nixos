@@ -16,6 +16,7 @@
         gh
         lazygit
 	      aria2
+        ripgrep
     ];
 
     programs.neovim = {
