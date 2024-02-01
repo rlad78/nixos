@@ -1,4 +1,4 @@
-{ config, pkgs, lib, uncommon, me, ... }:
+{ config, pkgs, lib, machine, me, ... }:
 
 let
   has-tail-ip = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["tail-ip"] v);
@@ -16,8 +16,8 @@ in
   networking.firewall.allowedUDPPorts = [ 41641 ];
 
   networking.hosts = (
-    tail-hosts (has-tail-ip (removeAttrs me.hosts [ uncommon.host ])) 
+    tail-hosts (has-tail-ip (removeAttrs me.hosts [ machine.host ])) 
     # also include non-tailscale hosts
-    // (local-hosts (has-local-only-ip (removeAttrs me.hosts [ uncommon.host ])))
+    // (local-hosts (has-local-only-ip (removeAttrs me.hosts [ machine.host ])))
   );
 }

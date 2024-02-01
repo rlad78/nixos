@@ -1,4 +1,4 @@
-{ config, pkgs, me, uncommon, ... }:
+{ config, pkgs, me, ... }:
 {
   users.mutableUsers = false;
 

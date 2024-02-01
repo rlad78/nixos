@@ -1,4 +1,4 @@
-{ config, pkgs, me, uncommon, ... }:
+{ config, pkgs, me, machine, ... }:
 
 {
     # user packages
@@ -64,8 +64,8 @@
 
         ohMyZsh = {
             enable = true;
-            plugins = uncommon.omz.plugins;
-            theme = uncommon.omz.theme; 
+            plugins = machine.omz.plugins;
+            theme = machine.omz.theme; 
             customPkgs = with pkgs; [
                 nix-zsh-completions
             ];

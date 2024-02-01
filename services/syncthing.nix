@@ -1,4 +1,4 @@
-{ config, pkgs, lib, me, uncommon, ... }:
+{ config, pkgs, lib, me, machine, ... }:
 
 let
     sync_dir = "/syncthing";
@@ -10,7 +10,7 @@ let
         lib.lists.forEach addresses (x: addr_gen { addr=x; port=port; })
     );
 
-    syncthing-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["sync-id"] v) (removeAttrs me.hosts [uncommon.host]);
+    syncthing-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["sync-id"] v) (removeAttrs me.hosts [machine.host]);
     syncthing-hosts-names = lib.attrsets.mapAttrsToList (n: v: n) syncthing-hosts;
 
     exists = name: attrset: lib.lists.optional (builtins.hasAttr name attrset) attrset.${name}; 

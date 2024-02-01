@@ -1,4 +1,4 @@
-{ configs, pkgs, me, uncommon, ... }:
+{ configs, pkgs, ...}:
 {
   users.users.richard = {
     packages = with pkgs; [

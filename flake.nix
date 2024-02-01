@@ -67,7 +67,7 @@
             config.allowUnfree = true;
           };
           inherit me;
-          uncommon = {
+          machine = {
             host = "nixarf";
             omz = {
               theme = "candy";
@@ -96,7 +96,7 @@
 	        };
 	        inherit me;
           inherit nix-flatpak;
-          uncommon = {
+          machine = {
             host = "nix-go";
             omz = {
               theme = "dpoggi";
