@@ -6,10 +6,10 @@
 
 {
   # config for importing builds from nixarf
-  nix.binaryCachePublicKeys = [
+  nix.trusted-public-keys = [
     "nixarf:w5V0h5xBBqipR5xoY0oFE8udibTjIoh/K5GKaQbDWlc="
   ];
-  nix.trustedBinaryCaches = [
+  nix.trusted-substituters = [
     "ssh-ng://nixarf"
     "ssh://nixarf"
   ];
