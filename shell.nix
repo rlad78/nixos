@@ -5,6 +5,7 @@
     environment.systemPackages = with pkgs; [
         git
         curl
+        screen
         zsh
         lsd
         tldr
