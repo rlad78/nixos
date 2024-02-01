@@ -17,6 +17,7 @@
         lazygit
 	      aria2
         ripgrep
+        trippy
     ];
 
     programs.neovim = {
