@@ -18,6 +18,7 @@
 	      aria2
         ripgrep
         trippy
+        termshark
     ];
 
     programs.neovim = {
