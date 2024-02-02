@@ -54,6 +54,10 @@
         snoothome = {
           local-ip = "10.0.2.111";
         };
+
+        hatab = {
+          local-ip = "10.0.3.11";
+        };
  
       };
     };
