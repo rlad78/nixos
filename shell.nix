@@ -2,8 +2,7 @@
 let
   build-cmd =
     ''
-      ssh nixarf -f "screen -dmL -Logfile /home/richard/remote_builds/logs/${HOST}_$(date -Iseconds) -t ${HOST}-build zsh -c 'cd /home/richard/nixos && gh repo sync && nix build --out-link /home/richard/remote_builds/build_${HOST}_$(date -Iseconds) .#nixosConfigurations.${HOST}.config.system.build.toplevel'"
-    '';
+      ssh nixarf -f "screen -dmL -Logfile /home/richard/remote_builds/logs/${machine.host}_$(date -Iseconds) -t ${machine.host}-build zsh -c 'cd /home/richard/nixos && gh repo sync && nix build --out-link /home/richard/remote_builds/build_${machine.host}_$(date -Iseconds) .#nixosConfigurations.${machine.host}.config.system.build.toplevel'"'';
 in
 {
     # user packages
