@@ -3,7 +3,7 @@
   users.users.richard = {
     packages = with pkgs; [
       dynamic-wallpaper
-      blackbox-terminal
+      # blackbox-terminal
    ];
   };
 
