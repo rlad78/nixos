@@ -21,8 +21,6 @@ in
         lazygit
 	      aria2
         ripgrep
-        trippy
-        termshark
     ];
 
     programs.neovim = {
