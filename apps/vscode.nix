@@ -4,9 +4,9 @@ let
 in
 {
   users.users.richard.packages = with pkgs; [
-    vscode
+    # vscode
     (vscode-with-extensions.override {
-      vscodeExtensions = with extensions; [
+      vscodeExtensions = with extensions.vscode-marketplace; [
         ms-python.python
         aaron-bond.better-comments
         codezombiech.gitignore
