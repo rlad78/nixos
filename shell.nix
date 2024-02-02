@@ -1,5 +1,10 @@
 { config, pkgs, me, machine, ... }:
-
+let
+  build-cmd =
+    ''
+      ssh nixarf -f "screen -dmL -Logfile /home/richard/remote_builds/logs/${HOST}_$(date -Iseconds) -t ${HOST}-build zsh -c 'cd /home/richard/nixos && gh repo sync && nix build --out-link /home/richard/remote_builds/build_${HOST}_$(date -Iseconds) .#nixosConfigurations.${HOST}.config.system.build.toplevel'"
+    '';
+in
 {
     # user packages
     environment.systemPackages = with pkgs; [
@@ -50,6 +55,7 @@
         nxb = "sudo nixos-rebuild boot --flake " + me.nix_dir;
         lzgit = "lazygit";
         fup = "cd " + me.nix_dir + " && sudo nix flake update && sudo nixos-rebuild switch --flake " + me.nix_dir; 
+        nxbld = build-cmd;
     };
 
     programs.zsh = {
