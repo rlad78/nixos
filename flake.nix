@@ -6,9 +6,10 @@
     nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
+    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nix-vscode-extensions, ... }@inputs:
   let
     me = {
       nix_dir = "~/nixos/";
@@ -68,6 +69,7 @@
           };
           inherit me;
           machine = {
+            system = "x86_64-linux";
             host = "nixarf";
             omz = {
               theme = "candy";
@@ -97,6 +99,7 @@
 	        inherit me;
           inherit nix-flatpak;
           machine = {
+            system = "x86_64-linux";
             host = "nix-go";
             omz = {
               theme = "dpoggi";

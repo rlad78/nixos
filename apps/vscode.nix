@@ -1,9 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, machine, nix-vscode-extensions, ... }:
+let
+  extensions = nix-vscode-extensions.extensions.${machine.system};
+in
 {
   users.users.richard.packages = with pkgs; [
     vscode
     (vscode-with-extensions.override {
-      vscodeExtensions = with vscode-extensions; [
+      vscodeExtensions = with extensions; [
         ms-python.python
         aaron-bond.better-comments
         codezombiech.gitignore
