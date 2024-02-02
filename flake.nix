@@ -98,6 +98,7 @@
 	        };
 	        inherit me;
           inherit nix-flatpak;
+          inherit nix-vscode-extensions;
           machine = {
             system = "x86_64-linux";
             host = "nix-go";
