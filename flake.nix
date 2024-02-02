@@ -108,7 +108,7 @@
     	  modules = [
 	        ./hosts/nix-go/configuration.nix
           ./gnome
-          ./apps.nix
+          ./apps/laptop.nix
           ./richard.nix
 	        ./shell.nix
 	        ./services/tailscale.nix
