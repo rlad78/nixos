@@ -109,6 +109,7 @@
 	        ./hosts/nix-go/configuration.nix
           ./gnome
           ./apps/laptop.nix
+          ./apps/vscode.nix
           ./richard.nix
 	        ./shell.nix
 	        ./services/tailscale.nix
