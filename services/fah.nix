@@ -5,6 +5,7 @@ let
   local-ips = lib.attrsets.mapAttrsToList (n: v: v.local-ip) local-hosts;
   tail-ips = lib.attrsets.mapAttrsToList (n: v: v.tail-ip) tail-hosts;
   all-ips = with lib.strings; (concatStringsSep " " (local-ips ++ tail-ips));
+in
 {
     services.foldingathome = {
         enable = true;
