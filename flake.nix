@@ -13,6 +13,8 @@
   let
     me = {
       nix_dir = "~/nixos/";
+      build-server = "nixarf";
+      build-dir = "/home/richard/builds";
       hosts = {
 
         nixarf = {
