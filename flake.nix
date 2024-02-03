@@ -122,7 +122,7 @@
         };
         
         modules = [ 
-          ./hosts/common/
+          ./hosts/common
           ./hosts/nixarf/configuration.nix
           ./richard.nix
           ./shell.nix
@@ -155,7 +155,7 @@
 	      };
 
     	  modules = [
-          ./hosts/common/
+          ./hosts/common
 	        ./hosts/nix-go/configuration.nix
           ./gnome
           ./apps/laptop.nix
