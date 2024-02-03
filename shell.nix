@@ -1,8 +1,13 @@
 { config, pkgs, me, machine, ... }:
 let
-  build-cmd =
+  build-func =
     ''
-      ssh nixarf -f "screen -dmL -Logfile /home/richard/remote_builds/logs/${machine.host}_$(date -Iseconds) -t ${machine.host}-build zsh -c 'cd /home/richard/nixos && gh repo sync && nix build --out-link /home/richard/remote_builds/build_${machine.host}_$(date -Iseconds) .#nixosConfigurations.${machine.host}.config.system.build.toplevel'"'';
+      nxbuild() {
+        screen -dmL -Logfile /home/richard/builds/logs/''${1}_$(date -Iminutes) -S ''${1}-build zsh -c \
+            'cd ${me.nix_dir} && gh repo sync && nix build --out-link /home/richard/builds/''${1}_$(date -Iminutes) \
+            .#nixosConfigurations.''${1}.config.system.build.toplevel'
+      }
+    '';
 in
 {
     # user packages
@@ -52,7 +57,6 @@ in
         nxb = "sudo nixos-rebuild boot --flake " + me.nix_dir;
         lzgit = "lazygit";
         fup = "cd " + me.nix_dir + " && sudo nix flake update && sudo nixos-rebuild switch --flake " + me.nix_dir; 
-        nxbld = build-cmd;
     };
 
     programs.zsh = {
@@ -66,6 +70,8 @@ in
             ];
         };
 
+        promptInit = build-func;
+
         ohMyZsh = {
             enable = true;
             plugins = machine.omz.plugins;
@@ -75,6 +81,11 @@ in
             ];
         };
     };
+
+    systemd.tmpfiles.rules = [
+      "d /home/richard/builds 755 richard users"
+      "d /home/richard/builds/logs 755 richard users"
+    ];
 
     fonts.packages = with pkgs; [
         (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
