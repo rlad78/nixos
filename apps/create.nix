@@ -6,5 +6,6 @@
 
   services.flatpak.packages = [
     "dev.geopjr.Tuba"
+    "md.obsidian.Obsidian"
   ];
 }
