@@ -4,6 +4,7 @@ let
 in
 {
   users.users.richard.packages = with pkgs; [
+    poetry
     # vscode
     (vscode-with-extensions.override {
       vscodeExtensions = with extensions.vscode-marketplace; [
