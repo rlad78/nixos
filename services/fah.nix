@@ -1,4 +1,4 @@
-{ config, pkgs, lib, me, machine ... }:
+{ config, pkgs, lib, me, machine, ... }:
 let
   local-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["local-ip"] v) (removeAttrs me.hosts [machine.host]);
   tail-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["tail-ip"] v) (removeAttrs me.hosts [machine.host]);
