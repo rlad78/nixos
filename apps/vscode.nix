@@ -20,6 +20,7 @@ in
         piotrpalarz.vscode-gitignore-generator
         tamasfe.even-better-toml
         teabyii.ayu
+        jnoortheen.nix-ide
       ];
     })
   ];
