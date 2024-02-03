@@ -24,7 +24,6 @@ in
     "diffie-hellman-group16-sha512"
     "diffie-hellman-group18-sha512"
     "diffie-hellman-group14-sha256"
-    "ext-info-c"
     "kex-strict-c-v00@openssh.com"
 
     # needed for older cisco switches
