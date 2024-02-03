@@ -1,12 +1,20 @@
 { config, pkgs, me, machine, ... }:
 let
+  rebuild-alias = (method: "sudo nixos-rebuild " + method + " --flake " + me.nix_dir);
   build-func =
     ''
       nxbuild() {
-        screen -dmL -Logfile /home/richard/builds/logs/''${1}_$(date -Iminutes) -S ''${1}-build zsh -c \
-            "cd ${me.nix_dir} && gh repo sync && nix build --out-link /home/richard/builds/''${1}_$(date -Iminutes) \
+        screen -dmL -Logfile ${me.build-dir}/logs/''${1}_$(date -Iminutes) -S ''${1}-build zsh -c \
+            "cd ${me.nix_dir} && gh repo sync && nix build --out-link ${me.build-dir}/''${1}_$(date -Iminutes) \
             .#nixosConfigurations.''${1}.config.system.build.toplevel"
       }
+    '';
+  pull-alias =
+    ''
+      nix copy --from ssh-ng://${me.build-server} $(ssh ${me.build-server} -- \
+      "find ${me.build-dir}/ -maxdepth 1 -type l -name '*${machine.host}*' -printf '%T@&%p\n' \
+      | sort -nr | cut -d '&' -f 2 | xargs readlink") \
+      && ${rebuild-alias "boot"}
     '';
 in
 {
@@ -51,12 +59,15 @@ in
         ls = "lsd";
         ll = "lsd -l";
         la = "lsd -la";
-        nxsync = "cd /home/richard/nixos/ && gh repo sync";
+        nxsync = "cd ${me.nix_dir} && gh repo sync";
         nxclean = "sudo nix-store --gc";
-        nxs = "sudo nixos-rebuild switch --flake " + me.nix_dir;
-        nxb = "sudo nixos-rebuild boot --flake " + me.nix_dir;
+        # nxs = "sudo nixos-rebuild switch --flake " + me.nix_dir;
+        nxs = rebuild-alias "switch";
+        # nxb = "sudo nixos-rebuild boot --flake " + me.nix_dir;
+        nxb = rebuild-alias "boot";
         lzgit = "lazygit";
         fup = "cd " + me.nix_dir + " && sudo nix flake update && sudo nixos-rebuild switch --flake " + me.nix_dir; 
+        nxpull = pull-alias;
     };
 
     programs.zsh = {
@@ -83,8 +94,8 @@ in
     };
 
     systemd.tmpfiles.rules = [
-      "d /home/richard/builds 755 richard users"
-      "d /home/richard/builds/logs 755 richard users"
+      "d ${me.build-dir} 755 richard users"
+      "d ${me.build-dir}/logs 755 richard users"
     ];
 
     fonts.packages = with pkgs; [
