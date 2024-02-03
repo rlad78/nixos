@@ -55,6 +55,7 @@
 
         snoothome = {
           local-ip = "10.0.2.111";
+          tail-ip = "100.85.137.97";
         };
 
         hatab = {
