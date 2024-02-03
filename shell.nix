@@ -4,8 +4,8 @@ let
     ''
       nxbuild() {
         screen -dmL -Logfile /home/richard/builds/logs/''${1}_$(date -Iminutes) -S ''${1}-build zsh -c \
-            'cd ${me.nix_dir} && gh repo sync && nix build --out-link /home/richard/builds/''${1}_$(date -Iminutes) \
-            .#nixosConfigurations.''${1}.config.system.build.toplevel'
+            "cd ${me.nix_dir} && gh repo sync && nix build --out-link /home/richard/builds/''${1}_$(date -Iminutes) \
+            .#nixosConfigurations.''${1}.config.system.build.toplevel"
       }
     '';
 in
