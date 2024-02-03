@@ -11,6 +11,12 @@
       ../common/nvidia.nix
     ];
 
+  # sign nix store units with private key
+  nix.extraOptions =
+    ''
+      secret-key-files = /home/richard/.k/cache-priv-key.pem
+    '';
+
   # enable flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
