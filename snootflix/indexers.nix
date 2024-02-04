@@ -11,7 +11,7 @@ let
     }];
 
     autoStart = true;
-    ephemeral = true;
+    # ephemeral = true;
     # bindMounts = {
     #   "/host/config" = {
     #     hostPath = snootflix.mkConfPath [ "$(name)" ];
@@ -24,7 +24,7 @@ let
     # };
     
     config = { config, pkgs, ... }: {
-      # users.groups."${snootflix.group}" = { gid=6969; };
+      users.groups."${snootflix.group}" = { gid=6969; };
       # systemd.tmpfiles.rules = [
       #   "d /host/config 0770 sonarr ${snootflix.group}"
       #   "d /host/snootflix 0770 sonarr ${snootflix.group}"
