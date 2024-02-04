@@ -104,7 +104,7 @@ in
         system.stateVersion = "23.11";
         networking.useHostResolvConf = lib.mkForce false;
       };
-    }
+    };
 
     networking = {
       nat = {
