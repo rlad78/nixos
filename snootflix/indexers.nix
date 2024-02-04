@@ -56,7 +56,7 @@ in
     };
 
    systemd.tmpfiles.rules = [
-      (snootflix.mkConfDir "radarr")
+      # (snootflix.mkConfDir "radarr")
       (snootflix.mkConfDir "sonarr_anime")
       (snootflix.mkConfDir "sonarr_tv")
     ];

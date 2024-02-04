@@ -24,7 +24,7 @@ in
       snootflix.mkDownloadDirs dl-types
       ++ [ 
         (snootflix.mkConfDir "sabnzbd")
-        (snootflix.mkConfDir "deluge")
+        # (snootflix.mkConfDir "deluge")
       ]
     );
 }
