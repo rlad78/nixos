@@ -66,11 +66,11 @@ in
 
     containers.sonarr_anime = {
       privateNetwork = true;
-      hostAddress = "192.168.69.2";
-      localAddress = "192.168.69.10";
+      hostAddress = "192.168.70.2";
+      localAddress = "192.168.70.10";
       forwardPorts = [{
         containerPort = 8989;
-        hostPort = 8981;
+        hostPort = 9999;
         protocol = "tcp";
       }];
 
@@ -112,6 +112,6 @@ in
         internalInterfaces = [ "ve-+" ];
         externalInterface = machine.eth-interface;
       };
-      firewall.allowedTCPPorts = [ 8981 8982 ];
+      firewall.allowedTCPPorts = [ 9999 8982 ];
     };
 }
