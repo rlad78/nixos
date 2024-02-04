@@ -75,30 +75,30 @@ in
       }];
 
       autoStart = true;
-      ephemeral = true;
-      bindMounts = {
-        "/host/config" = {
-          hostPath = snootflix.mkConfPath [ "sonarr_anime" ];
-          isReadOnly = false;
-        };
-        "/host/snootflix" = {
-          hostPath = snootflix.dirs.main;
-          isReadOnly = false;
-        };
-      };
+      # ephemeral = true;
+      # bindMounts = {
+      #   "/host/config" = {
+      #     hostPath = snootflix.mkConfPath [ "sonarr_anime" ];
+      #     isReadOnly = false;
+      #   };
+      #   "/host/snootflix" = {
+      #     hostPath = snootflix.dirs.main;
+      #     isReadOnly = false;
+      #   };
+      # };
       
       config = { config, pkgs, ... }: {
-        users.groups."snootflix" = { gid=6969; };
-        systemd.tmpfiles.rules = [
-          "d /host/config 0770 sonarr snootflix"
-          "d /host/snootflix 0770 sonarr snootflix"
-        ];
+        # users.groups."snootflix" = { gid=6969; };
+        # systemd.tmpfiles.rules = [
+        #   "d /host/config 0770 sonarr snootflix"
+        #   "d /host/snootflix 0770 sonarr snootflix"
+        # ];
 
         services.sonarr = {
           enable = true;
           openFirewall = true;
-          group = "snootflix";
-          dataDir = "/host/config";
+          # group = "snootflix";
+          # dataDir = "/host/config";
         };
         
         system.stateVersion = "23.11";
