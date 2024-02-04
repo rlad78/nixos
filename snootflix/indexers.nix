@@ -11,36 +11,37 @@ let
     }];
 
     autoStart = true;
-    # ephemeral = true;
-    # bindMounts = {
-    #   "/host/config" = {
-    #     hostPath = snootflix.mkConfPath [ "$(name)" ];
-    #     isReadOnly = false;
-    #   };
-    #   "/host/snootflix" = {
-    #     hostPath = snootflix.dirs.main;
-    #     isReadOnly = false;
-    #   };
-    # };
+    ephemeral = true;
+    bindMounts = {
+      "/host/config" = {
+        hostPath = snootflix.mkConfPath [ "$(name)" ];
+        isReadOnly = false;
+      };
+      "/host/snootflix" = {
+        hostPath = snootflix.dirs.main;
+        isReadOnly = false;
+      };
+    };
     
     config = { config, pkgs, ... }: {
       users.groups."${snootflix.group}" = { gid=6969; };
-      # systemd.tmpfiles.rules = [
-      #   "d /host/config 0770 sonarr ${snootflix.group}"
-      #   "d /host/snootflix 0770 sonarr ${snootflix.group}"
-      # ];
+      systemd.tmpfiles.rules = [
+        "d /host/config 0770 sonarr ${snootflix.group}"
+        "d /host/snootflix 0770 sonarr ${snootflix.group}"
+      ];
 
       services.sonarr = {
         enable = true;
         openFirewall = true;
         group = "snootflix";
-        # dataDir = "/host/config";
+        dataDir = "/host/config";
       };
       
       system.stateVersion = "23.11";
       networking.useHostResolvConf = lib.mkForce false;
     };
   });
+
   arrr-gen = (octet: port: {
     autoStart = true;
     privateNetwork = true;
@@ -84,56 +85,12 @@ in
 
    systemd.tmpfiles.rules = [
       # (snootflix.mkConfDir "radarr")
-      (snootflix.mkConfDir "sonarr_anime")
-      (snootflix.mkConfDir "sonarr_tv")
+      (snootflix.mkConfDir "sonarr-anime")
+      (snootflix.mkConfDir "sonarr-tv")
     ];
     
-    # containers.sonarr_anime = mkSonarrContainer "sonarr_anime" "69" 8981;
-    # containers.sonarr_tv = mkSonarrContainer "sonarr_tv" "79" 8982;
-
-    containers.sonarr-anime = arrr-gen "69" 6969;
-
-    # containers.sonarr_anime = {
-    #   privateNetwork = true;
-    #   hostAddress = "192.168.70.2";
-    #   localAddress = "192.168.70.10";
-    #   forwardPorts = [{
-    #     containerPort = 8989;
-    #     hostPort = 9999;
-    #     protocol = "tcp";
-    #   }];
-
-    #   autoStart = true;
-    #   ephemeral = true;
-    #   bindMounts = {
-    #     "/host/config" = {
-    #       hostPath = snootflix.mkConfPath [ "sonarr_anime" ];
-    #       isReadOnly = false;
-    #     };
-    #     "/host/snootflix" = {
-    #       hostPath = snootflix.dirs.main;
-    #       isReadOnly = false;
-    #     };
-    #   };
-      
-    #   config = { config, pkgs, ... }: {
-    #     users.groups."snootflix" = { gid=6969; };
-    #     systemd.tmpfiles.rules = [
-    #       "d /host/config 0770 sonarr snootflix"
-    #       "d /host/snootflix 0770 sonarr snootflix"
-    #     ];
-
-    #     services.sonarr = {
-    #       enable = true;
-    #       openFirewall = true;
-    #       group = "snootflix";
-    #       dataDir = "/host/config";
-    #     };
-        
-    #     system.stateVersion = "23.11";
-    #     networking.useHostResolvConf = lib.mkForce false;
-    #   };
-    # };
+    containers.sonarr-anime = mkSonarrContainer "sonarr-anime" "69" 8981;
+    containers.sonarr-tv = mkSonarrContainer "sonarr-tv" "79" 8982;
 
     networking = {
       nat = {
@@ -141,6 +98,6 @@ in
         internalInterfaces = [ "ve-+" ];
         externalInterface = machine.eth-interface;
       };
-      firewall.allowedTCPPorts = [ 9999 8982 ];
+      firewall.allowedTCPPorts = [ 8981 8982 ];
     };
 }
