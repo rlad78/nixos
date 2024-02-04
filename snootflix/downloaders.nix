@@ -1,7 +1,4 @@
 { config, pkgs, lib, snootflix, ... }:
-let
-  dl-types = [ "nzb" "torrent" ];
-in
 {
     services.sabnzbd = {
         enable = true;
@@ -21,7 +18,7 @@ in
     };
 
     systemd.tmpfiles.rules = (
-      snootflix.mkDownloadDirs dl-types
+      snootflix.mkDownloadDirs [ "nzb" "torrent" ]
       ++ [ 
         (snootflix.mkConfDir "sabnzbd")
         # (snootflix.mkConfDir "deluge")
