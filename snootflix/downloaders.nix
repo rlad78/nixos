@@ -21,7 +21,7 @@
       snootflix.mkDownloadDirs [ "nzb" "torrent" ]
       ++ [ 
         (snootflix.mkConfDir "sabnzbd")
-        # (snootflix.mkConfDir "deluge")
+        (snootflix.mkConfDir "deluge")
       ]
     );
 }
