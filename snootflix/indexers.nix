@@ -91,7 +91,7 @@ in
     # containers.sonarr_anime = mkSonarrContainer "sonarr_anime" "69" 8981;
     # containers.sonarr_tv = mkSonarrContainer "sonarr_tv" "79" 8982;
 
-    containers.sonarr_anime = arrr-gen "69" 6969;
+    containers.sonarr-anime = arrr-gen "69" 6969;
 
     # containers.sonarr_anime = {
     #   privateNetwork = true;
