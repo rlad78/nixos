@@ -12,16 +12,16 @@ let
 
     autoStart = true;
     ephemeral = true;
-    bindMounts = {
-      "/host/config" = {
-        hostPath = snootflix.mkConfPath [ "$(name)" ];
-        isReadOnly = false;
-      };
-      "/host/snootflix" = {
-        hostPath = snootflix.dirs.main;
-        isReadOnly = false;
-      };
-    };
+    # bindMounts = {
+    #   "/host/config" = {
+    #     hostPath = snootflix.mkConfPath [ "$(name)" ];
+    #     isReadOnly = false;
+    #   };
+    #   "/host/snootflix" = {
+    #     hostPath = snootflix.dirs.main;
+    #     isReadOnly = false;
+    #   };
+    # };
     
     config = { config, pkgs, ... }: {
       users.groups."${snootflix.group}" = { gid=6969; };
