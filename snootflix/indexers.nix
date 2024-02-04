@@ -14,7 +14,7 @@ let
     ephemeral = true;
     bindMounts = {
       "/host/config" = {
-        hostPath = snootflix.mkConfPath [ "$(name)" ];
+        hostPath = snootflix.mkConfPath [ name ];
         isReadOnly = false;
       };
       "/host/snootflix" = {
