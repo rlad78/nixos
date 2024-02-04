@@ -34,7 +34,7 @@ let
         enable = true;
         openFirewall = true;
         group = "snootflix";
-        dataDir = "/host/config";
+        # dataDir = "/host/config";
       };
       
       system.stateVersion = "23.11";
