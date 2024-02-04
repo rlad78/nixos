@@ -88,7 +88,7 @@
       mkDownloadDirs = (downloaders: lists.flatten (
         lists.forEach downloaders
           (dl:
-           [ (mkDirFunc download dl) ] ++ 
+           [ (mkDirFunc dirs.download dl) ] ++ 
            (mkDirsFunc (dirs.download + "/" + dl) categories)
           )
       ));
