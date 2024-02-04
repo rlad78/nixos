@@ -7,5 +7,5 @@
         dataDir = snootflix.mkConfPath [ "tautulli" ];
     };
 
-    systemd.tmpfiles.rules = snootflix.mkConfDir "tautulli";
+    systemd.tmpfiles.rules = [ (snootflix.mkConfDir "tautulli") ];
 }

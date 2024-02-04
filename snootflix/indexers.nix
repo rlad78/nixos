@@ -55,11 +55,11 @@ in
         dataDir = snootflix.mkConfPath [ "radarr" ];
     };
 
-   systemd.tmpfiles.rules = (
+   systemd.tmpfiles.rules = [
       (snootflix.mkConfDir "radarr")
-      ++ (snootflix.mkConfDir "sonarr_anime")
-      ++ (snootflix.mkConfDir "sonarr_tv")
-    );
+      (snootflix.mkConfDir "sonarr_anime")
+      (snootflix.mkConfDir "sonarr_tv")
+    ];
     
     containers.sonarr_anime = mkSonarrContainer "sonarr_anime" "69" 8981;
     containers.sonarr_tv = mkSonarrContainer "sonarr_tv" "79" 8982;

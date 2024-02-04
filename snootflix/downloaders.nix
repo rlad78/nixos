@@ -22,7 +22,9 @@ in
 
     systemd.tmpfiles.rules = (
       snootflix.mkDownloadDirs dl-types
-      ++ snootflix.mkConfDir "sabnzbd"
-      ++ snootflix.mkConfDir "deluge"
+      ++ [ 
+        (snootflix.mkConfDir "sabnzbd")
+        (snootflix.mkConfDir "deluge")
+      ]
     );
 }
