@@ -1,26 +1,33 @@
-{ config, pkgs, lib, snootflix, ... }:
+{ config, pkgs, lib, snootflix, machine, ... }:
 let
-  sonarr-conf-paths = {
-    anime = snootflix.mkConfPath [ "sonarr_anime" ];
-    tv = snootflix.mkConfPath [ "sonarr_tv" ];
-  };
+  mkSonarrContainer = (name: octet: port: {
+    privateNetwork = true;
+    hostAddress = "192.168.${octet}.2";
+    localAddress = "192.168.${octet}.10";
+    forwardPorts = [{
+      containerPort = 8989;
+      hostPort = port;
+      protocol = "tcp";
+    }];
 
-  mkSonarrContainer = name: {
     autoStart = true;
     ephemeral = true;
     bindMounts = {
       "/host/config" = {
-        hostPath = sonarr-conf-paths."${name}";
+        hostPath = snootflix.mkConfPath [ "$(name)" ];
+        isReadOnly = false;
+      };
+      "/host/snootflix" = {
+        hostPath = snootflix.dirs.main;
         isReadOnly = false;
       };
     };
     
     config = { config, pkgs, ... }: {
-     
       users.groups."${snootflix.group}" = { gid=6969; };
-
       systemd.tmpfiles.rules = [
-        "d /host/config 0770 sonarr snootflix"
+        "d /host/config 0770 sonarr ${snootflix.group}"
+        "d /host/snootflix 0770 sonarr ${snootflix.group}"
       ];
 
       services.sonarr = {
@@ -31,8 +38,9 @@ let
       };
       
       system.stateVersion = "23.11";
+      networking.useHostResolvConf = lib.mkForce false;
     };
-  };
+  });
 in
 {
     services.prowlarr = {
@@ -53,4 +61,15 @@ in
       ++ (snootflix.mkConfDir "sonarr_tv")
     );
     
+    containers.sonarr_anime = mkSonarrContainer "sonarr_anime" "69" 8981;
+    containers.sonarr_tv = mkSonarrContainer "sonarr_tv" "79" 8982;
+
+    networking = {
+      nat = {
+        enable = true;
+        internalInterfaces = [ "ve-+" ];
+        externalInterface = machine.eth-interface;
+      };
+      firewall.allowedTCPPorts = [ 8981 8982 ];
+    };
 }

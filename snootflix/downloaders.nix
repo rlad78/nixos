@@ -6,10 +6,7 @@ in
     services.sabnzbd = {
         enable = true;
         group = "snootflix";
-        configFile = snootflix.mkConfPath [
-          "sabnzbd"
-          "sabnzbd.ini"
-        ];
+        configFile = snootflix.mkConfPath [ "sabnzbd" "sabnzbd.ini" ];
     };
 
     services.deluge = {

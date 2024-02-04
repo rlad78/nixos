@@ -73,29 +73,29 @@
       ];
       dirs = {
         main = "/snootflix";
-        config = "/snootflix/configs";
+        config = "/configs";
         download = "/snootflix/downloads";
       };
 
       mkDirFunc = root: path: "d " + root + "/" + path + " 0770 richard " + group;
       mkDirsFunc = root: paths: builtins.map (mkDirFunc root) paths;
-      mkRootDirs = attrsets.mapAttrsToList (n: v:
-        "d " + v + " 0770 richard " + group
-      ) dirs;
 
       mkMainDir = path: mkDirFunc dirs.main path;
       mkConfDir = path: mkDirFunc dirs.config path;
       mkConfPath = parts: strings.concatStringsSep "/" (
         (lists.singleton dirs.config) ++ parts
       );
-
-      mkMediaDirs = builtins.map mkMainDir (
-        builtins.map strings.toUpper categories
-      );
       mkDownloadDirs = (downloaders: lists.flatten (
         lists.forEach downloaders
           (dl: mkDirsFunc (dirs.download + "/" + dl) categories)
         )
+      );
+
+      rootDirs = attrsets.mapAttrsToList (n: v:
+        "d " + v + " 0770 richard " + group
+      ) dirs;
+      mediaDirs = builtins.map mkMainDir (
+        builtins.map strings.toUpper categories
       );
     };
   in
