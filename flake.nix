@@ -122,7 +122,7 @@
         };
         
         modules = [ 
-          ./text.nix
+          ./test.nix
           ./hosts/common
           ./hosts/nixarf/configuration.nix
           ./richard.nix
