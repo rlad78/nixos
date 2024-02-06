@@ -28,6 +28,7 @@ in
 
     users.users.richard.extraGroups = [ "syncthing" ];
 
+    systemd.services.syncthing.serviceConfig.UMask = "0007";
     systemd.tmpfiles.rules = [
         ("d " + sync_dir + " 0770 syncthing syncthing")
     ];
