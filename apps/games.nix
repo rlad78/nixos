@@ -8,5 +8,7 @@
   services.flatpak.packages = [
     "org.libretro.RetroArch"
   ];
+
+  programs.gamemode.enable = true;
 }
 
