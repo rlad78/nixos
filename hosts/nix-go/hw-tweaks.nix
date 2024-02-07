@@ -1,6 +1,7 @@
 { config, pkgs, lib, ... }:
 let
   padfix_script = ./padfix.sh;
+in
 {
   boot.kernelParams = [
     "i915.enable_psr=0"
