@@ -1,8 +1,8 @@
 { configs, pkgs, ... }:
 {
   users.users.richard.packages = with pkgs; [
-    retroarch-with-cores
-    retroarch-assets-unstable
+    retroarchFull
+    retroarch-assets
     space-cadet-pinball
     typespeed
   ];
