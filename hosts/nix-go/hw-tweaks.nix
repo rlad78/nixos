@@ -1,4 +1,6 @@
 { config, pkgs, lib, ... }:
+let
+  padfix_script = ./padfix.sh
 {
   boot.kernelParams = [
     "i915.enable_psr=0"
@@ -23,8 +25,8 @@
       After = "suspend.target";
     };
     serviceConfig = {
-      ExecStart = "modprobe -r hid-multitouch && modprobe hid-multitouch";
+      ExecStart = "${padfix_script}";
     };
-    wantedBy = [ "hibernate.target" ];
+    wantedBy = [ "suspend.target" ];
   };
 }
