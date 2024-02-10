@@ -11,7 +11,7 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nix-vscode-extensions, ... }@inputs:
   let
-    me = {
+    me = rec {
       nix_dir = "~/nixos/";
       build-server = "nixarf";
       build-dir = "/home/richard/builds";
@@ -61,8 +61,24 @@
         hatab = {
           local-ip = "10.0.3.11";
         };
- 
       };
+      local-addresses = with nixpkgs.lib.attrsets; (this-host:
+        mapAttrsToList (n: v: v.local-ip) (
+          filterAttrs (n: v: hasAttrByPath ["local-ip"] v) (
+            removeAttrs hosts this-host
+          )
+        )
+      );
+      tail-addresses = with nixpkgs.lib.attrsets; (this-host:
+        mapAttrsToList (n: v: v.tail-ip) (
+          filterAttrs (n: v: hasAttrByPath ["tail-ip"] v) (
+            removeAttrs hosts this-host
+          )
+        )
+      );
+      all-host-addresses = (this-host:
+        (local-addresses this-host) ++ (tail-addresses this-host)
+      );
     };
     snootflix = with nixpkgs.lib; rec {
       group = "snootflix";
