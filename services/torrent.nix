@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, me, machine, ... }:
 
 {
     users.users.transmission = {
@@ -21,7 +21,10 @@
             # manage remotely
             rpc-enabled = true;
             rpc-bind-address = "0.0.0.0";
-            rpc-whitelist = "10.0.0.*,10.0.1.*,10.0.2.111,10.0.3.*,100.126.192.113,100.68.24.62";
+            # rpc-whitelist = "10.0.0.*,10.0.1.*,10.0.2.111,10.0.3.*,100.126.192.113,100.68.24.62";
+            rpc-whitelist = lib.strings.concatStringsSep "," (
+              me.all-host-addresses machine.host
+            );
 
 	          # allow for hostname instead of ip
 	          rpc-host-whitelist = "nixarf";
