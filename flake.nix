@@ -65,14 +65,14 @@
       local-addresses = with nixpkgs.lib.attrsets; (this-host:
         mapAttrsToList (n: v: v.local-ip) (
           filterAttrs (n: v: hasAttrByPath ["local-ip"] v) (
-            removeAttrs hosts this-host
+            removeAttrs hosts [this-host]
           )
         )
       );
       tail-addresses = with nixpkgs.lib.attrsets; (this-host:
         mapAttrsToList (n: v: v.tail-ip) (
           filterAttrs (n: v: hasAttrByPath ["tail-ip"] v) (
-            removeAttrs hosts this-host
+            removeAttrs hosts [this-host]
           )
         )
       );
