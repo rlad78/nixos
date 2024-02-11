@@ -33,6 +33,6 @@ in
 
   # add a shell alias for the script just in case
   environment.shellAliases = {
-    padfix = "sudo .${padfix_script}";
+    padfix = "sudo ${padfix_script}";
   };
 }

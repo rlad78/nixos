@@ -1,3 +1,3 @@
 #!/bin/sh
-sudo modprobe -r hid-multitouch && sudo modprobe hid-multitouch
+modprobe -r hid-multitouch && modprobe hid-multitouch
 
