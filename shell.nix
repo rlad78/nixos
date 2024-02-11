@@ -13,8 +13,7 @@ let
     ''
       nix copy --from ssh-ng://${me.build-server} $(ssh ${me.build-server} -- \
       "find ${me.build-dir}/ -maxdepth 1 -type l -name '*${machine.host}*' -printf '%T@&%p\n' \
-      | sort -nr | head -n 1 | cut -d '&' -f 2 | xargs readlink") \
-      && ${rebuild-alias "boot"}
+      | sort -nr | head -n 1 | cut -d '&' -f 2 | xargs readlink")
     '';
 in
 {
