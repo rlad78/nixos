@@ -2,6 +2,7 @@
 {
   users.users.richard.packages = with pkgs; [
     space-cadet-pinball
+    gnome-mahjongg
     typespeed
   ];
 
