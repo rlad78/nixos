@@ -1,4 +1,4 @@
-{ config, pkgs, me, machine, ... }:
+{ config, pkgs, lib, me, machine, ... }:
 
 {
     users.users.transmission = {
