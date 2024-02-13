@@ -71,7 +71,7 @@ in
                     label = "Wallpapers";
                 };
                 retro-saves = {
-                  id = "";
+                  id = "h2xh7-wkhwu";
                   devices = syncthing-hosts-names;
                   path = sync_dir + "/retro_saves";
                   label = "RetroArch Saves";
