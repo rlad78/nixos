@@ -2,7 +2,7 @@
 
 {   
     services.netdata = {
-        enable = true;
+        enable = false;
         enableAnalyticsReporting = true;
     };
 
