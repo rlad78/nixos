@@ -70,6 +70,12 @@ in
                     path = sync_dir + "/wallpapers";
                     label = "Wallpapers";
                 };
+                retro-saves = {
+                  id = "";
+                  devices = syncthing-hosts-names;
+                  path = sync_dir + "/retro_saves";
+                  label = "RetroArch Saves";
+                };
             };
 
             options = {
