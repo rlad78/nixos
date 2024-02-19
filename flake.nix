@@ -132,7 +132,7 @@
             eth-interface = "enp0s25";
             omz = {
               theme = "candy";
-              plugins = [ "systemd" ];
+              plugins = [ "systemd" "z" ];
             };
           };
         };
@@ -165,7 +165,7 @@
             eth-interface = "wlp0s20f3";
             omz = {
               theme = "dpoggi";
-              plugins = [ "systemd" ];
+              plugins = [ "systemd" "z" ];
             };
           };
 	      };
