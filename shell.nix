@@ -33,6 +33,7 @@ in
         lazygit
 	      aria2
         ripgrep
+        zoxide
     ];
 
     programs.neovim = {
