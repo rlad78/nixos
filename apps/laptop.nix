@@ -6,5 +6,6 @@
     ./games.nix
     ./create.nix
     ./utils.nix
+    ./productivity.nix
   ];
 }
