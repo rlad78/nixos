@@ -61,11 +61,12 @@ in
         la = "lsd -la";
         nxsync = "cd ${me.nix_dir} && gh repo sync";
         nxclean = "sudo nix-env --delete-generations 7d && sudo nix store gc --verbose";
+        nxpull = pull-alias;
         nxs = rebuild-alias "switch";
         nxb = rebuild-alias "boot";
         lzgit = "lazygit";
         fup = "cd " + me.nix_dir + " && sudo nix flake update && sudo nixos-rebuild switch --flake " + me.nix_dir; 
-        nxpull = pull-alias;
+        sv = "spacevim";
     };
 
     programs.zsh = {
