@@ -65,7 +65,6 @@ in
         nxs = rebuild-alias "switch";
         nxb = rebuild-alias "boot";
         lzgit = "lazygit";
-        fup = "cd " + me.nix_dir + " && sudo nix flake update && sudo nixos-rebuild switch --flake " + me.nix_dir; 
         sv = "spacevim";
     };
 
