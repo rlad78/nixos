@@ -1,6 +1,8 @@
 { configs, pkgs, ... }:
 {
   users.users.richard.packages = with pkgs; [
-    spacevim
+    (spacevim.override {
+      spacevim_config = import ./configs/spacevim.nix;
+    })
   ];
 }
