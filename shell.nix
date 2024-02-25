@@ -65,7 +65,6 @@ in
         nxs = rebuild-alias "switch";
         nxb = rebuild-alias "boot";
         lzgit = "lazygit";
-        sv = "spacevim";
     };
 
     programs.zsh = {

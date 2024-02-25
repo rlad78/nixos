@@ -5,4 +5,8 @@
       spacevim_config = import ./configs/spacevim.nix;
     })
   ];
+
+  environment.shellAliases = {
+    sv = "spacevim";
+  };
 }
