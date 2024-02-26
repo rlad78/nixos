@@ -1,6 +1,6 @@
 { configs, pkgs, lib, ... }:
 {
-  users.users.richard.packages = [
+  users.users.richard.packages = with pkgs; [
     # browsers
     floorp
     ungoogled-chromium
