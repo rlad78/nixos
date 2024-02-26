@@ -1,14 +1,16 @@
 { configs, pkgs, ... }:
 {
   users.users.richard.packages = with pkgs; [
-    bitwarden
+    dynamic-wallpaper
     bubblemail
     gnomeExtensions.bubblemail
   ];
 
+  services.flatpak.enable = true;
+  services.flatpak.update.onActivation = true;
+
   services.flatpak.packages = [
-    "com.github.tchx84.Flatseal"
-    "com.cassidyjames.butler"
+    "com.mattjakeman.ExtensionManager"
   ];
 
   systemd.user.services.bubblemail = {

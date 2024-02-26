@@ -142,6 +142,7 @@
           ./hosts/nixarf/configuration.nix
           ./richard.nix
           ./shell.nix
+          ./apps/cli
           ./services/tailscale.nix
           ./services/fah.nix
           ./services/syncthing.nix
@@ -174,8 +175,7 @@
           ./hosts/common
 	        ./hosts/nix-go/configuration.nix
           ./gnome
-          ./apps/laptop.nix
-          ./apps/vscode.nix
+          ./apps
           ./richard.nix
 	        ./shell.nix
 	        ./services/tailscale.nix

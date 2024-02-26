@@ -1,7 +1,7 @@
 { configs, pkgs, ... }:
 {
   imports = [
-    ./apps.nix
+    ../apps/desktop/gnome.nix
   ];
 
   # Enable the X11 windowing system.

@@ -1,11 +1,9 @@
 { configs, pkgs, ... }:
 {
-  users.users.richard.packages = with pkgs; [
-    pinta
-  ];
+  services.flatpak.enable = true;
+  services.flatpak.update.onActivation = true;
 
   services.flatpak.packages = [
-    "dev.geopjr.Tuba"
     "md.obsidian.Obsidian"
   ];
 }

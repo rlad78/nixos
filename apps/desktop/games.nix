@@ -3,8 +3,10 @@
   users.users.richard.packages = with pkgs; [
     space-cadet-pinball
     gnome.gnome-mahjongg
-    typespeed
   ];
+
+  services.flatpak.enable = true;
+  services.flatpak.update.onActivation = true;
 
   services.flatpak.packages = [
     "org.libretro.RetroArch"

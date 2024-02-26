@@ -25,13 +25,7 @@ in
         zsh
         lsd
         tldr
-        btop
         broot
-        duf
-        du-dust
-        gh
-        lazygit
-	      aria2
         ripgrep
         zoxide
     ];
