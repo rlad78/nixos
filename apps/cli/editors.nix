@@ -9,6 +9,6 @@
 
   environment.shellAliases = {
     # sv = "spacevim";
-    lv = "lunarvim"
+    lv = "lunarvim";
   };
 }
