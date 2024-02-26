@@ -1,5 +1,9 @@
 { configs, pkgs, ... }:
 {
+  users.users.richard.packages = with pkgs; [
+    alacritty
+  ];
+
   services.flatpak.packages = [
     "com.github.tchx84.Flatseal"
   ];
