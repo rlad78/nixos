@@ -1,6 +1,6 @@
 { configs, pkgs, ... }:
 {
-  users.users.richard.packages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     btop
     duf
     du-dust
