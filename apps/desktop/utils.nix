@@ -2,6 +2,7 @@
 {
   users.users.richard.packages = with pkgs; [
     alacritty
+    foot
   ];
 
   services.flatpak.packages = [
