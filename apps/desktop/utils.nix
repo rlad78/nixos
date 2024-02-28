@@ -1,7 +1,8 @@
 { configs, pkgs, ... }:
 {
   users.users.richard.packages = with pkgs; [
-    foot
+    kitty
+    kitty-themes
   ];
 
   services.flatpak.packages = [
