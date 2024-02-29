@@ -30,14 +30,14 @@
 
         nix-go = {
           tail-ip = "100.96.155.115";
-          local-ip = "10.0.3.10";
+          local-ip = "10.0.1.41";
           sync-id = "JOQ6PH5-IZ7O33M-4TCTJK6-NE5SRKB-NFYDZRX-AIJASWD-2Y7FMT7-7NY54QX";
           sync-port = "22000";
         };
 
         samsung-s23 = {
           tail-ip = "100.68.133.55";
-          local-ip = "10.0.3.13";
+          local-ip = "10.0.1.35";
           sync-id = "FVMMLEQ-E2J6XRX-G2OIBLH-7AVNNQI-4B2TUKN-VNIQB6U-5JTHPYI-MY4EOQP";
           sync-port = "22000";
         };
@@ -63,7 +63,7 @@
         };
 
         hatab = {
-          local-ip = "10.0.3.11";
+          local-ip = "10.0.1.71";
         };
       };
       local-addresses = with nixpkgs.lib.attrsets; (this-host:
