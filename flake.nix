@@ -15,6 +15,8 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, nix-flatpak, nix-vscode-extensions, ... }@inputs:
   let
+    secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
+
     me = rec {
       nix_dir = "~/nixos/";
       build-server = "nixarf";
@@ -84,6 +86,7 @@
         (local-addresses this-host) ++ (tail-addresses this-host)
       );
     };
+
     snootflix = with nixpkgs.lib; rec {
       group = "snootflix";
       categories = [
@@ -128,6 +131,7 @@
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
+          inherit secrets;
           inherit me;
           inherit snootflix;
           machine = {
@@ -161,6 +165,7 @@
 	          system = "x86_64-linux";
 	          config.allowUnfree = true;
 	        };
+          inherit secrets;
 	        inherit me;
           inherit nix-flatpak;
           inherit nix-vscode-extensions;
