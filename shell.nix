@@ -28,6 +28,7 @@ in
         broot
         ripgrep
         zoxide
+        git-crypt
     ];
 
     programs.neovim = {
