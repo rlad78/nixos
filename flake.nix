@@ -14,7 +14,7 @@
   };
 
   outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, nix-flatpak, nix-vscode-extensions, ... }@inputs:
-  with inputs: let
+  let
     secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
 
     me = rec {
