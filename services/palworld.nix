@@ -21,8 +21,8 @@
         "27015:27015/udp"
       ];
       environment = {
-        PUID = "${users.users.palworld.uid}";
-        PGID = "${users.groups.palworld.gid}";
+        PUID = "${config.users.users.palworld.uid}";
+        PGID = "${config.users.groups.palworld.gid}";
         PORT = "8211";
         PLAYERS = "8";
         MULTITHREADING = "true";
