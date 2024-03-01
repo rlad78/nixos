@@ -3,6 +3,8 @@
   virtualisation.docker.enable = true;
   users.users.richard.extraGroups = [ "docker" ];
 
+  users.groups.palworld = {};
+
   users.users.palworld = {
     isSystemUser = true;
     group = "palworld";
