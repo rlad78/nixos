@@ -31,8 +31,8 @@
         RCON_ENABLED = "true";
         RCON_PORT = "25575";
         TZ = "America/New_York";
-        SERVER_PASSWORD = "${secrets.palword.server_password}";
-        ADMIN_PASSWORD = "${secrets.palword.admin_password}";
+        SERVER_PASSWORD = "${secrets.palworld.server_password}";
+        ADMIN_PASSWORD = "${secrets.palworld.admin_password}";
         COMMUNITY = "false";
         SERVER_NAME = "Crescent";
         SERVER_DESCRIPTION = "Fun times with arf & Moon";
