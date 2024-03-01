@@ -20,7 +20,7 @@ in
     palworld = {
       image = "thijsvanloef/palworld-server-docker:latest";
       autoStart = true;
-      user = "palworld:palworld";
+      user = "${builtins.toString puid}:${builtins.toString pgid}";
       volumes = [
         "palworld_data:/palworld/"
       ];
@@ -29,8 +29,8 @@ in
         "27015:27015/udp"
       ];
       environment = {
-        PUID = "${(builtins.toString puid)}";
-        PGID = "${(builtins.toString pgid)}";
+        PUID = "${builtins.toString puid}";
+        PGID = "${builtins.toString pgid}";
         PORT = "8211";
         PLAYERS = "8";
         MULTITHREADING = "true";
