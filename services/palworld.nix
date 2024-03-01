@@ -1,13 +1,17 @@
 { config, pkgs, secrets, ... }:
-rec {
+let
+  puid = 6969;
+  pgid = 6969;
+{
   virtualisation.docker.enable = true;
   users.users.richard.extraGroups = [ "docker" ];
 
-  users.groups.palworld = {};
+  users.groups.palworld.gid = pgid;
 
   users.users.palworld = {
     isSystemUser = true;
     group = "palworld";
+    uid = puid;
   };
 
   virtualisation.oci-containers.containers = {
@@ -23,8 +27,8 @@ rec {
         "27015:27015/udp"
       ];
       environment = {
-        PUID = "${config.users.users.palworld.uid}";
-        PGID = "${config.users.groups.palworld.gid}";
+        PUID = "${puid}";
+        PGID = "${pgid}";
         PORT = "8211";
         PLAYERS = "8";
         MULTITHREADING = "true";
