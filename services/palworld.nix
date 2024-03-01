@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, secrets, ... }:
 {
   virtualisation.docker.enable = true;
   users.users.richard.extraGroups = [ "docker" ];
@@ -21,9 +21,32 @@
         "27015:27015/udp"
       ];
       environment = {
-
+        PUID = "${users.users.palworld.uid}";
+        PGID = "${users.groups.palworld.gid}";
+        PORT = "8211";
+        PLAYERS = "8";
+        MULTITHREADING = "true";
+        RCON_ENABLED = "true";
+        RCON_PORT = "25575";
+        TZ = "America/New_York";
+        SERVER_PASSWORD = "${secrets.palword.server_password}";
+        ADMIN_PASSWORD = "${secrets.palword.admin_password}";
+        COMMUNITY = "false";
+        SERVER_NAME = "Crescent";
+        SERVER_DESCRIPTION = "Fun times with arf & Moon";
+        PUBLIC_IP = "69.59.78.25";
+        PUBLIC_PORT = "8211";
+        DELETE_OLD_BACKUPS = true;
+        OLD_BACKUP_DAYS = "14";
+        UPDATE_ON_BOOT = true;
+        AUTO_REBOOT_ENABLED = true;
+        AUTO_REBOOT_CRON_EXPRESSION = "0 4 * * *";
+        AUTO_REBOOT_WARN_MINUTES = "30";
+        AUTO_REBOOT_EVEN_IF_PLAYERS_ONLINE = true;
       };
     };
 
   };
+
+  networking.firewall.allowedUDPPorts = [ 8211 27015 ];
 }
