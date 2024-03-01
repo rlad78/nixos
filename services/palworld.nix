@@ -38,13 +38,13 @@
         SERVER_DESCRIPTION = "Fun times with arf & Moon";
         PUBLIC_IP = "69.59.78.25";
         PUBLIC_PORT = "8211";
-        DELETE_OLD_BACKUPS = true;
+        DELETE_OLD_BACKUPS = "true";
         OLD_BACKUP_DAYS = "14";
-        UPDATE_ON_BOOT = true;
-        AUTO_REBOOT_ENABLED = true;
+        UPDATE_ON_BOOT = "true";
+        AUTO_REBOOT_ENABLED = "true";
         AUTO_REBOOT_CRON_EXPRESSION = "0 4 * * *";
         AUTO_REBOOT_WARN_MINUTES = "30";
-        AUTO_REBOOT_EVEN_IF_PLAYERS_ONLINE = true;
+        AUTO_REBOOT_EVEN_IF_PLAYERS_ONLINE = "true";
       };
     };
 
