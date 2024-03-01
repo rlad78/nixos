@@ -28,8 +28,8 @@ in
         "27015:27015/udp"
       ];
       environment = {
-        PUID = "${puid}";
-        PGID = "${pgid}";
+        PUID = "${(builtins.toString puid)}";
+        PGID = "${(builtins.toString pgid)}";
         PORT = "8211";
         PLAYERS = "8";
         MULTITHREADING = "true";
