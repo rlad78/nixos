@@ -15,6 +15,7 @@ in
     uid = puid;
   };
 
+  virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers = {
     palworld = {
       image = "thijsvanloef/palworld-server-docker:latest";
