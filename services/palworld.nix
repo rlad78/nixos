@@ -2,6 +2,7 @@
 let
   puid = 6969;
   pgid = 6969;
+in
 {
   virtualisation.docker.enable = true;
   users.users.richard.extraGroups = [ "docker" ];
