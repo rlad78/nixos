@@ -15,6 +15,10 @@ in
     uid = puid;
   };
 
+  systemd.tmpfiles.rules = [
+    "d /palworld 0700 palworld palworld"
+  ];
+
   virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers = {
     palworld = {
@@ -22,7 +26,7 @@ in
       autoStart = true;
       user = "${builtins.toString puid}:${builtins.toString pgid}";
       volumes = [
-        "palworld_data:/palworld/"
+        "/palworld:/palworld"
       ];
       ports = [
         "8211:8211/udp"
