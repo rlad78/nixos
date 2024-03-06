@@ -23,6 +23,7 @@ in
   virtualisation.oci-containers.containers = {
     palworld = {
       image = "thijsvanloef/palworld-server-docker:latest";
+      extraOptions = [ "--pull=always" ];
       autoStart = true;
       user = "${builtins.toString puid}:${builtins.toString pgid}";
       volumes = [
