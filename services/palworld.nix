@@ -1,18 +1,18 @@
 { config, pkgs, secrets, ... }:
-let
-  puid = 6969;
-  pgid = 6969;
-in
+#let
+#  puid = 6969;
+#  pgid = 6969;
+#in
 {
   virtualisation.docker.enable = true;
   users.users.richard.extraGroups = [ "docker" ];
 
-  users.groups.palworld.gid = pgid;
+  users.groups.palworld.gid = 6969;
 
   users.users.palworld = {
     isSystemUser = true;
     group = "palworld";
-    uid = puid;
+    uid = 6969;
   };
 
   systemd.tmpfiles.rules = [
@@ -25,7 +25,7 @@ in
       image = "thijsvanloef/palworld-server-docker:latest";
       extraOptions = [ "--pull=always" ];
       autoStart = true;
-      user = "${builtins.toString puid}:${builtins.toString pgid}";
+      user = "${builtins.toString config.users.users.palworld.uid}:${builtins.toString config.users.groups.palworld.gid}";
       volumes = [
         "/palworld:/palworld"
       ];
@@ -34,8 +34,8 @@ in
         "27015:27015/udp"
       ];
       environment = {
-        PUID = "${builtins.toString puid}";
-        PGID = "${builtins.toString pgid}";
+        PUID = "${builtins.toString config.users.users.palworld.uid}";
+        PGID = "${builtins.toString config.users.groups.palworld.gid}";
         PORT = "8211";
         PLAYERS = "8";
         MULTITHREADING = "true";
