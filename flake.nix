@@ -148,7 +148,6 @@
         };
         
         modules = [ 
-          ./snootflix
           ./hosts/common
           ./hosts/nixarf/configuration.nix
           ./richard.nix
