@@ -67,6 +67,7 @@ in
         IS_START_LOCATION_SELECT_BY_MAP = "True";
         COOP_PLAYER_MAX_NUM = "8";
         PAL_EGG_DEFAULT_HATCHING_TIME = "1.200000";
+        BASE_CAMP_WORKER_MAX_NUM = "20";
       };
     };
 
