@@ -4,6 +4,11 @@
     dynamic-wallpaper
     bubblemail
     gnomeExtensions.bubblemail
+    gnomeExtensions.ddterm
+    gnomeExtensions.auto-power-profile
+    gnomeExtensions.caffeine
+    gnomeExtensions.runcat
+    gnomeExtensions.night-theme-switcher
   ];
 
   services.flatpak.enable = true;
