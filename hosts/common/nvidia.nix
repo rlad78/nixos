@@ -1,6 +1,10 @@
 { config, pkgs, ... }:
 
 {
+    environment.systemPackages = with pkgs; [
+        cudatoolkit
+    ];
+
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
     hardware.opengl = {
