@@ -1,10 +1,11 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
     environment.systemPackages = with pkgs; [
         cudatoolkit
     ];
 
+    services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
 
     hardware.opengl = {
