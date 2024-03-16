@@ -29,6 +29,7 @@ in
         ripgrep
         zoxide
         git-crypt
+        yt-dlp
     ];
 
     programs.neovim = {
