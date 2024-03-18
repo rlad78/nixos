@@ -5,6 +5,13 @@
 { config, pkgs, ... }:
 
 {
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    persistent = true;
+    options = "--delete-older-than 14d";
+  };
+
   # config for importing builds from nixarf
   nix.settings.trusted-public-keys = [
     "nixarf:w5V0h5xBBqipR5xoY0oFE8udibTjIoh/K5GKaQbDWlc="
