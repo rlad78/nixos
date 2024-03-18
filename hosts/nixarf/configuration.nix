@@ -5,6 +5,13 @@
 { config, lib, pkgs, ... }:
 
 {
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    persistent = true;
+    options = "--delete-older-than 21d";
+  };
+
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
