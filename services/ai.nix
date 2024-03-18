@@ -11,4 +11,7 @@
     ollama
     conda
   ];
+
+  networking.firewall.allowedTCPPorts = [ 7860 ];
+
 }
