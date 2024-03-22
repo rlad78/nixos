@@ -6,7 +6,7 @@ let
       nxbuild() {
         screen -dmL -Logfile ${me.build-dir}/logs/''${1}_$(date -Iminutes) -S ''${1}-build zsh -c \
             "cd ${me.nix_dir} && nix build --out-link ${me.build-dir}/''${1}_$(date -Iminutes) \
-            --cores 3 -vv .#nixosConfigurations.''${1}.config.system.build.toplevel \
+            --cores 3 -v --show-trace .#nixosConfigurations.''${1}.config.system.build.toplevel \
             && find ${me.build-dir} -mtime +7 -execdir rm -- '{}' \;" 
       }
     '';
