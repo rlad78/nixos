@@ -1,7 +1,7 @@
 { configs, pkgs, ... }:
 {
   users.users.richard.packages = with pkgs; [
-    # space-cadet-pinball
+    space-cadet-pinball
     gnome.gnome-mahjongg
     moonlight-qt
   ];
