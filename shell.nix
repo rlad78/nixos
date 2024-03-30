@@ -31,6 +31,7 @@ in
         zoxide
         git-crypt
         yt-dlp
+        udftools
     ];
 
     programs.neovim = {
