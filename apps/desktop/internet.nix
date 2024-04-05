@@ -16,5 +16,6 @@
   services.flatpak.packages = [
     "dev.geopjr.Tuba"
     "com.cassidyjames.butler"
+    "one.jwr.interstellar"
   ];
 }
