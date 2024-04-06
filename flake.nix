@@ -45,10 +45,10 @@
           sync-port = "22000";
         };
 
-        the-doghouse = {
-          tail-ip = "100.68.24.62";
+        NextArf = {
+          tail-ip = "100.83.96.68";
           local-ip = "10.0.1.2";
-          sync-id = "35RITKL-BGKLWI3-RC3L3M5-R3OSQ4B-RZIVOTP-CS7H7UW-7ZKD2FX-ZLSB7QQ";
+          sync-id = "IJMXDUY-MVTMAI7-5GDSLJS-6Q74X2P-IRT2YOU-A7KNJ5W-7GFY6QY-XKX5BAB";
           sync-port = "22000";
         };
 
