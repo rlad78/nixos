@@ -10,9 +10,10 @@ let
             && find ${me.build-dir} -mtime +7 -execdir rm -- '{}' \;" 
       }
     '';
+  clean-alias = "sudo nix-env --delete-generations 7d && sudo nix store gc --verbose";
   pull-alias =
     ''
-      nix copy --from ssh-ng://${me.build-server} $(ssh ${me.build-server} -- \
+      ${clean-alias} && nix copy --from ssh-ng://${me.build-server} $(ssh ${me.build-server} -- \
       "find ${me.build-dir}/ -maxdepth 1 -type l -name '*${machine.host}*' -printf '%T@&%p\n' \
       | sort -nr | head -n 1 | cut -d '&' -f 2 | xargs readlink")
     '';
@@ -58,7 +59,7 @@ in
         ll = "lsd -l";
         la = "lsd -la";
         nxsync = "cd ${me.nix_dir} && gh repo sync";
-        nxclean = "sudo nix-env --delete-generations 7d && sudo nix store gc --verbose";
+        nxclean = clean-alias;
         nxpull = pull-alias;
         nxs = rebuild-alias "switch";
         nxb = rebuild-alias "boot";
