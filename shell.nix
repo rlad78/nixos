@@ -58,7 +58,6 @@ in
         ls = "lsd";
         ll = "lsd -l";
         la = "lsd -la";
-        nxsync = "cd ${me.nix_dir} && gh repo sync";
         nxclean = clean-alias;
         nxpull = pull-alias;
         nxs = rebuild-alias "switch";
