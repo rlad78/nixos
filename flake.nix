@@ -11,10 +11,9 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    nixified-ai.url = "github:nixified-ai/flake";
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, nix-flatpak, nix-vscode-extensions, nixified-ai, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, nix-flatpak, nix-vscode-extensions, ... }@inputs:
   let
     secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
 
@@ -137,7 +136,6 @@
           inherit secrets;
           inherit me;
           inherit snootflix;
-          inherit nixified-ai;
           machine = {
             system = "x86_64-linux";
             host = "nixarf";
@@ -155,7 +153,6 @@
           ./richard.nix
           ./shell.nix
           ./apps/cli
-          ./services/ai.nix
           ./services/tailscale.nix
           ./services/fah.nix
           ./services/syncthing.nix

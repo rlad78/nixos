@@ -15,7 +15,6 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../common/nvidia.nix
     ];
 
   # sign nix store units with private key
