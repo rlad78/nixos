@@ -4,8 +4,6 @@ let
 in
 {
   users.users.richard.packages = with pkgs; [
-    poetry
-    # vscode
     (vscode-with-extensions.override {
       vscodeExtensions = with extensions.vscode-marketplace; [
         ms-python.python
@@ -23,5 +21,10 @@ in
         jnoortheen.nix-ide
       ];
     })
+  ];
+
+  environment.systemPackages = with pkgs; [
+    poetry
+    nixd
   ];
 }
