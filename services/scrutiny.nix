@@ -2,9 +2,7 @@
 {
   virtualisation.docker.enable = true;
 
-  users.groups = {
-    scurtiny = {};
-  };
+  users.groups.scrutiny = {};
 
   users.users.scrutiny = {
     isSystemUser = true;
