@@ -20,7 +20,7 @@
     scrutiny = {
       image = "ghcr.io/analogj/scrutiny:master-omnibus";
       autoStart = true;
-      user = "${builtins.toString config.users.users.scrutiny.uid}:${builtins.toString config.users.groups.scrutiny.gid}";
+      # user = "${builtins.toString config.users.users.scrutiny.uid}:${builtins.toString config.users.groups.scrutiny.gid}";
       volumes = [
         "/scrutiny/config:/opt/scrutiny/config"
         "scrutiny/influxdb2:/opt/scrutiny/influxdb"
