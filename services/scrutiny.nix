@@ -1,6 +1,6 @@
 { config, pkgs, lib, machine, ... }:
 {
-  virtualization.docker.enable = true;
+  virtualisation.docker.enable = true;
 
   users.groups = {
     scurtiny = {};
