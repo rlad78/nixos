@@ -159,6 +159,7 @@
           ./services/torrent.nix
           ./services/netdata.nix
           ./services/palworld.nix
+          ./services/scrutiny.nix
         ];
       };
 
