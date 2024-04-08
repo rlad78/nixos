@@ -30,7 +30,8 @@
       extraOptions = [
          "--pull=always"
          "--cap-add SYS_RAWIO"
-      ] + lib.lists.forEach machine.drives (d: "--device=${d}");
+      # ] + lib.lists.forEach machine.drives (d: "--device=${d}");
+      ];
     };
   };
 }
