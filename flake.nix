@@ -140,6 +140,10 @@
             system = "x86_64-linux";
             host = "nixarf";
             eth-interface = "enp0s25";
+            drives = [
+              "/dev/sda"
+              "/dev/sdb"
+            ];
             omz = {
               theme = "candy";
               plugins = [ "systemd" "z" ];
