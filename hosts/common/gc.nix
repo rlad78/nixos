@@ -9,7 +9,7 @@ in
       default = false;
     };
     frequency = mkOption {
-      type = types.string;
+      type = types.str;
       default = "weekly";
     };
     older-than = mkOption {
@@ -23,7 +23,7 @@ in
       automatic = true;
       dates = cfg.frequency;
       persistent = true;
-      options = "--delete-older-than ${cfg.older-than}d";
+      options = "--delete-older-than ${builtins.toString cfg.older-than}d";
     };
   };
 }
