@@ -62,7 +62,7 @@ in
         nxpull = pull-alias;
         nxs = rebuild-alias "switch";
         nxb = rebuild-alias "boot";
-        nxt = "nix flake check";
+        nxt = "nix flake check --show-trace";
         lzgit = "lazygit";
     };
 
