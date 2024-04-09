@@ -23,7 +23,7 @@
       user = "${builtins.toString config.users.users.scrutiny.uid}:${builtins.toString config.users.groups.scrutiny.gid}";
       volumes = [
         "/scrutiny/config:/opt/scrutiny/config"
-        "scrutiny/influxdb2:/opt/scrutiny/influxdb"
+        "/scrutiny/influxdb2:/opt/scrutiny/influxdb"
         "/run/udev:/run/udev:ro"
       ];
       ports = [ "9999:8080" ];
