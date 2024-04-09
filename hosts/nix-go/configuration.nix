@@ -11,10 +11,16 @@
   #   persistent = true;
   #   options = "--delete-older-than 14d";
   # };
-  arf.gc = {
-    enable = true;
-    frequency = "weekly";
-    older-than = 14;
+  arf = {
+    gc = {
+      enable = true;
+      frequency = "weekly";
+      older-than = 14;
+    };
+    cli = {
+      theme = "dpoggi";
+      plugins = [ "systemd" "z" ];
+    };
   };
 
   # config for importing builds from nixarf
