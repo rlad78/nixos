@@ -33,4 +33,6 @@
       ] ++ lib.lists.forEach machine.drives (d: "--device=${d}");
     };
   };
+
+  networking.firewall.allowedTCPPorts = [ 9999 ];
 }
