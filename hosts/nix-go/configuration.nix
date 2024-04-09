@@ -5,11 +5,16 @@
 { config, pkgs, ... }:
 
 {
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    persistent = true;
-    options = "--delete-older-than 14d";
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "weekly";
+  #   persistent = true;
+  #   options = "--delete-older-than 14d";
+  # };
+  arf.gc = {
+    enable = true;
+    frequency = "weekly";
+    older-than = 14;
   };
 
   # config for importing builds from nixarf
@@ -21,11 +26,11 @@
     "ssh://nixarf"
   ];
 
-  # allow flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  # # allow flakes
+  # nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
+  # # Allow unfree packages
+  # nixpkgs.config.allowUnfree = true;
 
   imports =
     [ # Include the results of the hardware scan.
@@ -43,23 +48,23 @@
   # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
-  time.timeZone = "America/New_York";
+  # # Set your time zone.
+  # time.timeZone = "America/New_York";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
+  # # Select internationalisation properties.
+  # i18n.defaultLocale = "en_US.UTF-8";
 
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "en_US.UTF-8";
-    LC_IDENTIFICATION = "en_US.UTF-8";
-    LC_MEASUREMENT = "en_US.UTF-8";
-    LC_MONETARY = "en_US.UTF-8";
-    LC_NAME = "en_US.UTF-8";
-    LC_NUMERIC = "en_US.UTF-8";
-    LC_PAPER = "en_US.UTF-8";
-    LC_TELEPHONE = "en_US.UTF-8";
-    LC_TIME = "en_US.UTF-8";
-  };
+  # i18n.extraLocaleSettings = {
+  #   LC_ADDRESS = "en_US.UTF-8";
+  #   LC_IDENTIFICATION = "en_US.UTF-8";
+  #   LC_MEASUREMENT = "en_US.UTF-8";
+  #   LC_MONETARY = "en_US.UTF-8";
+  #   LC_NAME = "en_US.UTF-8";
+  #   LC_NUMERIC = "en_US.UTF-8";
+  #   LC_PAPER = "en_US.UTF-8";
+  #   LC_TELEPHONE = "en_US.UTF-8";
+  #   LC_TIME = "en_US.UTF-8";
+  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

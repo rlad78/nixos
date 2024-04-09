@@ -1,7 +1,11 @@
 { config, pkgs, ... }:
 {
   imports = [
-    ./networking.nix
+    ./hosts.nix
+    ./ssh.nix
     ./dirs.nix
+    ./locale.nix
+    ./global.nix
+    ./gc.nix
   ];
 }

@@ -135,7 +135,6 @@
           };
           inherit secrets;
           inherit me;
-          inherit snootflix;
           machine = {
             system = "x86_64-linux";
             host = "nixarf";
