@@ -12,9 +12,11 @@ in
     default = true;
   };
   
-  networking.hosts = (
-    lib.attrsets.optionalAttrs cfg.tailscale (tail-hosts (has-tail-ip (removeAttrs me.hosts [ machine.host ])))
-    # also include non-tailscale hosts
-    // (local-hosts (has-local-only-ip (removeAttrs me.hosts [ machine.host ])))
-  );
+  config = {
+    networking.hosts = (
+      lib.attrsets.optionalAttrs cfg.tailscale (tail-hosts (has-tail-ip (removeAttrs me.hosts [ machine.host ])))
+      # also include non-tailscale hosts
+      // (local-hosts (has-local-only-ip (removeAttrs me.hosts [ machine.host ])))
+    );
+  };
 }
