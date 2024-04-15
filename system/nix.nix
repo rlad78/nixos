@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 with lib; let
   cfg = config.arf.gc;
 in 
@@ -18,12 +18,18 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
-    nix.gc = {
+  config = {
+    nix.gc = mkIf cfg.enable {
       automatic = true;
       dates = cfg.frequency;
       persistent = true;
       options = "--delete-older-than ${builtins.toString cfg.older-than}d";
     };
+
+    # enable flakes
+    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+    # allow unfree
+    nixpkgs.config.allowUnfree = true;
   };
 }

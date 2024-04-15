@@ -3,7 +3,9 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
 { config, lib, pkgs, ... }:
-
+let
+  root-config-dir = ./../..;
+in
 {
   arf = {
     gc = {
@@ -24,21 +26,29 @@
   };
 
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
-    ];
+    ] ++ lib.lists.forEach (
+      [
+        "/hosts/common/nvidia.nix"
+        "/system"
+        "/apps/cli"
+        "/services/tailscale.nix"
+        "/services/fah.nix"
+        "/services/syncthing.nix"
+        "/services/torrent.nix"
+        "/services/netdata.nix"
+        "/services/palworld.nix"
+        "/services/scrutiny.nix"
+      ]
+      (p: root-config-dir + p)
+    );
 
   # sign nix store units with private key
   nix.extraOptions =
     ''
       secret-key-files = /home/richard/.k/cache-priv-key.pem
     '';
-
-  # enable flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # allow unfree
-  nixpkgs.config.allowUnfree = true;
 
   # networking
   networking.hostName = "nixarf"; # Define your hostname.
@@ -63,12 +73,6 @@
       memtest86.enable = true;
     };
   };
-
-  # Set your time zone.
-  time.timeZone = "America/New_York";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
 
   # disable desktop services
   services.xserver.enable = false;

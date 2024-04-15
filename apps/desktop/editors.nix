@@ -1,6 +1,6 @@
-{ config, pkgs, machine, nix-vscode-extensions, ... }:
+{ config, pkgs, nix-vscode-extensions, ... }:
 let
-  extensions = nix-vscode-extensions.extensions.${machine.system};
+  extensions = nix-vscode-extensions.extensions.${builtins.currentSystem};
 in
 {
   users.users.richard.packages = with pkgs; [

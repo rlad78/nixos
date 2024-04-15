@@ -2,15 +2,11 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
-
+{ config, pkgs, lib, ... }:
+let
+  root-config-dir = ./../..;
+in
 {
-  # nix.gc = {
-  #   automatic = true;
-  #   dates = "weekly";
-  #   persistent = true;
-  #   options = "--delete-older-than 14d";
-  # };
   arf = {
     gc = {
       enable = true;
@@ -32,17 +28,19 @@
     "ssh://nixarf"
   ];
 
-  # # allow flakes
-  # nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
-  # # Allow unfree packages
-  # nixpkgs.config.allowUnfree = true;
-
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./hw-tweaks.nix
-    ];
+    ] ++ lib.lists.forEach (
+      [
+        "/apps"
+        "/system"
+        "/services/syncthing.nix"
+        "/services/tailscale.nix"
+      ]
+      (p: root-config-dir + p)
+    );
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -53,24 +51,6 @@
 
   # Enable networking
   networking.networkmanager.enable = true;
-
-  # # Set your time zone.
-  # time.timeZone = "America/New_York";
-
-  # # Select internationalisation properties.
-  # i18n.defaultLocale = "en_US.UTF-8";
-
-  # i18n.extraLocaleSettings = {
-  #   LC_ADDRESS = "en_US.UTF-8";
-  #   LC_IDENTIFICATION = "en_US.UTF-8";
-  #   LC_MEASUREMENT = "en_US.UTF-8";
-  #   LC_MONETARY = "en_US.UTF-8";
-  #   LC_NAME = "en_US.UTF-8";
-  #   LC_NUMERIC = "en_US.UTF-8";
-  #   LC_PAPER = "en_US.UTF-8";
-  #   LC_TELEPHONE = "en_US.UTF-8";
-  #   LC_TIME = "en_US.UTF-8";
-  # };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

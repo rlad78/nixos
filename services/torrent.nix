@@ -1,5 +1,23 @@
-{ config, pkgs, lib, me, machine, ... }:
-
+{ config, pkgs, lib, hosts, ... }:
+let
+    local-addresses = with lib.attrsets; (this-host:
+        mapAttrsToList (n: v: v.local-ip) (
+          filterAttrs (n: v: hasAttrByPath ["local-ip"] v) (
+            removeAttrs hosts [this-host]
+          )
+        )
+      );
+    tail-addresses = with lib.attrsets; (this-host:
+        mapAttrsToList (n: v: v.tail-ip) (
+            filterAttrs (n: v: hasAttrByPath ["tail-ip"] v) (
+                removeAttrs hosts [this-host]
+            )
+        )
+    );
+    all-host-addresses = (this-host:
+        (local-addresses this-host) ++ (tail-addresses this-host)
+    );
+in
 {
     users.users.transmission = {
         isSystemUser = true;
@@ -23,7 +41,7 @@
             rpc-bind-address = "0.0.0.0";
             # rpc-whitelist = "10.0.0.*,10.0.1.*,10.0.2.111,10.0.3.*,100.126.192.113,100.68.24.62";
             rpc-whitelist = lib.strings.concatStringsSep "," (
-              me.all-host-addresses machine.host
+              all-host-addresses config.networking.hostName
             );
 
 	          # allow for hostname instead of ip

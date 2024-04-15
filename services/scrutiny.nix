@@ -1,4 +1,4 @@
-{ config, pkgs, lib, machine, ... }:
+{ config, pkgs, lib, ... }:
 with lib; let 
   cfg = config.arf.scrutiny;
 in 

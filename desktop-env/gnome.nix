@@ -1,15 +1,15 @@
-{ configs, pkgs, ... }:
+{ configs, pkgs, lib, ... }:
 {
   imports = [
     ../apps/desktop/gnome.nix
   ];
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver.enable = lib.mkDefault true;
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.xserver.displayManager.gdm.enable = lib.mkDefault true;
+  services.xserver.desktopManager.gnome.enable = lib.mkDefault true;
 
   # Configure keymap in X11
   services.xserver.xkb = {

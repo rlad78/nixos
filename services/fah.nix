@@ -1,7 +1,7 @@
-{ config, pkgs, lib, me, machine, secrets, ... }:
+{ config, pkgs, lib, hosts, secrets, ... }:
 let
-  local-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["local-ip"] v) (removeAttrs me.hosts [machine.host]);
-  tail-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["tail-ip"] v) (removeAttrs me.hosts [machine.host]);
+  local-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["local-ip"] v) (removeAttrs hosts [config.networking.hostName]);
+  tail-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["tail-ip"] v) (removeAttrs hosts [config.networking.hostName]);
   local-ips = lib.attrsets.mapAttrsToList (n: v: v.local-ip) local-hosts;
   tail-ips = lib.attrsets.mapAttrsToList (n: v: v.tail-ip) tail-hosts;
   all-ips = with lib.strings; (concatStringsSep " " (local-ips ++ tail-ips));
