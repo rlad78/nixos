@@ -28,8 +28,7 @@ in
   imports =
     [
       ./hardware-configuration.nix
-    ] ++ lib.lists.forEach (
-      [
+    ] ++ lib.lists.forEach [
         "/hosts/common/nvidia.nix"
         "/system"
         "/apps/cli"
@@ -40,9 +39,7 @@ in
         "/services/netdata.nix"
         "/services/palworld.nix"
         "/services/scrutiny.nix"
-      ]
-      (p: root-config-dir + p)
-    );
+      ] (p: root-config-dir + p);
 
   # sign nix store units with private key
   nix.extraOptions =

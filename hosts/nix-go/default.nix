@@ -32,15 +32,13 @@ in
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./hw-tweaks.nix
-    ] ++ lib.lists.forEach (
-      [
+    ] ++ lib.lists.forEach [
         "/apps"
         "/system"
+        "/desktop-env/gnome.nix"
         "/services/syncthing.nix"
         "/services/tailscale.nix"
-      ]
-      (p: root-config-dir + p)
-    );
+      ] (p: root-config-dir + p);
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
