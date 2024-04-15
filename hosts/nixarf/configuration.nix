@@ -5,11 +5,23 @@
 { config, lib, pkgs, ... }:
 
 {
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    persistent = true;
-    options = "--delete-older-than 21d";
+  # nix.gc = {
+  #   automatic = true;
+  #   dates = "weekly";
+  #   persistent = true;
+  #   options = "--delete-older-than 21d";
+  # };
+
+  arf = {
+    gc = {
+      enable = true;
+      frequency = "weekly";
+      older-than = 21;
+    };
+    cli = {
+      theme = "candy";
+      plugins = [ "systemd" "z" ];
+    };
   };
 
   imports =
