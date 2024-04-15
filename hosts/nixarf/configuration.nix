@@ -5,13 +5,6 @@
 { config, lib, pkgs, ... }:
 
 {
-  # nix.gc = {
-  #   automatic = true;
-  #   dates = "weekly";
-  #   persistent = true;
-  #   options = "--delete-older-than 21d";
-  # };
-
   arf = {
     gc = {
       enable = true;
@@ -21,6 +14,12 @@
     cli = {
       theme = "candy";
       plugins = [ "systemd" "z" ];
+    };
+    scrutiny = {
+      enable = true;
+      drives = [ /dev/sda /dev/sdb ];
+      config-dir = /scrutiny;
+      port = 9999;
     };
   };
 
