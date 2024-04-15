@@ -5,7 +5,10 @@ let
   this-host = config.networking.hostName;
   nix-dir = builtins.toString (home-dir + "/nixos");
   build-dir = builtins.toString (home-dir + "/builds");
-  build-server = builtins.head (config.nix.settings.trusted-substituters);
+  build-subs = config.nix.settings.trusted-substituters;
+  build-server = if build-subs != []
+    then builtins.head (build-subs)
+    else "";
 
   rebuild-alias = (method: "sudo nixos-rebuild " + method + " --flake " + nix-dir);
   build-func =
@@ -31,9 +34,9 @@ in
             type = types.str;
             default = "robbyrussell"; 
         };
-        plugins = mkOption {
-            type = types.listOf str;
-            default = [ ];
+        plugins = with types; mkOption {
+            type = listOf str;
+            default = [ "systemd" ];
         };
     };
     
