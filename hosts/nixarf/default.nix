@@ -34,10 +34,10 @@ in
         "/apps/cli"
         "/services/tailscale.nix"
         "/services/fah.nix"
-        "/services/syncthing.nix"
+        # "/services/syncthing.nix"
         "/services/torrent.nix"
         "/services/netdata.nix"
-        "/services/palworld.nix"
+        # "/services/palworld.nix"
         "/services/scrutiny.nix"
       ] (p: root-config-dir + p);
 
