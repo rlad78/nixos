@@ -28,6 +28,7 @@ in
   imports =
     [
       ./hardware-configuration.nix
+		./storage-disk.nix
     ] ++ lib.lists.forEach [
         "/hosts/common/nvidia.nix"
         "/system"

@@ -24,17 +24,6 @@
       options = [ "fmask=0022" "dmask=0022" ];
     };
 
-  # STORAGE DISKS
-  users.groups.storage.members = [ "richard" "syncthing" ];
-  
-  ## 1TB spinning rust
-  systemd.tmpfiles.rules = [ "d /storage 0775 root storage" ];
-  fileSystems."/storage" =
-    { device = "/dev/disk/by-uuid/0082b0dd-ef0c-4928-84d6-f9206600aa4b";
-      fsType = "ext4";
-    };
-
-  swapDevices = [ ];
   swapDevices =
     [ { device = "/dev/disk/by-uuid/3c9c2e8b-0906-4710-8773-2e593babb6c2"; }
     ];
