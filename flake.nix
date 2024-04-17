@@ -16,7 +16,7 @@
     hosts = {
 
       nixarf = {
-        tail-ip = "100.126.98.98";
+        tail-ip = "100.122.79.3";
         local-ip = "10.0.1.5";
         sync-id = "4HSWZPG-DE4VAWM-32OQEZS-OPKP6T2-NRA6XQL-LV2DJDY-4PAEQR3-LNLCDQ7";
         sync-port = "22000";
