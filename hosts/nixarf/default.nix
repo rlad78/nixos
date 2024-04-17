@@ -30,7 +30,7 @@ in
       ./hardware-configuration.nix
 		./storage-disk.nix
     ] ++ lib.lists.forEach [
-        "/hosts/common/nvidia.nix"
+        # "/hosts/common/nvidia.nix"
         "/system"
         "/apps/cli"
         "/services/tailscale.nix"
