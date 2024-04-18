@@ -7,7 +7,7 @@ let
   build-dir = builtins.toString (home-dir + "/builds");
   build-subs = config.nix.settings.trusted-substituters;
   build-server = if build-subs != []
-    then builtins.head (build-subs)
+    then lib.lists.last (lib.strings.splitString "//" (builtins.head (build-subs)))
     else "";
 
   rebuild-alias = (method: "sudo nixos-rebuild " + method + " --flake " + nix-dir);
