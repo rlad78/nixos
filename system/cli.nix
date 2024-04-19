@@ -56,6 +56,11 @@ in
             udftools
         ];
 
+        programs.nh = {
+          enable = true;
+          flake = /home/richard/nixos;
+        };
+
         programs.neovim = {
             enable = true;
             defaultEditor = true;
