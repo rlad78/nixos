@@ -75,18 +75,7 @@
         };
         
         modules = [ 
-          # ./hosts/common
           ./hosts/nixarf
-          # ./richard.nix
-          # ./shell.nix
-          # ./apps/cli
-          # ./services/tailscale.nix
-          # ./services/fah.nix
-          # ./services/syncthing.nix
-          # ./services/torrent.nix
-          # ./services/netdata.nix
-          # ./services/palworld.nix
-          # ./services/scrutiny.nix
         ];
       };
 
@@ -103,14 +92,7 @@
 	      };
 
     	  modules = [
-          # ./hosts/common
 	        ./hosts/nix-go
-          # ./gnome
-          # ./apps
-          # ./richard.nix
-	        # ./shell.nix
-	        # ./services/tailscale.nix
-          # ./services/syncthing.nix
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
           nix-flatpak.nixosModules.nix-flatpak
 	      ];
