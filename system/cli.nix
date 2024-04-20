@@ -29,7 +29,7 @@ let
     '';
 in
 {
-    inputs = [
+    imports = [
         "${pkgs-unstable}/nixos/modules/programs/nh.nix"
     ];
 
