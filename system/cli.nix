@@ -1,5 +1,6 @@
 { config, pkgs, lib, inputs, ... }:
 let
+  nix-cmd = "nom";
   cfg = config.arf.cli;
   home-dir = config.users.users.richard.home;
   this-host = config.networking.hostName;
@@ -15,8 +16,8 @@ let
     ''
       nxbuild() {
         screen -dmL -Logfile ${build-dir}/logs/''${1}_$(date -Iminutes) -S ''${1}-build zsh -c \
-            "cd ${nix-dir} && nix build --out-link ${build-dir}/''${1}_$(date -Iminutes) \
-            --cores 3 --show-trace .#nixosConfigurations.''${1}.config.system.build.toplevel \
+            "cd ${nix-dir} && ${nix-cmd} build --out-link ${build-dir}/''${1}_$(date -Iminutes) \
+            --cores 6 --show-trace .#nixosConfigurations.''${1}.config.system.build.toplevel \
             && find ${build-dir} -mtime +7 -execdir rm -- '{}' \;" 
       }
     '';
