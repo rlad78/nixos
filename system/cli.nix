@@ -1,4 +1,4 @@
-{ config, pkgs, lib, pkgs-unstable, ... }:
+{ config, pkgs, lib, inputs, ... }:
 let
   cfg = config.arf.cli;
   home-dir = config.users.users.richard.home;
@@ -30,7 +30,7 @@ let
 in
 {
     imports = [
-        "${pkgs-unstable}/nixos/modules/programs/nh.nix"
+        "${inputs.nixpkgs-unstable}/nixos/modules/programs/nh.nix"
     ];
 
     options.arf.cli = with lib; {

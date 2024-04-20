@@ -70,10 +70,11 @@
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
-          pkgs-unstable = import nixpkgs-unstable {
-            system = "x86_64-linux";
-            config.allowUnfree = true;
-          };
+          # pkgs-unstable = import nixpkgs-unstable {
+            # system = "x86_64-linux";
+            # config.allowUnfree = true;
+          # };
+          inherit inputs;
           inherit secrets;
           inherit hosts;
         };
@@ -89,7 +90,8 @@
 	          system = "x86_64-linux";
 	          config.allowUnfree = true;
 	        };
-          pkgs-unstable = pkgs;
+          # pkgs-unstable = pkgs;
+          inherit inputs;
           inherit secrets;
 	        inherit hosts;
           inherit nix-flatpak;
