@@ -65,8 +65,12 @@
     nixosConfigurations = {
       
       nixarf = nixpkgs.lib.nixosSystem {  
-        specialArgs = {
+        specialArgs = rec {
           pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
+          pkgs-unstable = import nixpkgs-unstable {
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
@@ -80,11 +84,12 @@
       };
 
       "nix-go" = nixpkgs-unstable.lib.nixosSystem {
-        specialArgs = {
+        specialArgs = rec {
           pkgs = import nixpkgs-unstable {
 	          system = "x86_64-linux";
 	          config.allowUnfree = true;
 	        };
+          pkgs-unstable = pkgs;
           inherit secrets;
 	        inherit hosts;
           inherit nix-flatpak;

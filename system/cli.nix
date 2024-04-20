@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, pkgs-unstable, ... }:
 let
   cfg = config.arf.cli;
   home-dir = config.users.users.richard.home;
@@ -54,11 +54,13 @@ in
             git-crypt
             yt-dlp
             udftools
+            trippy
         ];
 
         programs.nh = {
           enable = true;
           flake = /home/richard/nixos;
+          package = pkgs-unstable.nh;
         };
 
         programs.neovim = {
