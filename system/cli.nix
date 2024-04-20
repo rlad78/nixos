@@ -64,7 +64,7 @@ in
         programs.nh = {
           enable = true;
           flake = /home/richard/nixos;
-          package = pkgs-unstable.nh;
+          package = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.nh;
         };
 
         programs.neovim = {
