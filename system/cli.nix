@@ -29,6 +29,10 @@ let
     '';
 in
 {
+    inputs = [
+        "${pkgs-unstable}/nixos/modules/programs/nh.nix"
+    ];
+
     options.arf.cli = with lib; {
         theme = mkOption {
             type = types.str;
