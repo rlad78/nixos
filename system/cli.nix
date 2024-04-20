@@ -59,6 +59,7 @@ in
             yt-dlp
             udftools
             trippy
+            nix-output-monitor
         ];
 
         programs.nh = {
