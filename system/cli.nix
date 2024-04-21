@@ -21,10 +21,10 @@ let
             && find ${build-dir} -mtime +7 -execdir rm -- '{}' \;" 
       }
     '';
-  clean-alias = "sudo nix-env --delete-generations 7d && sudo nix store gc --verbose";
+  clean-alias = "sudo nix-env --delete-generations 14d && sudo nix store gc --verbose";
   pull-alias =
     ''
-      ${clean-alias} && nix copy --from ssh-ng://${build-server} $(ssh ${build-server} -- \
+      nix copy --from ssh-ng://${build-server} $(ssh ${build-server} -- \
       "find ${build-dir}/ -maxdepth 1 -type l -name '*${this-host}*' -printf '%T@&%p\n' \
       | sort -nr | head -n 1 | cut -d '&' -f 2 | xargs readlink")
     '';
