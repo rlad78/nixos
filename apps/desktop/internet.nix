@@ -8,6 +8,7 @@
     bitwarden
     vesktop
     telegram-desktop
+    rustdesk
   ];
 
   services.flatpak.enable = true;
