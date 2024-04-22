@@ -5,6 +5,7 @@
     lazygit
     aria2
     termshark
+    speedtest-cli
   ];
 
   users.users.richard.extraGroups = [ "wireshark" ];
