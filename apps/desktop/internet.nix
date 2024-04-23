@@ -9,6 +9,7 @@
     vesktop
     telegram-desktop
     rustdesk
+    rustdesk-flutter
   ];
 
   services.flatpak.enable = true;
