@@ -10,7 +10,6 @@
 
     nixarr = {
       url = "github:rlad78/nixarr/sabnzbd";
-      follows = "nixpkgs";
     };
   };
 
@@ -114,6 +113,9 @@
             system = "x86_64-linux";
 	          config.allowUnfree = true;
           };
+	  inherit inputs;
+	  inherit secrets;
+	  inherit hosts;
         };
 
         modules = [
