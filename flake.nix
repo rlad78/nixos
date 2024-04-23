@@ -7,9 +7,14 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+
+    nixarr = {
+      url = "github:rlad78/nixarr/sabnzbd";
+      follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, nix-flatpak, nix-vscode-extensions, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, nix-flatpak, nix-vscode-extensions, nixarr, ... }@inputs:
   let
     secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
 
@@ -43,8 +48,11 @@
         sync-port = "22000";
       };
 
-      snootflix4 = {
-        tail-ip = "100.83.200.46";
+      snootflix = {
+        tail-ip = "100.69.69.69";
+        local-ip = "10.0.1.99";
+        sync-id = "";
+        sync-port = "22000";
       };
 
       snootflix-site = {
@@ -70,10 +78,6 @@
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
-          # pkgs-unstable = import nixpkgs-unstable {
-            # system = "x86_64-linux";
-            # config.allowUnfree = true;
-          # };
           inherit inputs;
           inherit secrets;
           inherit hosts;
@@ -90,7 +94,6 @@
 	          system = "x86_64-linux";
 	          config.allowUnfree = true;
 	        };
-          # pkgs-unstable = pkgs;
           inherit inputs;
           inherit secrets;
 	        inherit hosts;
@@ -103,6 +106,20 @@
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
           nix-flatpak.nixosModules.nix-flatpak
 	      ];
+      };
+
+      snootflix = nixpkgs-unstable.lib.nixosSystem {
+        specialArgs = rec {
+          pkgs = import nixpkgs-unstable {
+            system = "x86_64-linux";
+	          config.allowUnfree = true;
+          };
+        };
+
+        modules = [
+          ./hosts/snootflix
+          nixarr.nixosModules.default
+        ];
       };
     };
   };
