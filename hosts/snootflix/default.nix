@@ -27,8 +27,8 @@ in
 
   nixarr = {
     enable = true;
-    mediaDir = /media;
-    stateDir = /config;
+    mediaDir = "/media";
+    stateDir = "/config";
     sabnzbd = {
       enable = true;
       openFirewall = true;
