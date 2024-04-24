@@ -48,7 +48,7 @@
       };
 
       snootflix = {
-        tail-ip = "100.69.69.69";
+        tail-ip = "100.78.22.40";
         local-ip = "10.0.1.6";
         sync-id = "IUNJ33Y-CE5LJYO-2WN5RMA-M4KDDFS-55Z3MED-MXSA5EO-Z2PQSWO-7OKHHQP";
         sync-port = "22000";
