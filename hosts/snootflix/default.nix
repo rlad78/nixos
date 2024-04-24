@@ -52,6 +52,7 @@ in
         "/system"
         "/apps/cli/internet.nix"
         "/apps/cli/utils.nix"
+        "/apps/cli/editors.nix"
         "/services/tailscale.nix"
         "/services/syncthing.nix"
         "/services/scrutiny.nix"
