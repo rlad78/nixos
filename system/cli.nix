@@ -61,6 +61,7 @@ in
             udftools
             trippy
             nix-output-monitor
+            fzf
         ];
 
         programs.nh = {
@@ -81,6 +82,11 @@ in
                     set smartindent
                 '';
             };
+        };
+
+        programs.fzf = {
+          keybindings = true;
+          fuzzyCompletion = true;
         };
 
         users.users.richard.shell = pkgs.zsh;
