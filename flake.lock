@@ -173,11 +173,11 @@
         "vpnconfinement": "vpnconfinement"
       },
       "locked": {
-        "lastModified": 1714172488,
-        "narHash": "sha256-qU2PuEozdsWW6rOvYi6s/kxpMlbzPHEFlUqAlPlF+NE=",
+        "lastModified": 1714172720,
+        "narHash": "sha256-DT1miGf7Ub4VlzL1ugG7TvhAAPZIvEDrc0XndpvmwC8=",
         "owner": "rlad78",
         "repo": "nixarr",
-        "rev": "6c0192c183739e364c2e8d49ac462dde91d3ab65",
+        "rev": "505ffdcdeffb10bbb92df76a0949f1585e7567e7",
         "type": "github"
       },
       "original": {
@@ -221,11 +221,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1714168180,
-        "narHash": "sha256-IN2mG1BeCKxsETcnc9YIP18I/TfKB1m70E1UdQp8R8Q=",
+        "lastModified": 1714174718,
+        "narHash": "sha256-ziangefozp7tmz/fqmR8N3bMkQ/ilDFLibvKUCPfnpc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "fd706f64d232625b5ff61a44211fa435bb2296d0",
+        "rev": "0c8001e241f0bb9fb83345b6ab00b32000084e19",
         "type": "github"
       },
       "original": {
