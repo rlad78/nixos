@@ -17,12 +17,12 @@ in
       theme = "jonathan";
       plugins = [ "systemd" "z" ];
     };
-    # scrutiny = {
-    #   enable = true;
-    #   drives = [ /dev/sda /dev/sdb ];
-    #   config-dir = /scrutiny;
-    #   port = 9999;
-    # };
+    scrutiny = {
+      enable = true;
+      drives = [ /dev/nvme0n1 ];
+      config-dir = /scrutiny;
+      port = 9999;
+    };
   };
 
   nixarr = {
