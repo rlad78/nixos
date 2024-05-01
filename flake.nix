@@ -7,14 +7,14 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    pomatez.url = "path:/home/richard/devel/pomatez-flake";
+    pomatez-flake.url = "path:/home/richard/devel/pomatez-flake";
 
     nixarr = {
       url = "github:rlad78/nixarr/sabnzbd";
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, nix-flatpak, nix-vscode-extensions, nixarr, pomatez, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, nix-flatpak, nix-vscode-extensions, nixarr, pomatez-flake, ... }@inputs:
   let
     secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
 
@@ -99,7 +99,7 @@
 	        inherit hosts;
           inherit nix-flatpak;
           inherit nix-vscode-extensions;
-          inherit pomatez;
+          pomatez = pomatez-flake.packages.${pkgs.system}.default;
 	      };
 
     	  modules = [
