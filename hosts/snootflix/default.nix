@@ -75,7 +75,7 @@ in
   services.printing.enable = false;
   sound.enable = false;
   hardware.pulseaudio.enable = false;
-  services.xserver.libinput.enable = false;
+  services.libinput.enable = false;
 
   users.users.richard.extraGroups = [ "networkmanager" "wheel" ];
 
