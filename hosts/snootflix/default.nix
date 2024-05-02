@@ -25,28 +25,10 @@ in
     };
   };
 
-  nixarr = {
-    enable = true;
-    mediaDir = "/media";
-    stateDir = "/config";
-    sabnzbd = {
-      enable = true;
-      openFirewall = true;
-    };
-    sonarr.enable = true;
-    radarr.enable = true;
-    prowlarr.enable = true;
-    transmission = {
-      enable = true;
-      extraAllowedIps = [ "10.0.1.*" "10.0.0.*" ];
-      flood.enable = true;
-    };
-  };
-
-
   imports =
     [
       ./hardware-configuration.nix
+      ./media.nix
     ] ++ lib.lists.forEach [
         # "/hosts/common/nvidia.nix"
         "/system"
