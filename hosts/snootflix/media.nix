@@ -8,8 +8,8 @@ let
   ] (x: "/dev/disk/by-uuid/${x}");
 
   disks-with-mnt = with lib; lists.zipListsWith (
-    a: b: {mnt = "/mnt/baydisk${builtins.toString b}"; uuid = "a";}
-  ) disks-by-uuid (lists.range 1 (bultins.length disks-by-uuid));
+    a: b: {mnt = "/mnt/baydisk${builtins.toString b}"; uuid = a;}
+  ) disks-by-uuid (lists.range 1 (builtins.length disks-by-uuid));
 in
 {
   nixarr = {
@@ -39,10 +39,10 @@ in
 
   systemd.tmpfiles.rules = [
     "d /drivebay 0770 root media"
-  ] + builtins.map (x: "d ${x.mnt} 0770 root media") disks-with-mnt;
+  ] ++ builtins.map (x: "d ${x.mnt} 0770 root media") disks-with-mnt;
 
   fileSystems = with lib; attrsets.mergeAttrsList (
-    builtins.map (x: {x.mnt = {
+    builtins.map (x: {${x.mnt} = {
       device = x.uuid;
       fsType = "ext4";
     };}) disks-with-mnt
