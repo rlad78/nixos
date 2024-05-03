@@ -31,15 +31,32 @@ in
     };
   };
 
+  users.users.plex = {
+    isSystemUser = true;
+    group = "media";
+  };
+
+  services.plex = {
+    enable = true;
+    user = "plex";
+    group = "media";
+    dataDir = "/config/plex";
+    openFirewall = true;
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /config/plex 0770 plex media"
+  ];
+
   # drive management
   environment.systemPackages = with pkgs; [
     mergerfs
     mergerfs-tools
   ];
 
-  systemd.tmpfiles.rules = [
-    "d /drivebay 0770 root media"
-  ] ++ builtins.map (x: "d ${x.mnt} 0770 root media") disks-with-mnt;
+  # systemd.tmpfiles.rules = [
+    # "d '/drivebay' 0770 root media"
+  # ] ++ builtins.map (x: "d ${x.mnt} 0770 root media") disks-with-mnt;
 
   fileSystems = with lib; attrsets.mergeAttrsList (
     builtins.map (x: {${x.mnt} = {
