@@ -7,7 +7,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
-    pomatez-flake.url = "path:/home/richard/devel/pomatez-flake";
+    pomatez-flake.url = "github:rlad78/pomatez-flake";
 
     nixarr = {
       url = "github:rlad78/nixarr/sabnzbd";

@@ -318,13 +318,16 @@
       },
       "locked": {
         "lastModified": 1714502250,
-        "narHash": "sha256-f37hp+Jr4wXFAsSg5XqbuuoLmUYlpovoCdPRHpMO5uI=",
-        "path": "/home/richard/devel/pomatez-flake",
-        "type": "path"
+        "narHash": "sha256-M47Oyaax6NJv6OCkeaPxhAH48tQ4rmJ4wobWcmafGJw=",
+        "owner": "rlad78",
+        "repo": "pomatez-flake",
+        "rev": "43ff3a137b29f069db08b36487e2149d950b77e2",
+        "type": "github"
       },
       "original": {
-        "path": "/home/richard/devel/pomatez-flake",
-        "type": "path"
+        "owner": "rlad78",
+        "repo": "pomatez-flake",
+        "type": "github"
       }
     },
     "root": {
