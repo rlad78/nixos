@@ -30,7 +30,7 @@ in
       ./hardware-configuration.nix
       ./media.nix
     ] ++ lib.lists.forEach [
-        # "/hosts/common/nvidia.nix"
+        "/hosts/common/nvidia.nix"
         "/system"
         "/apps/cli/internet.nix"
         "/apps/cli/utils.nix"
