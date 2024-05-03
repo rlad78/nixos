@@ -1,5 +1,8 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, hosts, ... }:
 let
+  mnt-prefix = "mediadisk";
+  mergerfs-dir = "/snoot";
+
   disks-by-uuid = with lib.lists; forEach  [
     "3b5ccd1e-00ea-4dac-b27f-1c7822c737c4"
     "2f2168da-b5d0-4b06-bbb4-e70b042a412f"
@@ -7,14 +10,25 @@ let
     "bd370bec-2c57-4c20-ac85-98a40421a3a0"
   ] (x: "/dev/disk/by-uuid/${x}");
 
+  # -----
+
   disks-with-mnt = with lib; lists.zipListsWith (
-    a: b: {mnt = "/mnt/baydisk${builtins.toString b}"; uuid = a;}
+    a: b: {mnt = "/mnt/${mnt-prefix}${builtins.toString b}"; uuid = a;}
   ) disks-by-uuid (lists.range 1 (builtins.length disks-by-uuid));
+
+  my-device-ips = with lib; lists.unique (lists.flatten (
+    builtins.map (a: attrsets.attrValues a) (
+      builtins.map (x: attrsets.filterAttrs (
+        n: v: builtins.elem n [ "tail-ip" "local-ip" ]) x) (
+          builtins.attrValues hosts)
+      )
+    )
+  );
 in
 {
   nixarr = {
     enable = true;
-    mediaDir = "/media";
+    mediaDir = mergerfs-dir;
     stateDir = "/config";
     sabnzbd = {
       enable = true;
@@ -26,26 +40,25 @@ in
     prowlarr.enable = true;
     transmission = {
       enable = true;
-      extraAllowedIps = [ "10.0.1.*" "10.0.0.*" ];
+      extraAllowedIps = my-device-ips;
       flood.enable = true;
     };
   };
 
-  users.users.plex = {
-    isSystemUser = true;
-    group = "media";
-  };
+  users.users.richard.extraGroups = [ "media" ];
 
   services.plex = {
     enable = true;
-    user = "plex";
+    user = "streamer";
     group = "media";
-    dataDir = "/config/plex";
+    dataDir = "${config.nixarr.stateDir}/plex";
     openFirewall = true;
   };
 
   systemd.tmpfiles.rules = [
-    "d /config/plex 0770 plex media"
+    "d ${config.services.plex.dataDir} 0770 streamer media"
+    "d ${mergerfs-dir} 0770 root media"
+    "d ${mergerfs-dir}/library/anime 0770 streamer media"
   ];
 
   # drive management
@@ -54,20 +67,18 @@ in
     mergerfs-tools
   ];
 
-  # systemd.tmpfiles.rules = [
-    # "d '/drivebay' 0770 root media"
-  # ] ++ builtins.map (x: "d ${x.mnt} 0770 root media") disks-with-mnt;
-
   fileSystems = with lib; attrsets.mergeAttrsList (
     builtins.map (x: {${x.mnt} = {
       device = x.uuid;
       fsType = "ext4";
+      options = [ "defaults" "nofail" ];
     };}) disks-with-mnt
   ) // {
-    "/drivebay" = {
+    ${mergerfs-dir} = {
       fsType = "fuse.mergerfs";
-      device = "/mnt/baydisk*";
-      options = [ "minfreespace=500M" ];
+      device = "/mnt/${mnt-prefix}*";
+      noCheck = true;
+      options = [ "defaults" "nofail" "nonempty" "allow_other" "use_ino" "minfreespace=100M" "category.create=mspmfs" ];
     };
   };
 }
