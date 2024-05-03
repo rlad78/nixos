@@ -19,7 +19,13 @@ in
     };
     scrutiny = {
       enable = true;
-      drives = [ /dev/nvme0n1 ];
+      drives = [ 
+        /dev/nvme0n1
+        /dev/sda
+        /dev/sdb
+        /dev/sdc
+        /dev/sdd
+      ];
       config-dir = /scrutiny;
       port = 9999;
     };
