@@ -65,6 +65,7 @@ in
   environment.systemPackages = with pkgs; [
     mergerfs
     mergerfs-tools
+    recyclarr
   ];
 
   fileSystems = with lib; attrsets.mergeAttrsList (
