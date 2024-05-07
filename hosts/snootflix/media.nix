@@ -28,13 +28,15 @@ in
 {
   nixarr = {
     enable = true;
+    mediaUsers = [ "richard" ];
     mediaDir = mergerfs-dir;
     stateDir = "/config";
-    sabnzbd = {
-      enable = true;
-      openFirewall = true;
-      whitelistRanges = [ "10.0.0.0/23" "100.64.0.0/10" ];
-    };
+    additionalMediaSubdirs = [ "anime" ];
+    # sabnzbd = {
+      # enable = true;
+      # openFirewall = true;
+      # whitelistRanges = [ "10.0.0.0/23" "100.64.0.0/10" ];
+    # };
     sonarr.enable = true;
     radarr.enable = true;
     prowlarr.enable = true;
@@ -45,7 +47,7 @@ in
     };
   };
 
-  users.users.richard.extraGroups = [ "media" ];
+  # users.users.richard.extraGroups = [ "media" ];
 
   services.plex = {
     enable = true;
@@ -58,7 +60,7 @@ in
   systemd.tmpfiles.rules = [
     "d ${config.services.plex.dataDir} 0770 streamer media"
     "d ${mergerfs-dir} 0770 root media"
-    "d ${mergerfs-dir}/library/anime 0770 streamer media"
+    # "d ${mergerfs-dir}/library/anime 0770 streamer media"
   ];
 
   # drive management
