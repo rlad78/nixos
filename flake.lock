@@ -190,8 +190,8 @@
         "vpnconfinement": "vpnconfinement"
       },
       "locked": {
-        "lastModified": 1715084712,
-        "narHash": "sha256-692576MLbAbWU/XlyMsj8Cwl9paDaf0bqAGCflunY38=",
+        "lastModified": 1715086413,
+        "narHash": "sha256-nwOFId0vfL+H83iQYoKVwRjDFV79gnez7asxcFpSwns=",
         "path": "/home/richard/nixarr",
         "type": "path"
       },
