@@ -7,5 +7,6 @@
     ./nix.nix
     ./richard.nix
     ./ssh.nix
+    ./networking.nix
   ];
 }
