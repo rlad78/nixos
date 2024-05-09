@@ -8,6 +8,7 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     pomatez-flake.url = "github:rlad78/pomatez-flake";
+    poetry2nix.url = "github:nix-community/poetry2nix";
 
     nixarr = {
       # url = "github:rlad78/nixarr/sabnzbd";
@@ -15,7 +16,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, nix-flatpak, nix-vscode-extensions, nixarr, pomatez-flake, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, home-manager, nixos-hardware, nix-flatpak, nix-vscode-extensions, nixarr, pomatez-flake, poetry2nix, ... }@inputs:
   let
     secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
 
@@ -116,9 +117,10 @@
             system = "x86_64-linux";
 	          config.allowUnfree = true;
           };
-	  inherit inputs;
-	  inherit secrets;
-	  inherit hosts;
+	        inherit inputs;
+	        inherit secrets;
+	        inherit hosts;
+          inherit (poetry2nix.lib.mkPoetry2Nix { inherit pkgs; }) mkPoetryScriptsPackage;
         };
 
         modules = [
