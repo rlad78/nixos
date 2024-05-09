@@ -52,6 +52,11 @@ in
   networking.hostName = "nixarf"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
+  networking.nat.enable = true;
+  networking.nat.internalInterfaces = ["ve-+"];
+  networking.nat.externalInterface = "enp0s25";
+  networking.networkmanager.unmanaged = [ "interface-name:ve-*" ];
+
   # Enable the OpenSSH daemon.
   services.openssh = {
     enable = true;
