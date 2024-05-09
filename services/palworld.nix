@@ -1,18 +1,21 @@
 { config, pkgs, secrets, ... }:
-#let
-#  puid = 6969;
-#  pgid = 6969;
-#in
+let
+  palworld-uid = 6969;
+  palworld-gid = 6969;
+
+  host-game-port = 8211;
+  forwarded-port = 8211;
+in
 {
   virtualisation.docker.enable = true;
   users.users.richard.extraGroups = [ "docker" ];
 
-  users.groups.palworld.gid = 6969;
+  users.groups.palworld.gid = palworld-gid;
 
   users.users.palworld = {
     isSystemUser = true;
     group = "palworld";
-    uid = 6969;
+    uid = palworld-uid;
   };
 
   systemd.tmpfiles.rules = [
@@ -25,12 +28,11 @@
       image = "thijsvanloef/palworld-server-docker:latest";
       extraOptions = [ "--pull=always" ];
       autoStart = true;
-      user = "${builtins.toString config.users.users.palworld.uid}:${builtins.toString config.users.groups.palworld.gid}";
       volumes = [
         "/palworld:/palworld"
       ];
-      ports = [
-        "8211:8211/udp"
+      ports = with builtins; [
+        "${toString host-game-port}:8211/udp"
         "27015:27015/udp"
       ];
       environment = {
@@ -48,7 +50,7 @@
         SERVER_NAME = "Crescent";
         SERVER_DESCRIPTION = "Fun times with arf & Moon";
         PUBLIC_IP = "69.59.78.25";
-        PUBLIC_PORT = "8211";
+        PUBLIC_PORT = builtins.toString forwarded-port;
         DELETE_OLD_BACKUPS = "true";
         OLD_BACKUP_DAYS = "14";
         UPDATE_ON_BOOT = "true";
@@ -56,6 +58,8 @@
         AUTO_REBOOT_CRON_EXPRESSION = "0 4 * * *";
         AUTO_REBOOT_WARN_MINUTES = "30";
         AUTO_REBOOT_EVEN_IF_PLAYERS_ONLINE = "true";
+        # TARGET_MANIFEST_ID = "5441332432956841998";
+        REST_API_ENABLED = "true";
 
         # WORLD CONFIG
         ENABLE_INVADER_ENEMY = "False";
@@ -74,5 +78,5 @@
 
   };
 
-  networking.firewall.allowedUDPPorts = [ 8211 27015 ];
+  networking.firewall.allowedUDPPorts = [ host-game-port 27015 ];
 }
