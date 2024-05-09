@@ -104,6 +104,7 @@ in
             nxb = rebuild-alias "boot";
             nxt = "nix flake check --show-trace";
             lzgit = "lazygit";
+            mountctl = "systemd-mount";
         };
 
         programs.zsh = {
