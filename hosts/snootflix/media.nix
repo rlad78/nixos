@@ -7,7 +7,7 @@ let
     "3b5ccd1e-00ea-4dac-b27f-1c7822c737c4"
     "2f2168da-b5d0-4b06-bbb4-e70b042a412f"
     "feea2c5b-65c4-4368-8960-ca84fcaf1d42"
-    "bd370bec-2c57-4c20-ac85-98a40421a3a0"
+    "ba7fc5c0-df48-4a5a-b20a-7e0b653b6060"
   ] (x: "/dev/disk/by-uuid/${x}");
 
   # -----
