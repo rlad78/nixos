@@ -31,12 +31,13 @@ in
     mediaUsers = [ "richard" ];
     mediaDir = mergerfs-dir;
     stateDir = "/config";
-    additionalMediaSubdirs = [ "anime" ];
-    # sabnzbd = {
-      # enable = true;
-      # openFirewall = true;
-      # whitelistRanges = [ "10.0.0.0/23" "100.64.0.0/10" ];
-    # };
+    # additionalMediaSubdirs = [ "anime" ];
+    sabnzbd = {
+      enable = true;
+      openFirewall = true;
+      whitelistRanges = [ "10.0.0.0/23" "100.64.0.0/10" ];
+      guiPort = 7080;
+    };
     sonarr.enable = true;
     radarr.enable = true;
     prowlarr.enable = true;
