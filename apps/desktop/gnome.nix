@@ -9,6 +9,7 @@
     gnomeExtensions.caffeine
     gnomeExtensions.runcat
     gnomeExtensions.night-theme-switcher
+    gnomeExtensions.paperwm
   ];
 
   services.flatpak.enable = true;
