@@ -10,6 +10,7 @@
     gnomeExtensions.runcat
     gnomeExtensions.night-theme-switcher
     gnomeExtensions.paperwm
+    gnomeExtensions.search-light
   ];
 
   services.flatpak.enable = true;
