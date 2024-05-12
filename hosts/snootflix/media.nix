@@ -32,6 +32,10 @@ in
     mediaDir = mergerfs-dir;
     stateDir = "/config";
     # additionalMediaSubdirs = [ "anime" ];
+    jellyfin = {
+      enable = true;
+      openFirewall = true;
+    };
     sabnzbd = {
       enable = true;
       openFirewall = true;
@@ -51,7 +55,7 @@ in
   # users.users.richard.extraGroups = [ "media" ];
 
   services.plex = {
-    enable = true;
+    enable = false;
     user = "streamer";
     group = "media";
     dataDir = "${config.nixarr.stateDir}/plex";
@@ -59,9 +63,9 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "d ${config.services.plex.dataDir} 0770 streamer media"
+    "d ${config.services.plex.dataDir} 0700 streamer media"
     "d ${mergerfs-dir} 0770 root media"
-    # "d ${mergerfs-dir}/library/anime 0770 streamer media"
+    "d ${mergerfs-dir}/library/anime 0770 streamer media"
   ];
 
   # drive management
