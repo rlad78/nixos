@@ -11,6 +11,7 @@
     gnomeExtensions.night-theme-switcher
     gnomeExtensions.paperwm
     gnomeExtensions.search-light
+    gnomeExtensions.no-overview
   ];
 
   services.flatpak.enable = true;
