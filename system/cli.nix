@@ -66,9 +66,10 @@ in
 
         programs.nh = {
           enable = true;
-          flake = /home/richard/nixos;
           package = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.nh;
         };
+
+        environment.sessionVariables.FLAKE = "/home/richard/nixos";
 
         programs.neovim = {
             enable = true;
