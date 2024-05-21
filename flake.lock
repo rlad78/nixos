@@ -190,16 +190,18 @@
         "vpnconfinement": "vpnconfinement"
       },
       "locked": {
-        "lastModified": 1715886579,
-        "narHash": "sha256-T3NN8tdbz0YB6cp2HQx4avSRXzhqp0e5bhCoeZy9D0A=",
+        "lastModified": 1716320193,
+        "narHash": "sha256-VmrZxK1PKYs8g4uHFmwwnHuxW0izPx4xu1UrzdIKOGk=",
         "owner": "rlad78",
         "repo": "nixarr",
-        "rev": "0344e470b689d5d34b74f79af231bef49c4dd7c7",
+        "rev": "f20993ed5707ca92513059bf77586c9d26338cbc",
         "type": "github"
       },
       "original": {
-        "path": "/home/richard/nixarr",
-        "type": "path"
+        "owner": "rlad78",
+        "ref": "sabnzbd",
+        "repo": "nixarr",
+        "type": "github"
       }
     },
     "nixos-hardware": {
