@@ -10,8 +10,8 @@
     pomatez-flake.url = "github:rlad78/pomatez-flake";
 
     nixarr = {
-      url = "github:rlad78/nixarr/sabnzbd";
-      # url = "path:/home/richard/nixarr";
+      # url = "github:rlad78/nixarr/sabnzbd";
+      url = "path:/home/richard/nixarr";
     };
   };
 

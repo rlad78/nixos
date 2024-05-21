@@ -198,10 +198,8 @@
         "type": "github"
       },
       "original": {
-        "owner": "rlad78",
-        "ref": "sabnzbd",
-        "repo": "nixarr",
-        "type": "github"
+        "path": "/home/richard/nixarr",
+        "type": "path"
       }
     },
     "nixos-hardware": {
