@@ -51,7 +51,6 @@ in
     };
   };
 
-
   services.plex = {
     enable = true;
     user = "streamer";
@@ -84,7 +83,7 @@ in
       fsType = "fuse.mergerfs";
       device = "/mnt/${mnt-prefix}*";
       noCheck = true;
-      options = [ "defaults" "nofail" "nonempty" "allow_other" "use_ino" "minfreespace=100M" "category.create=mspmfs" ];
+      options = [ "defaults" "nonempty" "allow_other" "use_ino" "minfreespace=100M" "category.create=mspmfs" ];
     };
   };
 }
