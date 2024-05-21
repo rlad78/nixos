@@ -31,7 +31,6 @@ in
     mediaUsers = [ "richard" ];
     mediaDir = mergerfs-dir;
     stateDir = "/config";
-    # additionalMediaSubdirs = [ "anime" ];
     jellyfin = {
       enable = true;
       openFirewall = true;
@@ -40,7 +39,7 @@ in
       enable = true;
       openFirewall = true;
       whitelistRanges = [ "10.0.0.0/23" "100.64.0.0/10" ];
-      guiPort = 7080;
+      guiPort = 9999;
     };
     sonarr.enable = true;
     radarr.enable = true;
@@ -52,10 +51,9 @@ in
     };
   };
 
-  # users.users.richard.extraGroups = [ "media" ];
 
   services.plex = {
-    enable = false;
+    enable = true;
     user = "streamer";
     group = "media";
     dataDir = "${config.nixarr.stateDir}/plex";
