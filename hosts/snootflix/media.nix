@@ -25,18 +25,6 @@ let
     )
   );
 
-  # buildarr-src = pkgs.fetchFromGitHub {
-    # owner = "buildarr";
-    # repo = "buildarr";
-    # rev = "093bd02e8269e05b8c5c56cffa756a9b549ebccc";
-    # hash = "sha256-it5zrpsf6ybBznXgs8I9El1tArV9m5jKkQ7R0yBiDFc=";
-  # };
-#
-  # buildarr = mkPoetryScriptsPackage {
-    # projectDir = buildarr-src;
-    # python = pkgs.python311;
-  # };
-
   validators-pypi = {
     buildPythonPackage,
     fetchPypi,
