@@ -68,8 +68,23 @@ in
     openFirewall = true;
   };
 
+  services.tautulli = {
+    enable = true;
+    user = "tautulli";
+    group = "media";
+    openFirewall = true;
+    port = 8888;
+    dataDir = "${config.nixarr.stateDir}/tautulli";
+  };
+
+  users.users.tautulli = {
+    isSystemUser = true;
+    group = "media";
+  };
+
   systemd.tmpfiles.rules = [
     "d ${config.services.plex.dataDir} 0700 streamer media"
+    "d ${config.services.tautulli.dataDir} 0700 tautulli media"
     "d ${mergerfs-dir} 0770 root media"
     "d ${mergerfs-dir}/library/anime 0770 streamer media"
   ];
