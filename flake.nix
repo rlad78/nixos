@@ -115,9 +115,9 @@
             system = "x86_64-linux";
 	          config.allowUnfree = true;
           };
-	  inherit inputs;
-	  inherit secrets;
-	  inherit hosts;
+          inherit inputs;
+          inherit secrets;
+          inherit hosts;
         };
 
         modules = [
