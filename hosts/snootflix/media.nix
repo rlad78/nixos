@@ -48,7 +48,7 @@ in
       enable = true;
       openFirewall = true;
       whitelistRanges = [ "10.0.0.0/23" "100.64.0.0/10" ];
-      guiPort = 9999;
+      guiPort = 8080;
     };
     sonarr.enable = true;
     radarr.enable = true;
