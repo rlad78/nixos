@@ -62,6 +62,13 @@ in
   # --- testing ---
   containers.sonarr = {
     autoStart = true;
+    forwardPorts = [
+      {
+        containerPort = 8989;
+        hostPort = 8000;
+        protocol = "tcp";
+      }
+    ];
     config = { config, pkgs, ... }: {
       services.sonarr = {
         enable = true;
