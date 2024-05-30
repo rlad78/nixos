@@ -3,6 +3,11 @@ let
   mnt-prefix = "mediadisk";
   mergerfs-dir = "/snoot";
 
+  sonarr-anime = {
+    config-dir = "${config.nixarr.stateDir}/sonarr-anime";
+    hostPort = 8981;
+  };
+
   disks-by-uuid = with lib.lists; forEach  [
     "3b5ccd1e-00ea-4dac-b27f-1c7822c737c4"
     "2f2168da-b5d0-4b06-bbb4-e70b042a412f"
@@ -82,9 +87,63 @@ in
     group = "media";
   };
 
+  users.users.sonarr-anime = {
+    isSystemUser = true;
+    group = "media";
+  };
+
+  containers.sonarr-anime = let
+    fromHost = {
+      user = config.users.users.sonarr-anime;
+      group = config.users.groups.media;
+    };
+  in {
+    autoStart = true;
+    privateNetwork = true;
+    hostAddress = "192.168.1.69";
+    localAddress = "10.0.0.69";
+    ephemeral = true;
+    bindMounts = {
+      "${mergerfs-dir}" = {
+        hostPath = mergerfs-dir;
+        isReadOnly = false;
+      };
+      "${sonarr-anime.config-dir}" = {
+        hostPath = sonarr-anime.config-dir;
+        isReadOnly = false;
+      };
+    };
+    forwardPorts = [
+      {
+        containerPort = 8989;
+        hostPort = sonarr-anime.hostPort;
+        protocol = "tcp";
+      }
+    ];
+
+    config = { config, pkgs, ... }: {
+      users = {
+        users."${fromHost.user.name}" = fromHost.user;
+        groups."${fromHost.group.name}" = fromHost.group;
+      };
+      # do we need to create them actually? lets find out
+      services.sonarr = {
+        enable = true;
+        openFirewall = true;
+        user = fromHost.user.name;
+        group = fromHost.group.name;
+        dataDir = "${sonarr-anime.config-dir}";
+      };
+     system.stateVersion = "23.11";
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 8981 ];
+
   systemd.tmpfiles.rules = [
     "d ${config.services.plex.dataDir} 0700 streamer media"
     "d ${config.services.tautulli.dataDir} 0700 tautulli media"
+    "d ${sonarr-anime.config-dir} 0700 sonarr-anime media"
     "d ${mergerfs-dir} 0770 root media"
     "d ${mergerfs-dir}/library/anime 0770 streamer media"
   ];
