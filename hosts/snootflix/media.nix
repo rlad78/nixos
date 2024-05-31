@@ -6,6 +6,8 @@ let
   sonarr-anime = {
     config-dir = "${config.nixarr.stateDir}/sonarr-anime";
     hostPort = 8981;
+    uid = 990;
+    media-gid = 994;
   };
 
   disks-by-uuid = with lib.lists; forEach  [
@@ -90,12 +92,21 @@ in
   users.users.sonarr-anime = {
     isSystemUser = true;
     group = "media";
+    uid = sonarr-anime.uid;
   };
+
+  users.groups.media.gid = sonarr-anime.media-gid;
 
   containers.sonarr-anime = let
     fromHost = {
-      user = config.users.users.sonarr-anime;
-      group = config.users.groups.media;
+      user = rec {
+        name = "sonarr-anime";
+        uid = sonarr-anime.uid;
+      };
+      group = rec {
+        name = "media";
+        gid = sonarr-anime.media-gid;
+      };
     };
   in {
     autoStart = true;
@@ -123,8 +134,15 @@ in
 
     config = { config, pkgs, ... }: {
       users = {
-        users."${fromHost.user.name}" = fromHost.user;
-        groups."${fromHost.group.name}" = fromHost.group;
+        users."${fromHost.user.name}" = {
+          uid = fromHost.user.uid;
+          isSystemUser = true;
+          group = fromHost.group.name;
+        };
+        groups."${fromHost.group.name}" = {
+          gid = fromHost.group.gid;
+
+        };
       };
       # do we need to create them actually? lets find out
       services.sonarr = {
