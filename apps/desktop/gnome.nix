@@ -1,18 +1,22 @@
 { configs, pkgs, ... }:
+let
+  gnome-extensions = with pkgs.gnomeExtensions; [
+    bubblemail
+    auto-power-profile
+    caffeine
+    runcat
+    night-theme-switcher
+    paperwm
+    search-light
+    no-overview
+    grand-theft-focus
+  ];
+in
 {
   users.users.richard.packages = with pkgs; [
     dynamic-wallpaper
     bubblemail
-    gnomeExtensions.bubblemail
-    gnomeExtensions.ddterm
-    gnomeExtensions.auto-power-profile
-    gnomeExtensions.caffeine
-    gnomeExtensions.runcat
-    gnomeExtensions.night-theme-switcher
-    gnomeExtensions.paperwm
-    gnomeExtensions.search-light
-    gnomeExtensions.no-overview
-  ];
+  ] ++ gnome-extensions;
 
   services.flatpak.enable = true;
   services.flatpak.update.onActivation = true;
