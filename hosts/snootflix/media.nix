@@ -144,7 +144,6 @@ in
 
         };
       };
-      # do we need to create them actually? lets find out
       services.sonarr = {
         enable = true;
         openFirewall = true;
@@ -162,8 +161,8 @@ in
     "d ${config.services.plex.dataDir} 0700 streamer media"
     "d ${config.services.tautulli.dataDir} 0700 tautulli media"
     "d ${sonarr-anime.config-dir} 0700 sonarr-anime media"
-    "d ${mergerfs-dir} 0770 root media"
-    "d ${mergerfs-dir}/library/anime 0770 streamer media"
+    "d ${mergerfs-dir} 0775 root media"
+    "d ${mergerfs-dir}/library/anime 0775 streamer media"
   ];
 
   # drive management
