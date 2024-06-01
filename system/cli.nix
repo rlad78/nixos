@@ -51,7 +51,7 @@ in
             curl
             screen
             zsh
-            lsd
+            eza
             tldr
             broot
             ripgrep
@@ -96,9 +96,10 @@ in
         #shell settings
         environment.shellAliases = {
             sudo = "sudo ";
-            ls = "lsd";
-            ll = "lsd -l";
-            la = "lsd -la";
+            ls = "eza --icons=always";
+            ll = "eza --icons=always -lgh";
+            la = "eza --icons=always -lagh";
+            lt = "eza --icons=auto -T";
             nxclean = clean-alias;
             nxpull = pull-alias;
             nxs = rebuild-alias "switch";
