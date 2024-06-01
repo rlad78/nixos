@@ -58,23 +58,4 @@ in
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
-  # --- testing ---
-  containers.sonarr = {
-    autoStart = true;
-    forwardPorts = [
-      {
-        containerPort = 8989;
-        hostPort = 8000;
-        protocol = "tcp";
-      }
-    ];
-    config = { config, pkgs, ... }: {
-      services.sonarr = {
-        enable = true;
-        openFirewall = true;
-      };
-      system.stateVersion = "23.11";
-    };
-  };
 }
