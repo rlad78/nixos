@@ -11,6 +11,7 @@
 
     nixarr = {
       url = "github:rlad78/nixarr/sabnzbd";
+      # url = "path:/home/richard/nixarr/";
     };
   };
 
