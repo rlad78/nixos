@@ -163,6 +163,8 @@ in
     "d ${sonarr-anime.config-dir} 0700 sonarr-anime media"
     "d ${mergerfs-dir} 0775 root media"
     "d ${mergerfs-dir}/library/anime 0775 streamer media"
+    "d ${mergerfs-dir}/usenet/sonarr-anime 0755 usenet media"
+    "d ${mergerfs-dir}/torrents/sonarr-anime 0755 torrenter media"
   ];
 
   # drive management
