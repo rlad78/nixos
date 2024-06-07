@@ -190,11 +190,11 @@
         "vpnconfinement": "vpnconfinement"
       },
       "locked": {
-        "lastModified": 1717541530,
-        "narHash": "sha256-S7ZLmjj5VUqqCw/EejNzO45s3dJH0jnjMZe5N5aYA7s=",
+        "lastModified": 1717804324,
+        "narHash": "sha256-ITepoybziijse9r1XWipyhJSv+QDeWe3+fBxDS1C0u4=",
         "owner": "rlad78",
         "repo": "nixarr",
-        "rev": "41619cd4cd53ea8009f28bb6ed2925d45ad72970",
+        "rev": "2e791cbcb5723910cba2bd3533defeae3a713343",
         "type": "github"
       },
       "original": {
