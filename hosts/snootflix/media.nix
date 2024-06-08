@@ -47,10 +47,10 @@ in
     mediaUsers = [ "richard" ];
     mediaDir = mergerfs-dir;
     stateDir = "/config";
-    jellyfin = {
-      enable = true;
-      openFirewall = true;
-    };
+    # jellyfin = {
+      # enable = true;
+      # openFirewall = true;
+    # };
     sabnzbd = {
       enable = true;
       openFirewall = true;
@@ -63,6 +63,17 @@ in
     transmission = {
       enable = true;
       extraAllowedIps = my-device-ips;
+      extraSettings = {
+        speed-limit-down = 37500;
+        speed-limit-down-enabled = true;
+        speed-limit-up = 37500;
+        speed-limit-up-enabled = true;
+
+        trash-can-enabled = false;
+        trash-original-torrent-files = true;
+
+        rpc-host-whitelist = "snootflix";
+      };
       flood.enable = true;
     };
   };
@@ -75,13 +86,14 @@ in
     openFirewall = true;
   };
 
-  services.tautulli = {
+  services.tautulli = rec {
     enable = true;
     user = "tautulli";
     group = "media";
     openFirewall = true;
-    port = 8888;
+    # port = 8888;
     dataDir = "${config.nixarr.stateDir}/tautulli";
+    configFile = "${dataDir}/config.ini";
   };
 
   users.users.tautulli = {
