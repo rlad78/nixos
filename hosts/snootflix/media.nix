@@ -33,15 +33,6 @@ let
   );
 in
 {
-  arf = {
-    scrutiny = {
-      enable = true;
-      drives = [ /dev/nvme0n1 ] ++ disks-by-uuid;
-      config-dir = /scrutiny;
-      port = 9999;
-    };
-  };
-
   nixarr = {
     enable = true;
     mediaUsers = [ "richard" ];
