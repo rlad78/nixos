@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, ... }:
 let
   nix-cmd = "nom";
   cfg = config.arf.cli;
@@ -30,10 +30,6 @@ let
     '';
 in
 {
-    imports = [
-        "${inputs.nixpkgs-unstable}/nixos/modules/programs/nh.nix"
-    ];
-
     options.arf.cli = with lib; {
         theme = mkOption {
             type = types.str;
@@ -64,11 +60,7 @@ in
             fzf
         ];
 
-        programs.nh = {
-          enable = true;
-          package = inputs.nixpkgs-unstable.legacyPackages.x86_64-linux.nh;
-        };
-
+        programs.nh.enable = true;
         environment.sessionVariables.FLAKE = "/home/richard/nixos";
 
         programs.neovim = {
