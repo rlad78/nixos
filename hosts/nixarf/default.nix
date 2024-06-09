@@ -17,12 +17,12 @@ in
       theme = "candy";
       plugins = [ "systemd" "z" ];
     };
-    scrutiny = {
-      enable = true;
-      drives = [ /dev/sda /dev/sdb ];
-      config-dir = /scrutiny;
-      port = 9999;
-    };
+    # scrutiny = {
+      # enable = true;
+      # drives = [ /dev/sda /dev/sdb ];
+      # config-dir = /scrutiny;
+      # port = 9999;
+    # };
   };
 
   imports =
@@ -39,8 +39,15 @@ in
         "/services/torrent.nix"
         "/services/netdata.nix"
         # "/services/palworld.nix"
-        "/services/scrutiny.nix"
+        # "/services/scrutiny.nix"
       ] (p: root-config-dir + p);
+
+  services.scrutiny = {
+    enable = true;
+    openFirewall = true;
+    collector.enable = true;
+    settings.web.listen.port = 9999;
+  };
 
   # sign nix store units with private key
   nix.extraOptions =
