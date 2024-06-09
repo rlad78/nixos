@@ -31,7 +31,7 @@ in
         "/apps/cli/editors.nix"
         "/services/tailscale.nix"
         "/services/syncthing.nix"
-        "/services/scrutiny.nix"
+        # "/services/scrutiny.nix"
       ] (p: root-config-dir + p);
 
   # sign nix store units with private key
@@ -39,6 +39,13 @@ in
   #   ''
   #     secret-key-files = /home/richard/.k/cache-priv-key.pem
   #   '';
+
+  services.scrutiny = {
+    enable = true;
+    openFirewall = true;
+    collector.enable = true;
+    settings.web.listen.port = 9999;
+  };
 
   # networking
   networking.hostName = "snootflix"; # Define your hostname.
