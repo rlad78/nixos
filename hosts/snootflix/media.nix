@@ -38,10 +38,10 @@ in
     mediaUsers = [ "richard" ];
     mediaDir = mergerfs-dir;
     stateDir = "/config";
-    # jellyfin = {
-      # enable = true;
-      # openFirewall = true;
-    # };
+    jellyfin = {
+      enable = true;
+      openFirewall = true;
+    };
     sabnzbd = {
       enable = true;
       openFirewall = true;
