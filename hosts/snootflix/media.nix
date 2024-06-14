@@ -162,17 +162,27 @@ in
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 8981 ];
-
   systemd.tmpfiles.rules = [
     "d ${config.services.plex.dataDir} 0700 streamer media"
     "d ${config.services.tautulli.dataDir} 0700 tautulli media"
     "d ${sonarr-anime.config-dir} 0700 sonarr-anime media"
+    "d ${config.nixarr.stateDir}/wizarr 0700 root media"
     "d ${mergerfs-dir} 0775 root media"
     "d ${mergerfs-dir}/library/anime 0775 streamer media"
     "d ${mergerfs-dir}/usenet/sonarr-anime 0755 usenet media"
     "d ${mergerfs-dir}/torrents/sonarr-anime 0755 torrenter media"
   ];
+
+  virtualisation.oci-containers.backend = "docker";
+  virtualisation.oci-containers.containers = {
+    wizarr = {
+      image = "ghcr.io/wizarrrr/wizarr:latest";
+      extraOptions = [ "--pull=always" ];
+      autoStart = true;
+      volumes = [ "${config.nixarr.stateDir}/wizarr/database:/data/database" ];
+      ports = [ "5690:5690" ];
+    };
+  };
 
   # drive management
   environment.systemPackages = with pkgs; [
@@ -195,5 +205,7 @@ in
       options = [ "defaults" "nonempty" "allow_other" "use_ino" "minfreespace=100M" "category.create=mspmfs" ];
     };
   };
+
+ networking.firewall.allowedTCPPorts = [ 8981 5690 ];
 }
 
