@@ -82,9 +82,13 @@ in
     user = "tautulli";
     group = "media";
     openFirewall = true;
-    # port = 8888;
     dataDir = "${config.nixarr.stateDir}/tautulli";
     configFile = "${dataDir}/config.ini";
+  };
+
+  services.jellyseerr = {
+    enable = true;
+    openFirewall = true;
   };
 
   users.users.tautulli = {
