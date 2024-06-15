@@ -206,6 +206,31 @@ in
     };
   };
 
- networking.firewall.allowedTCPPorts = [ 8981 5690 ];
+  services.nginx = {
+    enable = true;
+    recommendedTlsSettings = true;
+    recommendedOptimisation = true;
+    recommendedGzipSettings = true;
+  };
+
+  services.nginx.virtualHosts = {
+    "snootflix.com" = {
+      enableACME = false;
+      forceSSL = false;
+      locations."/" = {
+        proxyPass = "http://127.0.0.1:8096";
+        recommendedProxySettings = true;
+        proxyWebsockets = true;
+      };
+    };
+  };
+
+  # security.acme = {
+    # acceptTerms = true;
+    # defaults.email = "goobysc@gmail.com";
+  # };
+
+ # networking.firewall.allowedTCPPorts = [ 8981 5690 ];
+ networking.firewall.allowedTCPPorts = [ 80 443 8981 5690 ];
 }
 
