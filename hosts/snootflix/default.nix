@@ -25,6 +25,7 @@ in
       ./media.nix
     ] ++ lib.lists.forEach [
         "/hosts/common/nvidia.nix"
+        "/hosts/common/intel_qsv.nix"
         "/system"
         "/apps/cli/internet.nix"
         "/apps/cli/utils.nix"
