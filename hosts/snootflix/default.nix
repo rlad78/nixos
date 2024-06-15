@@ -31,14 +31,7 @@ in
         "/apps/cli/editors.nix"
         "/services/tailscale.nix"
         "/services/syncthing.nix"
-        # "/services/scrutiny.nix"
       ] (p: root-config-dir + p);
-
-  # sign nix store units with private key
-  # nix.extraOptions =
-  #   ''
-  #     secret-key-files = /home/richard/.k/cache-priv-key.pem
-  #   '';
 
   services.scrutiny = {
     enable = true;
