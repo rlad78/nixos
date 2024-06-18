@@ -169,7 +169,7 @@ in
     "d ${config.nixarr.stateDir}/wizarr 0700 root media"
     "d ${mergerfs-dir} 0775 root media"
     "d ${mergerfs-dir}/library/anime 0775 streamer media"
-    "d ${mergerfs-dir}/usenet/sonarr-anime 0755 usenet media"
+    "d ${mergerfs-dir}/usenet/sonarr-anime 0775 usenet media"
     "d ${mergerfs-dir}/torrents/sonarr-anime 0755 torrenter media"
   ];
 
