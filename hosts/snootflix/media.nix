@@ -211,17 +211,24 @@ in
     recommendedTlsSettings = true;
     recommendedOptimisation = true;
     recommendedGzipSettings = true;
+    recommendedProxySettings = true;
   };
 
   services.nginx.virtualHosts = {
     "snootflix.com" = {
-      enableACME = false;
-      forceSSL = false;
+      serverAliases = [ "www.snootflix.com" ];
       locations."/" = {
         proxyPass = "http://127.0.0.1:8096";
-        recommendedProxySettings = true;
         proxyWebsockets = true;
       };
+    };
+    "invite.snootflix.com".locations."/" = {
+      proxyPass = "http://127.0.0.1:5690";
+      proxyWebsockets = true;
+    };
+    "request.snootflix.com".locations."/" = {
+      proxyPass = "http://127.0.0.1:5055";
+      proxyWebsockets = true;
     };
   };
 
