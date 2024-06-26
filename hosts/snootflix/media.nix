@@ -51,6 +51,7 @@ in
     sonarr.enable = true;
     radarr.enable = true;
     prowlarr.enable = true;
+    readarr.enable = true;
     transmission = {
       enable = true;
       extraAllowedIps = my-device-ips;
