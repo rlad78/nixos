@@ -119,7 +119,7 @@ in
   in {
     autoStart = true;
     privateNetwork = true;
-    hostAddress = "192.168.1.69";
+    hostAddress = "10.0.0.10";
     localAddress = "10.0.0.69";
     ephemeral = true;
     bindMounts = {
@@ -159,7 +159,11 @@ in
         group = fromHost.group.name;
         dataDir = "${sonarr-anime.config-dir}";
       };
-     system.stateVersion = "23.11";
+
+      networking.useHostResolvConf = lib.mkForce false;
+      services.resolved.enable = true;
+
+      system.stateVersion = "23.11";
     };
   };
 
