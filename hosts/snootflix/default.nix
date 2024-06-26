@@ -17,6 +17,7 @@ in
       theme = "jonathan";
       plugins = [ "systemd" "z" ];
     };
+    nvidia.version = "production";
   };
 
   imports =
