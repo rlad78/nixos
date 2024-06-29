@@ -34,6 +34,7 @@ in
         "/services/netdata.nix"
         # "/services/palworld.nix"
         "/services/scrutiny.nix"
+        "/services/blocky.nix"
       ] (p: root-config-dir + p);
 
   # sign nix store units with private key
