@@ -25,8 +25,8 @@ in
       ./hardware-configuration.nix
       ./media.nix
     ] ++ lib.lists.forEach [
+        "/desktop-env/no-desktop.nix"
         "/hosts/common/nvidia.nix"
-        # "/hosts/common/intel_qsv.nix"
         "/system"
         "/apps/cli/internet.nix"
         "/apps/cli/utils.nix"
@@ -65,13 +65,6 @@ in
       memtest86.enable = true;
     };
   };
-
-  # disable desktop services
-  services.xserver.enable = false;
-  services.printing.enable = false;
-  sound.enable = false;
-  hardware.pulseaudio.enable = false;
-  services.libinput.enable = false;
 
   users.users.richard.extraGroups = [ "networkmanager" "wheel" ];
 

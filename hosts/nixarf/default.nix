@@ -22,9 +22,9 @@ in
   imports =
     [
       ./hardware-configuration.nix
-		./storage-disk.nix
+		  ./storage-disk.nix
     ] ++ lib.lists.forEach [
-        # "/hosts/common/nvidia.nix"
+        "/desktop-env/no-desktop.nix"
         "/system"
         "/apps/cli"
         "/services/tailscale.nix"
@@ -71,13 +71,6 @@ in
       memtest86.enable = true;
     };
   };
-
-  # disable desktop services
-  services.xserver.enable = false;
-  services.printing.enable = false;
-  sound.enable = false;
-  hardware.pulseaudio.enable = false;
-  services.xserver.libinput.enable = false;
 
   users.users.richard.extraGroups = [ "networkmanager" "wheel" ];
 
