@@ -18,11 +18,7 @@ in
     services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
     hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.${cfg.version};
 
-    hardware.opengl = {
-      enable = true;
-      # driSupport = true;
-      # driSupport32Bit = true;
-    };
+    hardware.graphics.enable = true;
 
     hardware.nvidia = {
       # Modesetting is required.
