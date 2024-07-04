@@ -10,4 +10,25 @@
 
   # Enable experimental Wayland support for sddm
   services.displayManager.sddm.wayland.enable = true;
+
+  # Enable KDE Connect
+  programs.kdeconnect.enable = true;
+
+  # Fonts for Plasma
+  fonts.packages = with pkgs; [
+    ibm-plex
+  ];
+
+  users.users.richard.packages = with pkgs; [
+    # email client
+    betterbird
+
+    # spell checking
+    aspell
+    aspellDicts.en
+    aspellDicts.en-computers
+
+    # disk quota widget
+    kdePackages.plasma-disks
+  ];
 }
