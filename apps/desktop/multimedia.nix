@@ -4,5 +4,6 @@
     gimp
     spotify
     pinta
+    vlc
   ];
 }
