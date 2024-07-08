@@ -5,7 +5,7 @@
     floorp
     chromium
 
-    bitwarden
+    # bitwarden
     vesktop
     telegram-desktop
     rustdesk
@@ -16,8 +16,8 @@
   services.flatpak.update.onActivation = true;
 
   services.flatpak.packages = [
-    "dev.geopjr.Tuba"
     "com.cassidyjames.butler"
     "one.jwr.interstellar"
+    "com.bitwarden.desktop"
   ];
 }
