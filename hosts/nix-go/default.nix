@@ -36,7 +36,7 @@ in
         "/apps"
         "/system"
         "/system/printing.nix"
-        "/desktop-env/plasma.nix"
+        "/desktop-env/gnome.nix"
         "/services/syncthing.nix"
         "/services/tailscale.nix"
       ] (p: root-config-dir + p);
