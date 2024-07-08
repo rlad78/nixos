@@ -24,6 +24,8 @@ in
     dynamic-wallpaper
   ] ++ gnome-extensions;
 
+  programs.geary.enable = true;
+
   services.flatpak.enable = true;
   services.flatpak.update.onActivation = true;
 
