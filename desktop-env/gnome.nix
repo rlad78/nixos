@@ -22,6 +22,7 @@ in
 
   users.users.richard.packages = with pkgs; [
     dynamic-wallpaper
+    gnome.gnome-tweaks
   ] ++ gnome-extensions;
 
   programs.geary.enable = true;
