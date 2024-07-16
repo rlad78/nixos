@@ -19,6 +19,13 @@
   let
     secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
     hosts = builtins.fromJSON (builtins.readFile "${self}/secrets/hosts.json");
+
+    standardArgs = nixpkgs-input: {
+      inherit inputs;
+      inherit secrets;
+      inherit hosts;
+      util = import ./util.nix nixpkgs-input.lib;
+    };
   in
   {
     nixosConfigurations = {
@@ -29,10 +36,7 @@
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
-          inherit inputs;
-          inherit secrets;
-          inherit hosts;
-        };
+        } // (standardArgs nixpkgs);
         
         modules = [ 
           ./hosts/nixarf
@@ -45,13 +49,10 @@
 	          system = "x86_64-linux";
 	          config.allowUnfree = true;
 	        };
-          inherit inputs;
-          inherit secrets;
-	        inherit hosts;
           inherit nix-flatpak;
           inherit nix-vscode-extensions;
           pomatez = pomatez-flake.packages.${pkgs.system}.default;
-	      };
+	      } // (standardArgs nixpkgs-unstable);
 
     	  modules = [
 	        ./hosts/nix-go
@@ -66,10 +67,7 @@
             system = "x86_64-linux";
 	          config.allowUnfree = true;
           };
-          inherit inputs;
-          inherit secrets;
-          inherit hosts;
-        };
+        } // (standardArgs nixpkgs-unstable);
 
         modules = [
           ./hosts/snootflix
