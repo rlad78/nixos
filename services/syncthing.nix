@@ -1,4 +1,4 @@
-{ config, pkgs, lib, hosts, ... }:
+{ config, pkgs, lib, hosts, util, ... }:
 
 let
     sync_dir = "/syncthing";
@@ -15,6 +15,7 @@ let
 
     exists = name: attrset: lib.lists.optional (builtins.hasAttr name attrset) attrset.${name}; 
     get-host-ips = host: (exists "tail-ip" host) ++ (exists "local-ip" host);
+    fromHostnames = hosts: lib.lists.intersectLists hosts syncthing-hosts-names;
 in
 {
     users.groups = {
@@ -75,6 +76,12 @@ in
                   devices = syncthing-hosts-names;
                   path = sync_dir + "/retro_saves";
                   label = "RetroArch Saves";
+                };
+                emulation = {
+                  id = "5cqkv-ajy2x";
+                  devices = fromHostnames [ "nix-go" "NextArf" "nixarf" ];
+                  path = sync_dir + "/emulation";
+                  label = "Emulation";
                 };
             };
 
