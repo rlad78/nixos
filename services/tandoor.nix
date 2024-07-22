@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  services.tandoor-recipies = {
+  services.tandoor-recipes = {
     enable = true;
     port = 7777;
     address = "0.0.0.0";
