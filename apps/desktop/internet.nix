@@ -2,7 +2,6 @@
 {
   users.users.richard.packages = with pkgs; [
     # browsers
-    floorp
     chromium
 
     # bitwarden
