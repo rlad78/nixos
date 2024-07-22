@@ -35,6 +35,7 @@ in
         # "/services/palworld.nix"
         "/services/scrutiny.nix"
         "/services/pdf.nix"
+        "/services/tandoor.nix"
       ] (p: root-config-dir + p);
 
   # sign nix store units with private key
