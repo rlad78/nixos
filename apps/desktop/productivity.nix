@@ -2,7 +2,6 @@
 {
   users.users.richard.packages = with pkgs; [
     libreoffice-fresh
-    # pomatez
   ];
 
   services.flatpak.enable = true;

@@ -4,10 +4,8 @@
     # browsers
     chromium
 
-    # bitwarden
     vesktop
     telegram-desktop
-    rustdesk
     rustdesk-flutter
   ];
 
