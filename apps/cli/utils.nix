@@ -4,6 +4,5 @@
     btop
     duf
     du-dust
-    dooit
   ];
 }
