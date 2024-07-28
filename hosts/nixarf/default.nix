@@ -36,6 +36,7 @@ in
         "/services/scrutiny.nix"
         "/services/pdf.nix"
         "/services/tandoor.nix"
+        "/services/webdav.nix"
       ] (p: root-config-dir + p);
 
   # sign nix store units with private key
