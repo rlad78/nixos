@@ -7,13 +7,19 @@ in
     enable = true;
     settings = {
       address = "0.0.0.0";
-      port = 5151;
+      port = service-port;
+      directory = "/webdav";
+      modify = true;
       auth = true;
       users = [
         secrets.webdav.user
       ];
     };
   };
+
+  systemd.tmpfiles.rules = [
+    "d /webdav 0770 webdav webdav"
+  ];
 
   networking.firewall.allowedTCPPorts = [ service-port ];
 }
