@@ -6,6 +6,7 @@
     aria2
     termshark
     speedtest-cli
+    termscp
   ];
 
   users.users.richard.extraGroups = [ "wireshark" ];
