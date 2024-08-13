@@ -3,7 +3,6 @@
   users.users.richard.packages = with pkgs; [
     # browsers
     chromium
-    nyxt
 
     vesktop
     telegram-desktop
