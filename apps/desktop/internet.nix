@@ -7,6 +7,7 @@
     vesktop
     telegram-desktop
     rustdesk-flutter
+    betterbird
   ];
 
   services.flatpak.enable = true;
