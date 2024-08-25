@@ -17,5 +17,6 @@
     "com.cassidyjames.butler"
     "one.jwr.interstellar"
     "com.bitwarden.desktop"
+    "io.github.zen_browser.zen"
   ];
 }
