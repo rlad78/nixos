@@ -4,17 +4,16 @@
     gh
     lazygit
     aria2
-    termshark
+    # termshark
     speedtest-cli
-    termscp
   ];
 
   users.users.richard.extraGroups = [ "wireshark" ];
 
-  security.wrappers.termshark = {
-    owner = "root";
-    group = "root";
-    source = "${pkgs.termshark}/bin/termshark";
-    capabilities = "cap_net_raw,cap_net_admin+eip";
-  };
+  # security.wrappers.termshark = {
+    # owner = "root";
+    # group = "root";
+    # source = "${pkgs.termshark}/bin/termshark";
+    # capabilities = "cap_net_raw,cap_net_admin+eip";
+  # };
 }

@@ -3,7 +3,6 @@
   users.users.richard.packages = with pkgs; [
     space-cadet-pinball
     gnome.gnome-mahjongg
-    moonlight-qt
   ];
 
   environment.systemPackages = with pkgs; [
