@@ -49,11 +49,9 @@ in
             zsh
             eza
             tldr
-            broot
             ripgrep
             zoxide
             git-crypt
-            yt-dlp
             udftools
             trippy
             nix-output-monitor
