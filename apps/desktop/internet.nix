@@ -9,7 +9,6 @@
   services.flatpak.update.onActivation = true;
 
   services.flatpak.packages = [
-    "com.cassidyjames.butler"
     "one.jwr.interstellar"
     "com.bitwarden.desktop"
     "io.github.zen_browser.zen"
