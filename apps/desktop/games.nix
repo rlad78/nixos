@@ -2,7 +2,7 @@
 {
   users.users.richard.packages = with pkgs; [
     space-cadet-pinball
-    gnome.gnome-mahjongg
+    gnome-mahjongg
   ];
 
   environment.systemPackages = with pkgs; [
