@@ -8,7 +8,7 @@
   services.flatpak.update.onActivation = true;
 
   services.flatpak.packages = [
-    "flathub org.videolan.VLC"
+    "org.videolan.VLC"
     "com.spotify.Client"
     "com.github.PintaProject.Pinta"
   ];
