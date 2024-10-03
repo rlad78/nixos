@@ -43,16 +43,15 @@
         ];
       };
 
-      "nix-go" = nixpkgs-unstable.lib.nixosSystem {
+      "nix-go" = nixpkgs.lib.nixosSystem {
         specialArgs = rec {
-          pkgs = import nixpkgs-unstable {
+          pkgs = import nixpkgs {
 	          system = "x86_64-linux";
 	          config.allowUnfree = true;
 	        };
           inherit nix-flatpak;
           inherit nix-vscode-extensions;
-          pomatez = pomatez-flake.packages.${pkgs.system}.default;
-	      } // (standardArgs nixpkgs-unstable);
+	      } // (standardArgs nixpkgs);
 
     	  modules = [
 	        ./hosts/nix-go
