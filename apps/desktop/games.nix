@@ -1,9 +1,9 @@
 { configs, pkgs, ... }:
 {
-  users.users.richard.packages = with pkgs; [
-    space-cadet-pinball
-    gnome-mahjongg
-  ];
+  # users.users.richard.packages = with pkgs; [
+    # space-cadet-pinball
+    # gnome-mahjongg
+  # ];
 
   environment.systemPackages = with pkgs; [
     (retroarch.override {
@@ -18,5 +18,13 @@
   ];
 
   programs.gamemode.enable = true;
+
+  services.flatpak.enable = true;
+  services.flatpak.update.onActivation = true;
+
+  services.flatpak.packages = [
+    "com.github.k4zmu2a.spacecadetpinball"
+    "org.gnome.Mahjongg"
+  ];
 }
 
