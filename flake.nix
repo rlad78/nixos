@@ -36,6 +36,10 @@
             system = "x86_64-linux";
             config.allowUnfree = true;
           };
+          pkgs-unstable = import nixpkgs-unstable {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
         } // (standardArgs nixpkgs);
         
         modules = [ 
@@ -51,6 +55,10 @@
 	        };
           inherit nix-flatpak;
           inherit nix-vscode-extensions;
+          pkgs-unstable = import nixpkgs-unstable {
+            system = "x86_64-linux";
+            config.allowUnfree = true;
+          };
 	      } // (standardArgs nixpkgs);
 
     	  modules = [
