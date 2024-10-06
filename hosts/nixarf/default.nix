@@ -35,8 +35,8 @@ in
         # "/services/palworld.nix"
         "/services/scrutiny.nix"
         "/services/pdf.nix"
-        # "/services/tandoor.nix"
-        "/services/mealie.nix"
+        "/services/tandoor.nix"
+        # "/services/mealie.nix"
         "/services/webdav.nix"
       ] (p: root-config-dir + p);
 
