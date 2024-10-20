@@ -23,7 +23,4 @@
 
   # enable powerprofilesctl
   services.power-profiles-daemon.enable = true;
-
-  # make sure we have some kind of fallback browser
-  users.users.richard.packages = [ pkgs.firefox ];
 }
