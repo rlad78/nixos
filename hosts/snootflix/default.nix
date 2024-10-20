@@ -24,6 +24,7 @@ in
     [
       ./hardware-configuration.nix
       ./media.nix
+      ./other_hosted.nix
     ] ++ lib.lists.forEach [
         "/desktop-env/no-desktop.nix"
         "/hosts/common/nvidia.nix"
