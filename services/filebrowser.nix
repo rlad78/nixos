@@ -21,7 +21,6 @@ in
     "d /filebrowser/srv 0750 filebrowser ${filebrowser-group}"
     "f /filebrowser/filebrowser.db 0600 filebrowser ${filebrowser-group}"
     "f /filebrowser/filebrowser.json 0600 filebrowser ${filebrowser-group}"
-    "f /filebrowser/srv/success.txt 0640 filebrowser ${filebrowser-group} 'hello world!'"
   ];
 
   virtualisation.oci-containers.backend = "docker";
