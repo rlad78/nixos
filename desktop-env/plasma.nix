@@ -19,10 +19,15 @@
     ibm-plex
   ];
 
-  users.users.richard.packages = with pkgs; [
-    # email client
-    betterbird
+  # enable flatpaks
+  services.flatpak.enable = true;
+  services.flatpak.update.onActivation = true;
 
+  services.flatpak.packages = [
+    "eu.betterbird.Betterbird"
+  ];
+
+  users.users.richard.packages = with pkgs; [
     # spell checking
     aspell
     aspellDicts.en
