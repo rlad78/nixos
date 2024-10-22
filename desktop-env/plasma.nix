@@ -35,5 +35,8 @@
 
     # disk quota widget
     kdePackages.plasma-disks
+
+    # help out flatpaks
+    xdg-desktop-portal-gnome
   ];
 }
