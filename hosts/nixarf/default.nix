@@ -45,7 +45,7 @@ in
     ''
       secret-key-files = /home/richard/.k/cache-priv-key.pem
     '';
-  nix.config.trusted-users = ["root" "richard"];
+  nix.settings.trusted-users = ["root" "richard"];
 
   # networking
   networking.hostName = "nixarf"; # Define your hostname.
