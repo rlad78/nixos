@@ -36,16 +36,16 @@ in
         "/services/scrutiny.nix"
         "/services/pdf.nix"
         # "/services/tandoor.nix"
-        # "/services/mealie.nix"
         "/services/webdav.nix"
+        "/services/nix-builder.nix"
       ] (p: root-config-dir + p);
 
   # sign nix store units with private key
-  nix.extraOptions =
-    ''
-      secret-key-files = /home/richard/.k/cache-priv-key.pem
-    '';
-  nix.settings.trusted-users = ["root" "richard"];
+  # nix.extraOptions =
+  #   ''
+  #     secret-key-files = /home/richard/.k/cache-priv-key.pem
+  #   '';
+  # nix.settings.trusted-users = ["root" "richard"];
 
   # networking
   networking.hostName = "nixarf"; # Define your hostname.

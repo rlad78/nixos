@@ -19,11 +19,13 @@
   let
     secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
     hosts = builtins.fromJSON (builtins.readFile "${self}/secrets/hosts.json");
+    builders = builtins.fromJSON (builtins.readFile "${self}/system/builders.json");
 
     standardArgs = nixpkgs-input: {
       inherit inputs;
       inherit secrets;
       inherit hosts;
+      inherit builders;
       util = import ./util.nix nixpkgs-input.lib;
     };
   in

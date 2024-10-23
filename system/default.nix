@@ -8,5 +8,6 @@
     ./richard.nix
     ./ssh.nix
     ./networking.nix
+    ./distributed-builds.nix
   ];
 }
