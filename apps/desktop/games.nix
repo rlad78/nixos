@@ -1,11 +1,11 @@
-{ configs, pkgs, ... }:
+{ configs, pkgs, pkgs-unstable, ... }:
 {
   # users.users.richard.packages = with pkgs; [
     # space-cadet-pinball
     # gnome-mahjongg
   # ];
 
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs-unstable; [
     (retroarch.override {
       cores = with libretro; [
         mgba
