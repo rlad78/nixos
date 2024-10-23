@@ -35,7 +35,7 @@ in
     '';
 
     nix.buildMachines = map (
-      b: removeAttrs builder-extra-attrs) (
+      b: removeAttrs b builder-extra-attrs) (
       getWantedBuilders cfg.builders
     );
   };
