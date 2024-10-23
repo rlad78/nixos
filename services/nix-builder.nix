@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 let
-  builder-username = "richard"';
+  builder-username = "richard";
   secret-key-dir = "/home/${builder-username}/.k";
   setup-commands =
   ''\'
@@ -12,16 +12,17 @@ let
     ${secret-key-dir}/cache-pub-key.pem \
     && sudo nix sign-paths --all -k ${secret-key-dir}/cache-priv-key.pem
     \'
-  ''
+  '';
+in
 {
-  users.users."${builder-username}" = {
+  # users.users."${builder-username}" = {
     # isSystemUser = true;
     # createHome = true;
-    openssh.authorizedKeys.keys = [
-       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKc2jzGXOAiQxBeec8qe8cqemg5O1/uCC/OWEDFJFvax richard@silverblue-go"
-       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILrWTZFlFH6WAIzX0JWnCGyAnj8m5plOi5TdbhPVsDTF"
-    ];
-  };
+    # openssh.authorizedKeys.keys = [
+       # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKc2jzGXOAiQxBeec8qe8cqemg5O1/uCC/OWEDFJFvax richard@silverblue-go"
+       # "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILrWTZFlFH6WAIzX0JWnCGyAnj8m5plOi5TdbhPVsDTF"
+    # ];
+  # };
 
   environment.shellAliases = {
     init-builder = setup-commands;

@@ -1,6 +1,6 @@
 { config, lib, builders, ... }:
 with lib; let
-  cfg = config.arf.builders;
+  cfg = config.arf;
   
   builder-names = builtins.attrNames builders;
   builder-extra-attrs = [
@@ -16,12 +16,12 @@ with lib; let
   );
 in
 {
-  options.arf.builders = {
+  options.arf.builders = mkOption {
     type = types.listOf (types.enum builder-names);
-    default = []
+    default = [];
   };
 
-  config = mkIf ((lists.count cfg.builders) > 1) {
+  config = mkIf ((lists.length cfg.builders) > 0) {
     nix.settings.trusted-public-keys = getWantedBuilderAttrs "public-key" cfg.builders;
 
     nix.settings.trusted-substituters = lists.forEach (
