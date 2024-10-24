@@ -23,7 +23,7 @@
   services.flatpak.update.onActivation = true;
 
   services.flatpak.packages = [
-    # "com.github.k4zmu2a.spacecadetpinball"
+    "com.github.k4zmu2a.spacecadetpinball"
     "org.gnome.Mahjongg"
   ];
 }
