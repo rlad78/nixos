@@ -24,6 +24,7 @@
   services.flatpak.update.onActivation = true;
 
   services.flatpak.packages = [
+    "flathub org.kde.kalk" # need a calculator
     "eu.betterbird.Betterbird"
   ];
 
