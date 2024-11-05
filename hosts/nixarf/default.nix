@@ -38,6 +38,7 @@ in
         # "/services/tandoor.nix"
         "/services/webdav.nix"
         "/services/nix-builder.nix"
+        "/services/hass.nix"
       ] (p: root-config-dir + p);
 
   # sign nix store units with private key
