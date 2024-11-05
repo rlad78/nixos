@@ -1,0 +1,84 @@
+{ config, pkgs, secrets, ... }:
+let
+  hass_version = "2024.10.4";
+in
+{
+  virtualisation.docker.enable = true;
+  users.users.richard.extraGroups = [ "docker" ];
+
+  users.groups.homeauto.name = "homeauto";
+
+  users.users.hass = {
+    isSystemUser = true;
+    group = "homeauto";
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /hass 0750 hass homeauto"
+    "d /hass/config 0750 hass homeauto"
+    "d /hass/media 0750 hass homeauto"
+    "d /hass/backups 0750 hass homeauto"
+  ];
+
+  virtualisation.oci-containers.backend = "docker";
+  virtualisation.oci-containers.containers = {
+    hass = {
+      image = "homeassistant/home-assistant:${hass_version}";
+      # ports = [
+        # "8123:8123"
+        # "1400:1400"
+      # ];
+      autoStart = true;
+      volumes = [
+        "/hass/config:/config"
+        "/hass/media:/media"
+        "/hass/backups:/backups"
+      ];
+      extraOptions = [
+        "--pull=always"
+        "--network=host"
+        "--cap-add=NET_RAW"
+      ];
+      environment = {
+        TZ = "America/New_York";
+      };
+    };
+  };
+
+  services.mosquitto = {
+    enable = true;
+    listeners = [{
+      users.hass.password = secrets.mqtt;
+      users.z2m.password = secrets.z2m;
+    }];   
+  };
+
+  services.zigbee2mqtt = {
+    enable = false;
+    settings = {
+      homeassistant = true;
+      serial = {
+        adapter = "ezsp";
+        port = "/dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20220718182110-if00";
+      };
+      mqtt = {
+        server = "mqtt://127.0.0.1:1883";
+        user = "hass";
+        password = secrets.z2m;
+        keepalive = 60;
+        reject_unauthorized = true;
+        version = 4;
+      };
+      frontend.port = 8099;
+      advanced = {
+        homeassistant_legacy_entity_attributes = false;
+        legacy_api = false;
+        legacy_availability_payload = false;
+        log_level = false;
+      };
+      device_options.legacy = false;
+    };
+  };
+
+  networking.firewall.allowedTCPPorts = [ 1400 8123 1883 8099 ];
+}
