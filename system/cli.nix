@@ -12,6 +12,7 @@ let
     else "";
 
   rebuild-alias = (method: "sudo nixos-rebuild " + method + " --flake " + nix-dir);
+  check-alias = "nix flake check --no-build --show-trace";
   build-func =
     ''
       nxbuild() {
@@ -92,6 +93,7 @@ in
             lt = "eza --icons=auto -T";
             nxclean = clean-alias;
             nxpull = pull-alias;
+            nxcheck = check-alias;
             nxs = rebuild-alias "switch";
             nxb = rebuild-alias "boot";
             nxt = "nix flake check --show-trace";
