@@ -5,7 +5,6 @@ in
 {
   boot.kernelParams = [
     "i915.enable_psr=0"
-    "i915.enable_rc6=1"
   ];
 
   boot.extraModprobeConfig = lib.mkDefault ''
