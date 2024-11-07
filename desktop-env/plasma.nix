@@ -37,6 +37,9 @@
     # disk quota widget
     kdePackages.plasma-disks
 
+    # auto light/dark
+    kdePackages.koi
+
     # help out flatpaks
     xdg-desktop-portal-gnome
   ];
