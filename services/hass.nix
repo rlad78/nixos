@@ -47,10 +47,14 @@ in
 
   services.mosquitto = {
     enable = true;
+    logType = [ "all" ];
     listeners = [{
       users.hass.password = secrets.mqtt;
       users.z2m.password = secrets.z2m;
-    }];   
+      acl = [
+        "pattern readwrite #"
+      ];
+    }];
   };
 
   services.zigbee2mqtt = {
