@@ -54,7 +54,7 @@ in
   };
 
   services.zigbee2mqtt = {
-    enable = false;
+    enable = true;
     settings = {
       homeassistant = true;
       serial = {
@@ -74,11 +74,18 @@ in
         homeassistant_legacy_entity_attributes = false;
         legacy_api = false;
         legacy_availability_payload = false;
-        log_level = false;
+        log_level = "info";
       };
       device_options.legacy = false;
     };
   };
 
-  networking.firewall.allowedTCPPorts = [ 1400 8123 1883 8099 ];
+  networking.firewall.allowedTCPPorts = [
+    8123 # hass webapp
+    1883 # mqtt http
+    1884 # mqtt http backup
+    8099 # z2m frontend
+    51827 # apple homekit
+    5353 # apple homekit mdns
+  ];
 }
