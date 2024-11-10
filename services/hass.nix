@@ -33,6 +33,7 @@ in
         "/hass/config:/config"
         "/hass/media:/media"
         "/hass/backups:/backups"
+        "/var/run/dbus:/var/run/dbus"
       ];
       extraOptions = [
         "--pull=always"
@@ -90,6 +91,10 @@ in
     1884 # mqtt http backup
     8099 # z2m frontend
     51827 # apple homekit
+    5353 # apple homekit mdns
+  ];
+
+  networking.firewall.allowedUDPPorts = [
     5353 # apple homekit mdns
   ];
 }
