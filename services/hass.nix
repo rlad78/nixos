@@ -68,7 +68,7 @@ in
       };
       mqtt = {
         server = "mqtt://127.0.0.1:1883";
-        user = "hass";
+        user = "z2m";
         password = secrets.z2m;
         keepalive = 60;
         reject_unauthorized = true;
