@@ -19,6 +19,9 @@
     ibm-plex
   ];
 
+  # don't install discover
+  environment.plasma6.excludePackages = [ pkgs.kdePackages.discover ];
+
   # enable flatpaks
   services.flatpak.enable = true;
   services.flatpak.update.onActivation = true;
