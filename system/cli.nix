@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, pkgs-unstable, lib, ... }:
 let
   nix-cmd = "nom";
   cfg = config.arf.cli;
@@ -129,8 +129,9 @@ in
         "d ${build-dir}/logs 755 richard users"
         ];
 
-        fonts.packages = with pkgs; [
-            (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+        fonts.packages = with pkgs-unstable; [
+            # (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
+            nerd-fonts.jetbrains-mono
         ];
     };
 }

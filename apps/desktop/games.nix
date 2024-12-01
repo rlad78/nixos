@@ -1,20 +1,30 @@
 { configs, pkgs, pkgs-unstable, ... }:
+let
+  myRetroArch = (pkgs-unstable.retroarch.withCores
+    (cores: with cores; [
+      mgba
+      fceumm
+      snes9x2005-plus
+      genesis-plus-gx
+      beetle-saturn
+    ])
+  );
+in
 {
-  # users.users.richard.packages = with pkgs; [
-    # space-cadet-pinball
-    # gnome-mahjongg
+  # environment.systemPackages = with pkgs-unstable; [
+    # (retroarch.override {
+      # cores = with libretro; [
+        # mgba
+        # fceumm
+        # snes9x2005-plus
+        # genesis-plus-gx
+        # beetle-saturn
+      # ];
+    # })
   # ];
 
-  environment.systemPackages = with pkgs-unstable; [
-    (retroarch.override {
-      cores = with libretro; [
-        mgba
-        fceumm
-        snes9x2005-plus
-        genesis-plus-gx
-        beetle-saturn
-      ];
-    })
+  environment.systemPackages = with pkgs; [
+    myRetroArch
   ];
 
   programs.gamemode.enable = true;
