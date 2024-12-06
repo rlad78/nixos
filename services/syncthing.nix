@@ -59,23 +59,11 @@ in
                     path = sync_dir + "/Notes";
                     label = "Notes";
                 };
-                snoothome_backups = {
-                    id = "walwu-ctntf";
-                    devices = syncthing-hosts-names;
-                    path = sync_dir + "/snoothome_backups";
-                    label = "snoothome-backups";
-                };
                 wallpapers = {
                     id = "im7nn-kztqd";
                     devices = syncthing-hosts-names;
                     path = sync_dir + "/wallpapers";
                     label = "Wallpapers";
-                };
-                retro-saves = {
-                  id = "h2xh7-wkhwu";
-                  devices = syncthing-hosts-names;
-                  path = sync_dir + "/retro_saves";
-                  label = "RetroArch Saves";
                 };
                 emulation = {
                   id = "5cqkv-ajy2x";
