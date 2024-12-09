@@ -3,7 +3,6 @@
   users.users.richard.packages = with pkgs; [
     kitty
     kitty-themes
-    wezterm
   ];
 
   services.flatpak.packages = [
