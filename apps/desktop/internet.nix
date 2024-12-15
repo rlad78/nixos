@@ -13,5 +13,6 @@
     "io.github.zen_browser.zen"
     "org.chromium.Chromium"
     "dev.vencord.Vesktop"
+    "org.telegram.desktop"
   ];
 }
