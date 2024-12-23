@@ -45,5 +45,8 @@
 
     # help out flatpaks
     xdg-desktop-portal-gnome
+
+    # android scrcpy
+    qtscrcpy
   ];
 }
