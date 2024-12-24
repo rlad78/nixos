@@ -49,6 +49,15 @@
           nixarr.nixosModules.default
         ];
       };
+
+      snootflix-mini = {
+        pkg-base = nixpkgs-unstable;
+        special-inherits = {};
+        module-paths = [
+          ./hosts/snootflix_mini
+          nixarr.nixosModules.default
+        ];
+      };
     };
 
     standardArgs = nixpkgs-input: {
@@ -81,6 +90,7 @@
       nixarf = systemMake host-conf-options.nixarf;
       nix-go = systemMake host-conf-options.nix-go;
       snootflix = systemMake host-conf-options.snootflix;
+      snootflix-mini = systemMake host-conf-options.snootflix-mini;
     };
   };
 }
