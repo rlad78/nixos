@@ -4,6 +4,8 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
+    nixpkgs-sonarr.url = "github:nixos/nixpkgs/328abff1f7a707dc8da8e802f724f025521793ea";
+    # nixpkgs-sonarr.url = "github:nixos/nixpkgs/nixos-24.05";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
     nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
@@ -15,11 +17,16 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nix-vscode-extensions, nixarr, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixpkgs-sonarr, nixos-hardware, nix-flatpak, nix-vscode-extensions, nixarr, ... }@inputs:
   let
     secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
     hosts = builtins.fromJSON (builtins.readFile "${self}/secrets/hosts.json");
     builders = builtins.fromJSON (builtins.readFile "${self}/system/builders.json");
+
+    pkgsBuild = base: import base {
+      system = "x86_64-linux";
+      config.allowUnfree = true;
+    };
 
     host-conf-options = {
       nix-go = {
@@ -43,7 +50,9 @@
 
       snootflix = {
         pkg-base = nixpkgs-unstable;
-        special-inherits = {};
+        special-inherits = {
+          pkgs-sonarr = pkgsBuild nixpkgs-sonarr;
+        };
         module-paths = [
           ./hosts/snootflix
           nixarr.nixosModules.default
@@ -57,11 +66,6 @@
       inherit hosts;
       inherit builders;
       util = import ./util.nix nixpkgs-input.lib;
-    };
-
-    pkgsBuild = base: import base {
-      system = "x86_64-linux";
-      config.allowUnfree = true;
     };
 
     systemMake = host: host.pkg-base.lib.nixosSystem {

@@ -1,4 +1,4 @@
-{ config, pkgs, lib, hosts, ... }:
+{ config, pkgs, pkgs-sonarr, lib, hosts, ... }:
 let
   mnt-prefix = "mediadisk";
   mergerfs-dir = "/snoot";
@@ -49,6 +49,7 @@ in
       guiPort = 8080;
     };
     sonarr.enable = true;
+    sonarr.package = pkgs-sonarr.sonarr;
     radarr.enable = true;
     prowlarr.enable = true;
     readarr.enable = true;
@@ -115,6 +116,7 @@ in
         name = "media";
         gid = sonarr-anime.media-gid;
       };
+      sonarr-package = pkgs-sonarr.sonarr;
     };
   in {
     autoStart = true;
@@ -154,6 +156,7 @@ in
       };
       services.sonarr = {
         enable = true;
+        package = fromHost.sonarr-package;
         openFirewall = true;
         user = fromHost.user.name;
         group = fromHost.group.name;
