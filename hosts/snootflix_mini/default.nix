@@ -23,10 +23,10 @@ in
   imports =
     [
       ./hardware-configuration.nix
-      # ./media.nix
+      ./media.nix
       # ./other_hosted.nix
     ] ++ lib.lists.forEach [
-        "/hosts/snootflix/media.nix"
+        # "/hosts/snootflix/media.nix"
         "/desktop-env/no-desktop.nix"
         # "/hosts/common/nvidia.nix"
         "/hosts/common/intel_qsv.nix"
