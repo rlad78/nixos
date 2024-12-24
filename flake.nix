@@ -61,7 +61,9 @@
 
       snootflix-mini = {
         pkg-base = nixpkgs-unstable;
-        special-inherits = {};
+        special-inherits = {
+          pkgs-sonarr = pkgsBuild nixpkgs-sonarr;
+        };
         module-paths = [
           ./hosts/snootflix_mini
           nixarr.nixosModules.default
