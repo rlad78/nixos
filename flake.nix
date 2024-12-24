@@ -70,7 +70,7 @@
       };
 
       snootflix-mini = {
-        pkg-base = nixpkgs-unstable;
+        pkg-base = nixpkgs;
         build-sys = pkgsBuildSnootflix;
         special-inherits = {};
         module-paths = [
