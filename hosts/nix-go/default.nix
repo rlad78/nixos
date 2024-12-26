@@ -20,34 +20,6 @@ in
     builders = [ "nixarf" ];
   };
 
-  # config for importing builds from nixarf
-  # nix.settings.trusted-public-keys = [
-  #   "nixarf:w5V0h5xBBqipR5xoY0oFE8udibTjIoh/K5GKaQbDWlc="
-  # ];
-  # nix.settings.trusted-substituters = [
-  #   "ssh-ng://nixarf"
-  #   "ssh://nixarf"
-  # ];
-
-  # # distributed builds
-  # nix.distributedBuilds = true;
-  # nix.buildMachines = [
-  #   {
-  #     hostName = "nixarf";
-      # system = "x86_64-linux";
-      # protocol = "ssh-ng";
-      # sshUser = "richard";
-      # sshKey = "/home/richard/.ssh/id_ed25519";
-      # maxJobs = 4;
-      # speedFactor = 4;
-      # supportedFeatures = [ "nixos-test" "benchmark" "big-parallel" "kvm" ];
-  #   }
-  # ];
-  # # optional, useful when the builder has a faster internet connection than yours
-	# nix.extraOptions = ''
-	#   builders-use-substitutes = true
-	# '';
-
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix

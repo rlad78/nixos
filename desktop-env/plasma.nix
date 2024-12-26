@@ -28,7 +28,6 @@
 
   services.flatpak.packages = [
     "org.kde.kalk" # need a calculator
-    "eu.betterbird.Betterbird"
   ];
 
   users.users.richard.packages = with pkgs; [

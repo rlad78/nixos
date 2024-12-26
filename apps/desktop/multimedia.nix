@@ -1,9 +1,5 @@
 { configs, pkgs, ... }:
 {
-  # users.users.richard.packages = with pkgs; [
-    # vlc
-  # ];
-
   services.flatpak.enable = true;
   services.flatpak.update.onActivation = true;
 

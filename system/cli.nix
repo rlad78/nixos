@@ -130,7 +130,6 @@ in
         ];
 
         fonts.packages = with pkgs-unstable; [
-            # (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
             nerd-fonts.jetbrains-mono
         ];
     };

@@ -24,10 +24,6 @@ in
   virtualisation.oci-containers.containers = {
     hass = {
       image = "homeassistant/home-assistant:${hass_version}";
-      # ports = [
-        # "8123:8123"
-        # "1400:1400"
-      # ];
       autoStart = true;
       volumes = [
         "/hass/config:/config"

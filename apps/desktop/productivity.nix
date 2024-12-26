@@ -9,8 +9,5 @@
 
   services.flatpak.packages = [
     "md.obsidian.Obsidian"
-    # "org.libreoffice.LibreOffice"
   ];
-
-  
 }

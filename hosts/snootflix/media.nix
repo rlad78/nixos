@@ -49,7 +49,6 @@ in
       guiPort = 8080;
     };
     sonarr.enable = true;
-    # sonarr.package = pkgs-sonarr.sonarr;
     radarr.enable = true;
     prowlarr.enable = true;
     readarr.enable = true;

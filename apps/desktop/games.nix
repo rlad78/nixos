@@ -11,18 +11,6 @@ let
   );
 in
 {
-  # environment.systemPackages = with pkgs-unstable; [
-    # (retroarch.override {
-      # cores = with libretro; [
-        # mgba
-        # fceumm
-        # snes9x2005-plus
-        # genesis-plus-gx
-        # beetle-saturn
-      # ];
-    # })
-  # ];
-
   environment.systemPackages = with pkgs; [
     myRetroArch
   ];
