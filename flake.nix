@@ -154,7 +154,7 @@
         module-paths = [ ./hosts/nixarf ];
       };
 
-      nix-go = {
+      nix-go = systemMake {
         module-paths = [
           ./hosts/nix-go
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
@@ -162,7 +162,7 @@
         ];
       };
 
-      snootflix = {
+      snootflix = systemMake {
         pkg-args = {
           config.permittedInsecurePackages = [
             "aspnetcore-runtime-6.0.36"
@@ -179,7 +179,7 @@
 
 #       snootflix-mini = systemMake host-conf-options.snootflix-mini;
 
-      nixps = {
+      nixps = systemMake {
         module-paths = [
           ./hosts/nixps
           nixos-hardware.nixosModules.dell-xps-15-9570-intel
