@@ -17,34 +17,144 @@
 
   outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nix-vscode-extensions, nixarr, ... }@inputs:
   let
-    secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
-    hosts = builtins.fromJSON (builtins.readFile "${self}/secrets/hosts.json");
-    builders = builtins.fromJSON (builtins.readFile "${self}/system/builders.json");
+#     secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
+#     hosts = builtins.fromJSON (builtins.readFile "${self}/secrets/hosts.json");
+#     builders = builtins.fromJSON (builtins.readFile "${self}/system/builders.json");
 
-    pkgsBuild = base: import base {
+    pkgsBaseArgs = {
       system = "x86_64-linux";
       config.allowUnfree = true;
     };
 
-    pkgsBuildSnootflix = base: import base {
-      system = "x86_64-linux";
-      config.allowUnfree = true;
-      config.permittedInsecurePackages = [
-        "aspnetcore-runtime-6.0.36"
-        "aspnetcore-runtime-wrapped-6.0.36"
-        "dotnet-sdk-6.0.428"
-        "dotnet-sdk-wrapped-6.0.428"
-      ];
+    distributeInputs = {
+      util = import ./util.nix nixpkgs.lib;
+      secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
+      hosts = builtins.fromJSON (builtins.readFile "${self}/secrets/hosts.json");
+      builders = builtins.fromJSON (builtins.readFile "${self}/system/builders.json");
+
+      inherit nix-flatpak;
+      inherit nix-vscode-extensions;
+      inherit nixarr;
     };
 
-    host-conf-options = {
+#     pkgsBuild = base: import base {
+#       system = "x86_64-linux";
+#       config.allowUnfree = true;
+#     };
+#
+#     pkgsBuildSnootflix = base: import base {
+#       system = "x86_64-linux";
+#       config.allowUnfree = true;
+#       config.permittedInsecurePackages = [
+#         "aspnetcore-runtime-6.0.36"
+#         "aspnetcore-runtime-wrapped-6.0.36"
+#         "dotnet-sdk-6.0.428"
+#         "dotnet-sdk-wrapped-6.0.428"
+#       ];
+#     };
+
+#     host-conf-options = {
+#       nix-go = {
+#         pkg-base = nixpkgs-unstable;
+#         build-sys = pkgsBuild;
+#         special-inherits = {
+#           inherit nix-flatpak;
+#           inherit nix-vscode-extensions;
+#         };
+#         module-paths = [
+#           ./hosts/nix-go
+#           nixos-hardware.nixosModules.microsoft-surface-pro-intel
+#           nix-flatpak.nixosModules.nix-flatpak
+#         ];
+#       };
+#
+#       nixarf = {
+#         pkg-base = nixpkgs;
+#         build-sys = pkgsBuild;
+#         special-inherits = {};
+#         module-paths = [ ./hosts/nixarf ];
+#       };
+#
+#       snootflix = {
+#         pkg-base = nixpkgs-unstable;
+#         build-sys = pkgsBuildSnootflix;
+#         special-inherits = {};
+#         module-paths = [
+#           ./hosts/snootflix
+#           nixarr.nixosModules.default
+#         ];
+#       };
+
+#       snootflix-mini = {
+#         pkg-base = nixpkgs;
+#         build-sys = pkgsBuildSnootflix;
+#         special-inherits = {};
+#         module-paths = [
+#           ./hosts/snootflix_mini
+#           nixarr.nixosModules.default
+#         ];
+#       };
+
+#       nixps = {
+#         pkg-base = nixpkgs-unstable;
+#         build-sys = pkgsBuild;
+#         special-inherits = {
+#           inherit nix-flatpak;
+#           inherit nix-vscode-extensions;
+#         };
+#         module-paths = [
+#           ./hosts/nixps
+#           nixos-hardware.nixosModules.dell-xps-15-9570-intel
+#           nix-flatpak.nixosModules.nix-flatpak
+#         ];
+#       };
+#     };
+
+#     standardArgs = {
+#       inherit inputs;
+#       inherit secrets;
+#       inherit hosts;
+#       inherit builders;
+#       util = import ./util.nix nixpkgs.lib;
+#     };
+
+#     systemMake = host: host.pkg-base.lib.nixosSystem {
+#       specialArgs = rec {
+#         pkgs = host.build-sys host.pkg-base;
+#         pkgs-unstable =
+#           if host.pkg-base == nixpkgs-unstable
+#           then pkgs
+#           else host.build-sys nixpkgs-unstable;
+#         } // (host.special-inherits) // (standardArgs host.pkg-base);
+#
+#       modules = host.module-paths;
+#     };
+
+    systemMake = {
+      pkg-base ? nixpkgs-unstable,
+      pkg-args ? {},
+      module-paths ? [],
+    }: pkg-base.lib.nixosSystem {
+      specialArgs = rec {
+        pkgs = import pkg-base (pkgsBaseArgs // pkg-args);
+        pkgs-unstable =
+          if pkg-base == nixpkgs-unstable
+          then pkgs
+          else import nixpkgs-unstable (pkgsBaseArgs // pkg-args);
+      } // distributeInputs;
+
+      modules = module-paths;
+    };
+  in
+  {
+    nixosConfigurations = {
+
+      nixarf = systemMake {
+        pkg-base = nixpkgs;
+        module-paths = [ ./hosts/nixarf ];
+      };
+
       nix-go = {
-        pkg-base = nixpkgs-unstable;
-        build-sys = pkgsBuild;
-        special-inherits = {
-          inherit nix-flatpak;
-          inherit nix-vscode-extensions;
-        };
         module-paths = [
           ./hosts/nix-go
           nixos-hardware.nixosModules.microsoft-surface-pro-intel
@@ -52,60 +162,31 @@
         ];
       };
 
-      nixarf = {
-        pkg-base = nixpkgs;
-        build-sys = pkgsBuild;
-        special-inherits = {};
-        module-paths = [ ./hosts/nixarf ];
-      };
-
       snootflix = {
-        pkg-base = nixpkgs-unstable;
-        build-sys = pkgsBuildSnootflix;
-        special-inherits = {};
+        pkg-args = {
+          config.permittedInsecurePackages = [
+            "aspnetcore-runtime-6.0.36"
+            "aspnetcore-runtime-wrapped-6.0.36"
+            "dotnet-sdk-6.0.428"
+            "dotnet-sdk-wrapped-6.0.428"
+          ];
+        };
         module-paths = [
           ./hosts/snootflix
           nixarr.nixosModules.default
         ];
       };
 
-      snootflix-mini = {
-        pkg-base = nixpkgs;
-        build-sys = pkgsBuildSnootflix;
-        special-inherits = {};
+#       snootflix-mini = systemMake host-conf-options.snootflix-mini;
+
+      nixps = {
         module-paths = [
-          ./hosts/snootflix_mini
-          nixarr.nixosModules.default
+          ./hosts/nixps
+          nixos-hardware.nixosModules.dell-xps-15-9570-intel
+          nix-flatpak.nixosModules.nix-flatpak
         ];
       };
-    };
 
-    standardArgs = nixpkgs-input: {
-      inherit inputs;
-      inherit secrets;
-      inherit hosts;
-      inherit builders;
-      util = import ./util.nix nixpkgs-input.lib;
-    };
-
-    systemMake = host: host.pkg-base.lib.nixosSystem {
-      specialArgs = rec {
-        pkgs = host.build-sys host.pkg-base;
-        pkgs-unstable = 
-          if host.pkg-base == nixpkgs-unstable
-          then pkgs
-          else host.build-sys nixpkgs-unstable;
-        } // (host.special-inherits) // (standardArgs host.pkg-base);
-
-      modules = host.module-paths;
-    };
-  in
-  {
-    nixosConfigurations = {
-      nixarf = systemMake host-conf-options.nixarf;
-      nix-go = systemMake host-conf-options.nix-go;
-      snootflix = systemMake host-conf-options.snootflix;
-      snootflix-mini = systemMake host-conf-options.snootflix-mini;
     };
   };
 }
