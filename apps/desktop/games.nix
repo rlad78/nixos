@@ -23,6 +23,7 @@ in
   services.flatpak.packages = [
     "com.github.k4zmu2a.spacecadetpinball"
     "org.gnome.Mahjongg"
+    "dev.bragefuglseth.Keypunch"
   ];
 }
 
