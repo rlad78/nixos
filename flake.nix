@@ -21,9 +21,9 @@
 #     hosts = builtins.fromJSON (builtins.readFile "${self}/secrets/hosts.json");
 #     builders = builtins.fromJSON (builtins.readFile "${self}/system/builders.json");
 
-    pkgsBaseArgs = {
+    pkgsBaseArgs = add-config: {
       system = "x86_64-linux";
-      config.allowUnfree = true;
+      config = { allowUnfree = true; } // add-config;
     };
 
     distributeInputs = {
@@ -133,14 +133,22 @@
     systemMake = {
       pkg-base ? nixpkgs-unstable,
       pkg-args ? {},
+      pkg-config-args ? {},
       module-paths ? [],
-    }: pkg-base.lib.nixosSystem {
+    }:
+    let
+      pkgsBuild = pkg: import pkg (
+        (pkgsBaseArgs pkg-config-args)
+        // pkg-args
+      );
+    in
+    pkg-base.lib.nixosSystem {
       specialArgs = rec {
-        pkgs = import pkg-base (pkgsBaseArgs // pkg-args);
+        pkgs = buildPkgs pkg-base;
         pkgs-unstable =
           if pkg-base == nixpkgs-unstable
           then pkgs
-          else import nixpkgs-unstable (pkgsBaseArgs // pkg-args);
+          else buildPkgs nixpkgs-unstable;
       } // distributeInputs;
 
       modules = module-paths;
@@ -163,8 +171,8 @@
       };
 
       snootflix = systemMake {
-        pkg-args = {
-          config.permittedInsecurePackages = [
+        pkg-config-args = {
+          permittedInsecurePackages = [
             "aspnetcore-runtime-6.0.36"
             "aspnetcore-runtime-wrapped-6.0.36"
             "dotnet-sdk-6.0.428"
