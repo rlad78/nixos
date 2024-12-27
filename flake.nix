@@ -144,11 +144,11 @@
     in
     pkg-base.lib.nixosSystem {
       specialArgs = rec {
-        pkgs = buildPkgs pkg-base;
+        pkgs = pkgsBuild pkg-base;
         pkgs-unstable =
           if pkg-base == nixpkgs-unstable
           then pkgs
-          else buildPkgs nixpkgs-unstable;
+          else pkgsBuild nixpkgs-unstable;
       } // distributeInputs;
 
       modules = module-paths;
