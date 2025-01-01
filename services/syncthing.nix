@@ -47,7 +47,7 @@ in
         settings = {
             devices = with lib.attrsets; concatMapAttrs (n: v: {
               "${n}" = {
-                addresses = sync_addrs (get-host-ips v) v.sync-port;
+                addresses = sync_addrs (get-host-ips v) 22000;
                 id = v.sync-id;
               };
             }) syncthing-hosts;
