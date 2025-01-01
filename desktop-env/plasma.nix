@@ -47,5 +47,8 @@
 
     # android scrcpy
     qtscrcpy
+
+    # kate nix syntax
+    nil
   ];
 }
