@@ -14,7 +14,7 @@ in
       older-than = 14;
     };
     cli = {
-      theme = "tonotdo";
+      theme = "flazz";
       plugins = [ "systemd" "z" ];
     };
     builders = [ "nixarf" ];
@@ -33,6 +33,7 @@ in
       ] (p: root-config-dir + p);
 
   # Bootloader.
+  boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
