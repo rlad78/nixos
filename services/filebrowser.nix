@@ -1,8 +1,7 @@
 { config, pkgs, secrets, ... }:
 let
   filebrowser-uid = 7789;
-  filebrowser-group = "syncthing";
-  filebrowser-gid = config.users.groups."${filebrowser-group}".gid;
+  filebrowser-gid = 9877;
 
   filebrowser-ext-port = 9007;
 in
@@ -10,17 +9,19 @@ in
   virtualisation.docker.enable = true;
   users.users.richard.extraGroups = [ "docker" ];
 
+  users.groups.filebrowser.gid = filebrowser-gid;
+
   users.users.filebrowser = {
     isSystemUser = true;
-    group = "syncthing";
+    group = "filebrowser";
     uid = filebrowser-uid;
   };
 
   systemd.tmpfiles.rules = [
-    "d /filebrowser 0750 filebrowser ${filebrowser-group}"
-    "d /filebrowser/srv 0750 filebrowser ${filebrowser-group}"
-    "f /filebrowser/filebrowser.db 0600 filebrowser ${filebrowser-group}"
-    "f /filebrowser/filebrowser.json 0600 filebrowser ${filebrowser-group}"
+    "d /filebrowser 0750 filebrowser filebrowser"
+    "d /filebrowser/srv 0750 filebrowser filebrowser"
+    "f /filebrowser/filebrowser.db 0600 filebrowser filebrowser"
+    "f /filebrowser/filebrowser.json 0600 filebrowser filebrowser"
   ];
 
   virtualisation.oci-containers.backend = "docker";

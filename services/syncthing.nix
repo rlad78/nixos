@@ -1,7 +1,9 @@
-{ config, pkgs, lib, hosts, util, ... }:
+{ config, lib, hosts, ... }:
 
 let
     sync_dir = "/syncthing";
+    emu_devices = ["nix-go" "NextArf" "nixarf" "nixps"];
+
     addr_gen = {addr, port}: [
         ("tcp://" + addr + ":" + port)
         ("quic://" + addr + ":" + port)
@@ -18,28 +20,30 @@ let
     fromHostnames = hosts: lib.lists.intersectLists hosts syncthing-hosts-names;
 in
 {
-    users.groups = {
-        syncthing = {};
+#     users.groups = {
+#         syncthing = {};
+#     };
+#
+#     users.users.syncthing = {
+#         isSystemUser = true;
+#         group = "syncthing";
+#     };
+
+    systemd.services.syncthing.serviceConfig = {
+        UMask = "0027";
+        AmbientCapabilities = "CAP_CHOWN CAP_FOWNER";
     };
 
-    users.users.syncthing = {
-        isSystemUser = true;
-        group = "syncthing";
-    };
-
-    users.users.richard.extraGroups = [ "syncthing" ];
-
-    systemd.services.syncthing.serviceConfig.UMask = "0007";
     systemd.tmpfiles.rules = [
-        ("d " + sync_dir + " 0770 syncthing syncthing")
+        ("d " + sync_dir + " 0750 richard users")
     ];
 
     networking.firewall.allowedTCPPorts = [ 8384 ];
 
     services.syncthing = {
         enable = true;
-        user = "syncthing";
-        group = "syncthing";
+        user = "richard";
+        group = "users";
 
         guiAddress = "0.0.0.0:8384";
         openDefaultPorts = true;
@@ -58,6 +62,7 @@ in
                     devices = syncthing-hosts-names;
                     path = sync_dir + "/Notes";
                     label = "Notes";
+                    copyOwnershipFromParent = true;
                 };
                 wallpapers = {
                     id = "im7nn-kztqd";
@@ -67,7 +72,7 @@ in
                 };
                 emulation = {
                   id = "5cqkv-ajy2x";
-                  devices = fromHostnames [ "nix-go" "NextArf" "nixarf" ];
+                  devices = fromHostnames emu_devices;
                   path = sync_dir + "/emulation";
                   label = "Emulation";
                 };
