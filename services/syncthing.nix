@@ -44,6 +44,7 @@ in
         enable = true;
         user = "richard";
         group = "users";
+        dataDir = sync_dir;
 
         guiAddress = "0.0.0.0:8384";
         openDefaultPorts = true;
