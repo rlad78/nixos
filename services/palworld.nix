@@ -1,5 +1,6 @@
 { config, pkgs, secrets, ... }:
 let
+  public-ip = "69.59.79.150";
   palworld-uid = 6969;
   palworld-gid = 6969;
 
@@ -49,7 +50,7 @@ in
         COMMUNITY = "false";
         SERVER_NAME = "Crescent";
         SERVER_DESCRIPTION = "Fun times with arf & Moon";
-        PUBLIC_IP = "69.59.78.25";
+        PUBLIC_IP = public-ip;
         PUBLIC_PORT = builtins.toString forwarded-port;
         DELETE_OLD_BACKUPS = "true";
         OLD_BACKUP_DAYS = "14";

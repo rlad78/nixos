@@ -32,7 +32,7 @@ in
         "/services/syncthing.nix"
         "/services/torrent.nix"
         "/services/netdata.nix"
-        # "/services/palworld.nix"
+        "/services/palworld.nix"
         "/services/scrutiny.nix"
         "/services/pdf.nix"
         # "/services/tandoor.nix"
