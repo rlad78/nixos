@@ -57,6 +57,7 @@ in
             trippy
             nix-output-monitor
             fzf
+            dig
         ];
 
         programs.nh.enable = true;
@@ -99,6 +100,7 @@ in
             nxt = "nix flake check --show-trace";
             lzgit = "lazygit";
             mountctl = "systemd-mount";
+            public-ip = "dig +short myip.opendns.com @resolver1.opendns.com";
         };
 
         programs.zsh = {
