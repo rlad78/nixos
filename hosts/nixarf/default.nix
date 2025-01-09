@@ -28,7 +28,7 @@ in
         "/system"
         "/apps/cli"
         "/services/tailscale.nix"
-        # "/services/fah.nix"
+        "/services/fah.nix"
         "/services/syncthing.nix"
         "/services/torrent.nix"
         "/services/netdata.nix"
