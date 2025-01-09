@@ -37,6 +37,8 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # fwupd works on the XPS 15
+  services.fwupd.enable = true;
 
   # Enable networking
   networking.hostName = "nixps"; # Define your hostname.
