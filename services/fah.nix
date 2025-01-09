@@ -12,9 +12,10 @@ in
         user = "rcarte4";
         team = 60194;
         extraArgs = [
+            "--http-addresses=0.0.0.0:7396"
             ("--allow=127.0.0.1 " + all-ips)
-            ("--web-allow=" + all-ips)
-            "--password=${secrets.fah.password}"
+            "--machine-name=${config.networking.hostName}"
+            "--account-token=${secrets.fah.token}"
         ];
     };
 
