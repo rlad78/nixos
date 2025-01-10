@@ -6,6 +6,8 @@ let
     cfg-startup-arguments = lib.strings.concatStringsSep " " cfg.startupArguments;
 in
 {
+    imports = [ ./base.nix ];
+
     options.arf.kiosk = with lib; {
         enable = mkEnableOption "";
         startupPackage = mkOption {
@@ -26,8 +28,6 @@ in
     };
 
     config = {
-        imports = [ ./base.nix ];
-
         users.users.kiosk = {
             isNormalUser = true;
             packages = [ cfg.startupPackage ];

@@ -20,7 +20,7 @@ in
     imports = [
         ./hardware-configuration.nix
     ] ++ lib.lists.forEach [
-        "/desktop/gnome-kiosk.nix"
+        "/desktop-env/gnome-kiosk.nix"
         "/system"
         "/apps/cli"
         "/services/tailscale.nix"
