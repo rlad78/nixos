@@ -170,6 +170,13 @@
         ];
       };
 
+      hatab = systemMake {
+        module-paths = [
+          ./hosts/hatab
+          nixos-hardware.nixosModules.microsoft-surface-pro-intel
+        ];
+      };
+
       snootflix = systemMake {
         pkg-config-args = {
           permittedInsecurePackages = [
