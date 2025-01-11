@@ -18,8 +18,6 @@ in
         "/system"
         "/apps/cli"
         "/hosts/common/wireless.nix"
-        "/services/tailscale.nix"
-        "/services/syncthing.nix"
         "/services/sshd.nix"
     ] (p: root-config-dir + p);
 #     ] (p: root-config-dir + p) ++ [
