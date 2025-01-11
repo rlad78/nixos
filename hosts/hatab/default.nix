@@ -8,13 +8,6 @@ in
             theme = "bira";
             plugins = [ "systemd" "z" ];
         };
-#         kiosk = {
-#             enable = false;
-#             startupArguments = [
-#                 "-kiosk"
-#                 "http://10.69.2.1:8123"
-#             ];
-#         };
         web-kiosk-url = "http://10.69.2.1:8123";
     };
 

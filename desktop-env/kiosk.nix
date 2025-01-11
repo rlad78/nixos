@@ -13,12 +13,33 @@ in
       isNormalUser = true;
     };
 
-    environment.systemPackages = [ pkgs.firefox ];
+    environment.systemPackages = with pkgs; [
+      chromium
+      wlr-randr
+      light
+    ];
+
+    systemd.services."cage-tty1" = {
+      after = [
+        "systemd-user-sessions.service"
+        "plymouth-start.service"
+        "plymouth-quit.service"
+        "systemd-logind.service"
+        "getty@tty1.service"
+        "network-online.target"
+      ];
+      wants = [
+        "dbus.socket"
+        "systemd-logind.service"
+        "plymouth-quit.service"
+        "network-online.target"
+      ];
+    };
 
     services.cage = {
       enable = true;
       user = "kiosk";
-      program = "${pkgs.firefox}/bin/firefox --kiosk ${cfg.web-kiosk-url}";
+      program = "${pkgs.chromium}/bin/chromium --enable-features=UseOzonePlatform --ozone-platform=wayland --kiosk ${cfg.web-kiosk-url}";
     };
   };
 }
