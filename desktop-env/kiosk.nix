@@ -15,8 +15,6 @@ in
 
     environment.systemPackages = with pkgs; [
       chromium
-      wlr-randr
-      light
     ];
 
     systemd.services."cage-tty1" = {

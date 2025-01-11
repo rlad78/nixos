@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ config, lib, home-manager, ... }:
 let
     root-config-dir = ./../..;
 in
@@ -14,7 +14,6 @@ in
     imports = [
         ./hardware-configuration.nix
     ] ++ lib.lists.forEach [
-#         "/desktop-env/gnome-kiosk.nix"
         "/desktop-env/kiosk.nix"
         "/system"
         "/apps/cli"
@@ -22,7 +21,16 @@ in
         "/services/tailscale.nix"
         "/services/syncthing.nix"
         "/services/sshd.nix"
-    ] (p: root-config-dir + p);
+#     ] (p: root-config-dir + p);
+    ] (p: root-config-dir + p) ++ [
+        home-manager.nixosModules.home-manager
+        {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.kiosk = import (root-config-dir + "/desktop-env/kiosk-home.nix");
+            home-manager.extraSpecialArgs = { statever = config.system.stateVersion; };
+        }
+    ];
 
     networking.hostName = "hatab";
     networking.networkmanager.enable = true;
