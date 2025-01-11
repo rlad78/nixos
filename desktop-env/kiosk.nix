@@ -3,8 +3,6 @@ let
   cfg = config.arf;
 in
 {
-  imports = [ ./base.nix ];
-
   options.arf.web-kiosk-url = with lib; mkOption {
     type = types.str;
     default = "https://google.com";
@@ -20,7 +18,7 @@ in
     services.cage = {
       enable = true;
       user = "kiosk";
-      program = "${pkgs.firefox}/bin/firefox -kiosk ${cfg.web-kiosk-url}";
+      program = "${pkgs.firefox}/bin/firefox --kiosk ${cfg.web-kiosk-url}";
     };
   };
 }
