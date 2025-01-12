@@ -22,6 +22,12 @@ let
             && find ${build-dir} -mtime +7 -execdir rm -- '{}' \;" 
       }
     '';
+  nxtype-func =
+    ''
+      nxtype() {
+        realpath $(command -v ''${1})
+      }
+    '';
   clean-alias = "sudo nix-env --delete-generations 14d && sudo nix store gc --verbose";
   pull-alias =
     ''
@@ -29,6 +35,8 @@ let
       "find ${build-dir}/ -maxdepth 1 -type l -name '*${this-host}*' -printf '%T@&%p\n' \
       | sort -nr | head -n 1 | cut -d '&' -f 2 | xargs readlink")
     '';
+
+  shell-functions = [ build-func nxtype-func ];
 in
 {
     options.arf.cli = with lib; {
@@ -95,9 +103,7 @@ in
             nxclean = clean-alias;
             nxpull = pull-alias;
             nxcheck = check-alias;
-            nxs = rebuild-alias "switch";
-            nxb = rebuild-alias "boot";
-            nxt = "nix flake check --show-trace";
+            nxboot = "nh os boot && sudo reboot";
             lzgit = "lazygit";
             mountctl = "systemd-mount";
             public-ip = "dig +short myip.opendns.com @resolver1.opendns.com";
@@ -114,7 +120,7 @@ in
                 ];
             };
 
-            promptInit = build-func;
+            promptInit = lib.strings.concatStrings shell-functions;
 
             ohMyZsh = {
                 enable = true;
