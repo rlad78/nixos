@@ -1,6 +1,7 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, ...}:
 let
   cfg = config.arf;
+  kiosk-user = "richard";
 in
 {
   options.arf.web-kiosk-url = with lib; mkOption {
@@ -9,12 +10,14 @@ in
   };
 
   config = {
-    users.users.kiosk = {
-      isNormalUser = true;
+    services.seatd = {
+      enable = true;
+      group = "seat";
     };
 
+    users.users.${kiosk-user}.extraGroups = [ "seat" ];
+
     environment.systemPackages = with pkgs; [
-      bash
       chromium
       swayidle
       light
@@ -39,18 +42,23 @@ in
 
     systemd.services.swayidle = {
       enable = true;
-      wantedBy = [ "graphical-session.target" ];
+      after = [ "graphical.target" ];
+      wantedBy = [ "graphical.target" ];
+      partOf = [ "graphical.target" ];
+      environment = {
+        WAYLAND_DISPLAY = "wayland-0";
+        XDG_RUNTIME_DIR = "/run/user/1000";
+      };
       unitConfig = {
         Description = "Idle manager for Wayland";
         Documentation = "man:swayidle(1)";
-        ConditionEnvironment = "WAYLAND_DISPLAY";
-        PartOf = [ "graphical-session.target" ];
-        After = [ "graphical-session.target" ];
       };
       serviceConfig = with lib; {
         Type = "simple";
         Restart = "always";
-        Environment = [ "PATH=${strings.makeBinPath [pkgs.bash]}" ];
+        User = "richard";
+        Group = "users";
+        ExecStartPre = "${pkgs.coreutils-full}/bin/sleep 10";
         ExecStart = let
           mkTimeout = t:
             [ "timeout" (toString t.timeout) t.command ]
@@ -73,13 +81,13 @@ in
                 resumeCommand = set_light default_light;
               }
             ];
-        in "${meta.getExe pkgs.swayidle} -w ${strings.escapeShellArgs (concatMap mkTimeout timeouts)}";
+        in "+${meta.getExe pkgs.swayidle} -w ${strings.escapeShellArgs (concatMap mkTimeout timeouts)}";
       };
     };
 
     services.cage = {
       enable = true;
-      user = "kiosk";
+      user = kiosk-user;
       program = "${pkgs.chromium}/bin/chromium --enable-features=UseOzonePlatform --ozone-platform=wayland --kiosk ${cfg.web-kiosk-url}";
     };
   };
