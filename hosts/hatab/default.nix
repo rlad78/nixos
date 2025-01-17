@@ -9,6 +9,10 @@ in
             plugins = [ "systemd" "z" ];
         };
         web-kiosk-url = "http://10.69.2.1:8123";
+        restart = {
+            enable = true;
+            time = "02:00:00";
+        };
     };
 
     imports = [
@@ -19,6 +23,7 @@ in
         "/apps/cli"
         "/hosts/common/wireless.nix"
         "/services/sshd.nix"
+        "/services/restart.nix"
     ] (p: root-config-dir + p);
 #     ] (p: root-config-dir + p) ++ [
 #         home-manager.nixosModules.home-manager
