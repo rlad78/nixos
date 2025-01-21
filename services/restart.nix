@@ -12,10 +12,10 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    systemd.services.restart = {
+    systemd.services.autoRestart = {
       enable = true;
       description = "Simple Reboot";
-      unitConfig = {
+      serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.systemd}/bin/systemctl --force reboot";
       };
@@ -24,7 +24,10 @@ in
     systemd.timers.autoRestart = {
       wantedBy = [ "timers.target" ];
       description = "Daily Reboot";
-      timerConfig.OnCalendar = "*~*~* ${cfg.time}";
+      timerConfig = {
+        OnCalendar = "*-*-* ${cfg.time}";
+        Unit = "autoRestart.service";
+      };
     };
   };
 }
