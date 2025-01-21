@@ -23,6 +23,11 @@ in
       light
     ];
 
+    fonts.packages = with pkgs; [
+      noto-fonts-color-emoji
+      noto-fonts-monochrome-emoji
+    ];
+
     systemd.services."cage-tty1" = {
       after = [
         "systemd-user-sessions.service"
