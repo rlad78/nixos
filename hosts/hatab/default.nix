@@ -24,6 +24,7 @@ in
         "/hosts/common/wireless.nix"
         "/services/sshd.nix"
         "/services/restart.nix"
+        "/services/tailscale.nix"
     ] (p: root-config-dir + p);
 #     ] (p: root-config-dir + p) ++ [
 #         home-manager.nixosModules.home-manager
