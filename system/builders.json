@@ -8,7 +8,8 @@
         "maxJobs": 4,
         "speedFactor": 4,
         "supportedFeatures": [ "nixos-test", "benchmark", "big-parallel", "kvm" ],
-        "publicHostKey": "nixarf:w5V0h5xBBqipR5xoY0oFE8udibTjIoh/K5GKaQbDWlc="
+        "public-key": "nixarf:w5V0h5xBBqipR5xoY0oFE8udibTjIoh/K5GKaQbDWlc=",
+        "publicHostKey": "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUtOeCtRVUNXYW5oRGRBY1VLNWtSaUlHY3lsZjZ6bWozeUpIRWpnWHAvU24gcm9vdEBuaXhhcmYK"
 
     },
     "snootflix": {
