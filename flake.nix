@@ -103,7 +103,7 @@
       nixps = systemMake {
         module-paths = [
           ./hosts/nixps
-          nixos-hardware.nixosModules.dell-xps-15-9570-intel
+          nixos-hardware.nixosModules.dell-xps-15-9560-intel
           nix-flatpak.nixosModules.nix-flatpak
         ];
       };
