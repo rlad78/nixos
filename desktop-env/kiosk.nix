@@ -43,6 +43,10 @@ in
         "plymouth-quit.service"
         "network-online.target"
       ];
+      serviceConfig = {
+        Restart = "always";
+        RuntimeMaxSec = "30min";
+      };
     };
 
     systemd.services.swayidle = {
