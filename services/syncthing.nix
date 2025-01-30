@@ -77,6 +77,12 @@ in
                   path = sync_dir + "/emulation";
                   label = "Emulation";
                 };
+                documents = {
+                  id = "9yzip-lzlgs";
+                  devices = syncthing-hosts-names;
+                  path = sync_dir + "/Documents";
+                  label = "Documents";
+                };
             };
 
             options = {
