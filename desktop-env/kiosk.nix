@@ -45,7 +45,7 @@ in
       ];
       serviceConfig = {
         Restart = "always";
-        RuntimeMaxSec = "30min";
+        RuntimeMaxSec = "3h";
       };
     };
 
