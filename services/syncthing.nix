@@ -2,7 +2,7 @@
 
 let
     sync_dir = "/syncthing";
-    emu_devices = ["nix-go" "NextArf" "nixarf" "nixps"];
+#     emu_devices = ["nix-go" "NextArf" "nixarf" "nixps"];
 
     addr_gen = {addr, port}: [
         ("tcp://" + addr + ":" + port)
@@ -17,7 +17,7 @@ let
 
     exists = name: attrset: lib.lists.optional (builtins.hasAttr name attrset) attrset.${name}; 
     get-host-ips = host: (exists "tail-ip" host) ++ (exists "local-ip" host);
-    fromHostnames = hosts: lib.lists.intersectLists hosts syncthing-hosts-names;
+#     fromHostnames = hosts: lib.lists.intersectLists hosts syncthing-hosts-names;
 in
 {
 #     users.groups = {
@@ -73,7 +73,7 @@ in
                 };
                 emulation = {
                   id = "5cqkv-ajy2x";
-                  devices = fromHostnames emu_devices;
+                  devices = syncthing-hosts-names;
                   path = sync_dir + "/emulation";
                   label = "Emulation";
                 };
