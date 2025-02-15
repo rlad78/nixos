@@ -7,6 +7,7 @@ let
       snes9x2005-plus
       genesis-plus-gx
       beetle-saturn
+      beetle-psx-hw
     ])
   );
 in
