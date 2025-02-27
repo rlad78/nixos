@@ -1,6 +1,6 @@
 { config, pkgs, secrets, ... }:
 let
-  hass_version = "2024.12";
+  hass_version = "2025.2";
 in
 {
   virtualisation.docker.enable = true;
