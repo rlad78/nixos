@@ -32,13 +32,13 @@ in
         "/services/fah.nix"
         "/services/syncthing.nix"
         "/services/torrent.nix"
-        # "/services/netdata.nix"
         # "/services/palworld.nix"
         "/services/scrutiny.nix"
         "/services/pdf.nix"
         "/services/webdav.nix"
         "/services/nix-builder.nix"
         "/services/hass.nix"
+        # "/services/ai.nix"
       ] (p: root-config-dir + p);
 
   # sign nix store units with private key
@@ -47,6 +47,24 @@ in
   #     secret-key-files = /home/richard/.k/cache-priv-key.pem
   #   '';
   # nix.settings.trusted-users = ["root" "richard"];
+
+  environment.systemPackages = with pkgs; [
+    yt-dlp
+    ffmpeg
+  ];
+
+  services.jellyfin = {
+    enable = true;
+    openFirewall = true;
+  };
+
+  systemd.tmpfiles.rules = [
+    "d /storage/yt 0770 jellyfin users"
+  ];
+
+  users.users.jellyfin.extraGroups = [ "users" ];
+
+  systemd.services.jellyfin.path = [ pkgs.yt-dlp ];
 
   # networking
   networking.hostName = "nixarf"; # Define your hostname.
