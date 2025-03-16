@@ -17,6 +17,7 @@ in
       theme = "candy";
       plugins = [ "systemd" "z" ];
     };
+    rustdesk.publicIP = "69.59.79.150";
   };
 
   imports =
@@ -38,6 +39,7 @@ in
         "/services/webdav.nix"
         "/services/nix-builder.nix"
         "/services/hass.nix"
+        "/services/rustdesk.nix"
         # "/services/ai.nix"
       ] (p: root-config-dir + p);
 
