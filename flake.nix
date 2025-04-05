@@ -6,7 +6,7 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
-    nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
+    # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
     # pomatez-flake.url = "github:rlad78/pomatez-flake";
 
     nixarr = {
@@ -15,7 +15,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nix-vscode-extensions, nixarr, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nixarr, ... }@inputs:
   let
 #     secrets = builtins.fromJSON (builtins.readFile "${self}/secrets/secrets.json");
 #     hosts = builtins.fromJSON (builtins.readFile "${self}/secrets/hosts.json");
@@ -33,9 +33,7 @@
       builders = builtins.fromJSON (builtins.readFile "${self}/system/builders.json");
 
       inherit nix-flatpak;
-      inherit nix-vscode-extensions;
       inherit nixarr;
-      inherit home-manager;
     };
 
     systemMake = {
