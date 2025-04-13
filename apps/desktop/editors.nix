@@ -1,7 +1,7 @@
-{ config, pkgs, nix-vscode-extensions, ... }:
-let
-  extensions = nix-vscode-extensions.extensions.${pkgs.system};
-in
+{ config, pkgs, ... }:
+# let
+  # extensions = nix-vscode-extensions.extensions.${pkgs.system};
+# in
 {
   # users.users.richard.packages = with pkgs; [
     # (vscode-with-extensions.override {
@@ -27,5 +27,6 @@ in
     poetry
     nixd
     nixpkgs-fmt
+    zed-editor
   ];
 }
