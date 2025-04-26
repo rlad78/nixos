@@ -27,6 +27,7 @@
     poetry
     nixd
     nixpkgs-fmt
+    sublime4
     zed-editor
   ];
 }
