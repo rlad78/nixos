@@ -40,13 +40,13 @@
     kdePackages.plasma-disks
 
     # auto light/dark
-    kdePackages.koi
+    # kdePackages.koi
 
     # help out flatpaks
     xdg-desktop-portal-gnome
 
     # android scrcpy
-    qtscrcpy
+    # qtscrcpy
 
     # kate nix syntax
     nil
