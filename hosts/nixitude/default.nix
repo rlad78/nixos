@@ -36,6 +36,7 @@ in
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.luks.devices."luks-6d6e8c4f-e79f-472b-b999-01c756d1d7ff".device = "/dev/disk/by-uuid/6d6e8c4f-e79f-472b-b999-01c756d1d7ff";
 
   # fwupd works for Latitude 7X80
   services.fwupd.enable = true;
