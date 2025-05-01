@@ -101,6 +101,15 @@
         ];
       };
 
+      nixitude = systemMake {
+        module-paths = [
+          ./hosts/nixitude
+          nixos-hardware.nixosModules.common-cpu-intel
+          nixos-hardware.nixosModules.common-pc-laptop-ssd
+          nix-flatpak.nixosModules.nix-flatpak
+        ];
+      };
+
     };
   };
 }
