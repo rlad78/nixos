@@ -26,13 +26,13 @@ in
 		  ./storage-disk.nix
     ] ++ lib.lists.forEach [
         "/desktop-env/no-desktop.nix"
-        "/hosts/common/nvidia.nix"
+        # "/hosts/common/nvidia.nix"
         "/system"
         "/apps/cli"
         "/services/tailscale.nix"
-        "/services/fah.nix"
+        # "/services/fah.nix"
         "/services/syncthing.nix"
-        "/services/torrent.nix"
+        # "/services/torrent.nix"
         # "/services/palworld.nix"
         "/services/scrutiny.nix"
         "/services/pdf.nix"
