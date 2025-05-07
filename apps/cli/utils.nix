@@ -4,5 +4,6 @@
     btop
     duf
     du-dust
+    minicom
   ];
 }
