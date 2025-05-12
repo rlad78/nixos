@@ -69,7 +69,7 @@ in
         ];
 
         programs.nh.enable = true;
-        environment.sessionVariables.FLAKE = "/home/richard/nixos";
+        environment.sessionVariables.NH_FLAKE = "/home/richard/nixos";
 
         programs.neovim = {
             enable = true;
