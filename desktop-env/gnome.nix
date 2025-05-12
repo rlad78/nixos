@@ -10,10 +10,6 @@ let
     no-overview
     grand-theft-focus
   ];
-
-  gnome-packages = with pkgs.gnome; [
-    gnome-tweaks
-  ];
 in
 {
   imports = [
@@ -26,7 +22,23 @@ in
 
   users.users.richard.packages = with pkgs; [
     # dynamic-wallpaper
-  ] ++ gnome-extensions ++ gnome-packages;
+    gnome-tweaks
+    vanilla-dmz
+  ] ++ gnome-extensions;
+
+  environment.gnome.excludePackages = with pkgs; [
+    atomix
+    epiphany
+    geary
+    gnome-tour
+    iagno
+    tali
+    totem
+    gnome-music
+    gnome-maps
+    simple-scan
+    yelp
+  ];
 
   services.flatpak.enable = true;
   services.flatpak.update.onActivation = true;
