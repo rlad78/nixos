@@ -6,4 +6,6 @@
     du-dust
     minicom
   ];
+
+  users.users.richard.extraGroups = [ "dialout" ];
 }
