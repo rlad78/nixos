@@ -17,7 +17,7 @@ let
         image: rommapp/romm:latest
         container_name: romm
         restart: unless-stopped
-        user: ${romm-uid}:${romm-gid}
+        user: ${toString romm-uid}:${toString romm-gid}
         environment:
           - DB_HOST=romm-db
           - DB_NAME=romm # Should match MARIADB_DATABASE in mariadb
@@ -37,7 +37,7 @@ let
           - ${romm-dir}/assets:/romm/assets # Uploaded saves, states, etc.
           - ${romm-dir}/config:/romm/config # Path where config.yml is stored
         ports:
-          - ${romm-ext-port}:8080
+          - ${toString romm-ext-port}:8080
         depends_on:
           romm-db:
             condition: service_healthy
@@ -70,14 +70,15 @@ let
 in
 {
   virtualisation.docker.enable = true;
+  environment.systemPackages = [ pkgs.docker-compose ];
 
-  users.users.romm = {
-    group = "romm";
+  users.users.${romm-user} = {
+    group = romm-group;
     isSystemUser = true;
-    uid = 7111;
+    uid = romm-uid;
   };
 
-  users.group.romm.gid = 7111;
+  users.groups.romm.gid = romm-gid;
 
   systemd.tmpfiles.rules = [
     "d ${romm-dir} 0700 romm romm"
@@ -90,7 +91,7 @@ in
   ];
 
   systemd.services.docker-compose-romm = {
-    script = "${pkgs.docker-compose} -f ${compose-file}";
+    script = "${pkgs.docker-compose}/bin/docker-compose -f ${compose-file} up";
     wantedBy = [ "multi-user.target" ];
     after = [ "docker.service" "docker.socket" ];
   };
