@@ -1,14 +1,6 @@
 { pkgs, secrets, ... }:
 let
   romm-dir = "/romm";
-  romm-subdirs = [
-    "resources"
-    "redis"
-    "library"
-    "assets"
-    "config"
-    "mysql"
-  ];
 
   romm-user = "romm";
   romm-uid = 7111;
@@ -45,7 +37,7 @@ let
           - ${romm-dir}/assets:/romm/assets # Uploaded saves, states, etc.
           - ${romm-dir}/config:/romm/config # Path where config.yml is stored
         ports:
-          - ${rom-ext-port}:8080
+          - ${romm-ext-port}:8080
         depends_on:
           romm-db:
             condition: service_healthy
@@ -72,7 +64,7 @@ let
     '';
 
     compose-file = pkgs.writeTextFile {
-      name = "romm-compose";
+      name = "romm-compose.yml";
       text = compose-text;
     };
 in
