@@ -69,6 +69,7 @@ in
         ];
 
         programs.nh.enable = true;
+        programs.nh.flake = "/home/richard/nixos";
         environment.sessionVariables.NH_FLAKE = "/home/richard/nixos";
 
         programs.neovim = {
