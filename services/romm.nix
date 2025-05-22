@@ -24,12 +24,11 @@ let
           - DB_USER=romm-user # Should match MARIADB_USER in mariadb
           - DB_PASSWD=${secrets.romm.db} # Should match MARIADB_PASSWORD in mariadb
           - ROMM_AUTH_SECRET_KEY=${secrets.romm.ssl} # Generate a key with `openssl rand -hex 32`
-          - IGDB_CLIENT_ID= # Generate an ID and SECRET in IGDB
-          - IGDB_CLIENT_SECRET= # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#igdb
-          - MOBYGAMES_API_KEY= # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#mobygames
-          - STEAMGRIDDB_API_KEY= # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#steamgriddb
-          - SCREENSCRAPER_USER= # Use your ScreenScraper username and password
-          - SCREENSCRAPER_PASSWORD= # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#screenscraper
+          - IGDB_CLIENT_ID=${secrets.romm.igdb-client} # Generate an ID and SECRET in IGDB
+          - IGDB_CLIENT_SECRET=${secrets.romm.igdb-secret} # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#igdb
+          - STEAMGRIDDB_API_KEY=${secrets.romm.steamgrid-api} # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#steamgriddb
+          - SCREENSCRAPER_USER=${secrets.romm.screenscraper-user} # Use your ScreenScraper username and password
+          - SCREENSCRAPER_PASSWORD=${secrets.romm.screenscraper-password} # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#screenscraper
         volumes:
           - ${romm-dir}/resources:/romm/resources # Resources fetched from IGDB (covers, screenshots, etc.)
           - ${romm-dir}/redis:/redis-data # Cached data for background tasks
