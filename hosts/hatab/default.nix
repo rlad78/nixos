@@ -27,6 +27,7 @@ in
         "/services/restart.nix"
         "/services/tailscale.nix"
         "/services/syncthing.nix"
+        "/services/nix-builder.nix"
     ] (p: root-config-dir + p);
 
     networking.hostName = "hatab";
