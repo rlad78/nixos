@@ -72,6 +72,8 @@ in
         programs.nh.flake = "/home/richard/nixos";
         environment.sessionVariables.NH_FLAKE = "/home/richard/nixos";
 
+        environment.enableAllTerminfo = true;
+
         programs.neovim = {
             enable = true;
             defaultEditor = true;
