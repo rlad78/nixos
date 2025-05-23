@@ -39,7 +39,7 @@ in
     scriptSymlinkTmpfiles = lists.forEach scriptNames (x: tmpfiles-symlink-script x);
     sourceFileTmpfiles = lists.forEach scriptNames (x: tmpfiles-source-file x);
 
-    cookiesInfoFile = pkgs.writeTextToFile {
+    cookiesInfoFile = pkgs.writeTextFile {
       name = "how_to_get_cookies.md";
       text = builtins.readFile (sourceDir + "/how_to_get_cookies.md");
     };
