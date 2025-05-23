@@ -17,7 +17,7 @@ in
       theme = "fishy";
       plugins = [ "systemd" "z" ];
     };
-    builders = [ "nixarf" ];
+    builders = [ "nixarf" "hatab" ];
   };
 
   imports =

@@ -12,6 +12,17 @@
         "publicHostKey": "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSUtOeCtRVUNXYW5oRGRBY1VLNWtSaUlHY3lsZjZ6bWozeUpIRWpnWHAvU24gcm9vdEBuaXhhcmYK"
 
     },
+    "hatab": {
+      "hostName": "hatab",
+      "system": "x86_64-linux",
+      "protocol": "ssh-ng",
+      "sshUser": "richard",
+      "sshKey": "/home/richard/.ssh/id_ed25519",
+      "maxJobs": 4,
+      "speedFactor": 2,
+      "supportedFeatures": [ "nixos-test", "benchmark", "big-parallel", "kvm" ],
+      "public-key": "richard:1/EegU3mwPVxOLBfl+1EJhVW2tXs4JEopivrBmr6N9I="
+    },
     "snootflix": {
         "hostName": "snootflix",
         "system": "x86_64-linux",
