@@ -34,6 +34,7 @@ in
         "/apps/cli/editors.nix"
         "/services/tailscale.nix"
         "/services/syncthing.nix"
+        "/services/romm.nix"
       ] (p: root-config-dir + p);
 
   services.scrutiny = {
