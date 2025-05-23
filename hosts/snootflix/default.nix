@@ -20,7 +20,7 @@ in
     nvidia.version = "production";
     ytdl = {
       enable = true;
-      workingDir = /ytdl;
+      workingDir = /snoot/ytdl;
     };
   };
 
