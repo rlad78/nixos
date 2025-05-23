@@ -18,6 +18,10 @@ in
       plugins = [ "systemd" "z" ];
     };
     nvidia.version = "production";
+    ytdl = {
+      enable = true;
+      workingDir = /ytdl;
+    };
   };
 
   imports =
@@ -35,6 +39,7 @@ in
         "/services/tailscale.nix"
         "/services/syncthing.nix"
         "/services/romm.nix"
+        "/services/ytdl.nix"
       ] (p: root-config-dir + p);
 
   services.scrutiny = {
