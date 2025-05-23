@@ -29,27 +29,30 @@ in
     });
 
     tmpfiles-symlink-script = scriptName: (
-      "l ${targetDir}/${scriptName} - - - - ${sh-to-store scriptName}"
+      "L ${targetDir}/${scriptName}.sh - - - - ${sh-to-store scriptName}"
     );
 
     tmpfiles-source-file = scriptName: (
-      "f \"${targetDir}/Source - ${builtins.replaceStrings ["_" " "] scriptName}.txt\" 0640 richard users - -"
+      "f \"${targetDir}/Source - ${builtins.replaceStrings ["_"] [" "] scriptName}.txt\" 0640 richard users - -"
     );
 
     scriptSymlinkTmpfiles = lists.forEach scriptNames (x: tmpfiles-symlink-script x);
     sourceFileTmpfiles = lists.forEach scriptNames (x: tmpfiles-source-file x);
-  in
-  {
-    mkIf cfg.enable {
-      environment.systemPackages = with pkgs; [
-        yt-dlp
-        ffmpeg
-      ];
 
-      systemd.tmpfiles.rules = [
-        "d ${targetDir} 0750 richard users - -"
-        "f ${targetDir}/cookies.txt 0640 richard users"
-      ] ++ scriptSymlinkTmpfiles ++ sourceFileTmpfiles;
+    cookiesInfoFile = pkgs.writeTextToFile {
+      name = "how_to_get_cookies.md";
+      text = builtins.readFile (sourceDir + "/how_to_get_cookies.md");
     };
+  in mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [
+      yt-dlp
+      ffmpeg
+    ];
+
+    systemd.tmpfiles.rules = [
+      "d ${targetDir} 0750 richard users - -"
+      "f ${targetDir}/cookies.txt 0640 richard users"
+      "L ${targetDir}/how_to_get_cookies.md - - - - ${cookiesInfoFile}"
+    ] ++ scriptSymlinkTmpfiles ++ sourceFileTmpfiles;
   };
 }
