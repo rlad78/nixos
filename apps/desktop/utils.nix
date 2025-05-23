@@ -3,7 +3,7 @@
   users.users.richard.packages = with pkgs; [
     # kitty
     # kitty-themes
-    ghostty
+    # ghostty
   ];
 
   services.flatpak.packages = [

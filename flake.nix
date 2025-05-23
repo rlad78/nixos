@@ -6,6 +6,10 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-25.05";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     nixarr = {
@@ -14,7 +18,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nixarr, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nixarr, home-manager, ... }@inputs:
   let
     pkgsBaseArgs = add-config: {
       system = "x86_64-linux";
@@ -107,6 +111,11 @@
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc-laptop-ssd
           nix-flatpak.nixosModules.nix-flatpak
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.richard = import ./home.nix;
+          }
         ];
       };
 
