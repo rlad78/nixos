@@ -28,6 +28,18 @@ let
         realpath $(command -v ''${1})
       }
     '';
+  nxsh-func =
+    ''
+      nxsh() {
+        nix shell nixpkgs#''${1}
+      }
+    '';
+  mkdown-func =
+    ''
+      mkdown() {
+        sudo install -d -m ''${4:-0755} -o ''$2 -g ''${3:-$2} ''$1
+      }
+    '';
   clean-alias = "sudo nix-env --delete-generations 14d && sudo nix store gc --verbose";
   pull-alias =
     ''
@@ -36,7 +48,7 @@ let
       | sort -nr | head -n 1 | cut -d '&' -f 2 | xargs readlink")
     '';
 
-  shell-functions = [ build-func nxtype-func ];
+  shell-functions = [ build-func nxtype-func nxsh-func mkdown-func ];
 in
 {
     options.arf.cli = with lib; {
