@@ -80,8 +80,8 @@ in
   users.groups.romm.gid = romm-gid;
 
   systemd.tmpfiles.rules = [
-    "d ${romm-dir} 0700 romm romm"
-    "d ${romm-dir}/library 0700 romm romm"
+    "d ${romm-dir} 0755 romm romm"
+    "d ${romm-dir}/library 0755 romm romm"
     "d ${romm-dir}/assets 0700 romm romm"
     "d ${romm-dir}/config 0700 romm romm"
     "d ${romm-dir}/resources 0700 romm romm"
