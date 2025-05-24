@@ -66,6 +66,7 @@ in
             nix-output-monitor
             fzf
             dig
+            nnn
         ];
 
         programs.nh.enable = true;
