@@ -136,8 +136,8 @@ in
         };
 
         systemd.tmpfiles.rules = [
-        "d ${build-dir} 755 richard users"
-        "d ${build-dir}/logs 755 richard users"
+          "d ${build-dir} 755 richard users"
+          "d ${build-dir}/logs 755 richard users"
         ];
 
         fonts.packages = with pkgs-unstable; [
