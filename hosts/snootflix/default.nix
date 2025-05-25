@@ -22,6 +22,21 @@ in
       enable = true;
       workingDir = /snoot/ytdl;
     };
+    romm = {
+      enable = true;
+      libraryDir = /snoot/romm_library;
+      consoles = [
+        "gba"
+        "gbc"
+        "nds"
+        "n64"
+        "genesis-slash-megadrive"
+        "nes"
+        "ps"
+        "saturn"
+        "snes"
+      ];
+    };
   };
 
   imports =
