@@ -6,6 +6,10 @@
     })
   ];
 
+  environment.systemPackages = with pkgs; [
+    helix
+  ];
+
   environment.shellAliases = {
     sv = "spacevim";
   };
