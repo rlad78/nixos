@@ -79,6 +79,7 @@ in
             fzf
             dig
             nnn
+            unzip
         ];
 
         programs.nh.enable = true;
