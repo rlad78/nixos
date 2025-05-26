@@ -33,7 +33,6 @@ in
         "genesis-slash-megadrive"
         "nes"
         "ps"
-        "saturn"
         "snes"
       ];
     };
