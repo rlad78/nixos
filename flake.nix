@@ -10,11 +10,9 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    # nix-vscode-extensions.url = "github:nix-community/nix-vscode-extensions";
 
     nixarr = {
       url = "github:rlad78/nixarr/prod";
-      # url = "path:/home/richard/nixarr/";
     };
   };
 
@@ -65,14 +63,6 @@
       nixarf = systemMake {
         pkg-base = nixpkgs;
         module-paths = [ ./hosts/nixarf ];
-      };
-
-      nix-go = systemMake {
-        module-paths = [
-          ./hosts/nix-go
-          nixos-hardware.nixosModules.microsoft-surface-pro-intel
-          nix-flatpak.nixosModules.nix-flatpak
-        ];
       };
 
       hatab = systemMake {
