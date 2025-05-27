@@ -1,17 +1,29 @@
-{ config, pkgs, hosts, ... }:
+{ config, pkgs, hosts, lib,... }:
+let
+  cfg = config.arf;
+in
 {
-  # fix for nm-wait-online (https://github.com/NixOS/nixpkgs/issues/180175)
-  systemd.services.NetworkManager-wait-online = {
-    serviceConfig = {
-      ExecStart = [ "" "${pkgs.networkmanager}/bin/nm-online -q" ];
+  options.arf = with lib; {
+    no-nat = mkOption {
+      type = types.bool;
+      default = false;
     };
   };
 
-  networking.nat = {
-    enable = true;
-    internalInterfaces = ["ve-+"];
-    externalInterface = hosts."${config.networking.hostName}".default-net-dev;
-    # Lazy IPv6 connectivity for the container
-    enableIPv6 = true;
-  };
+  config = {
+    # fix for nm-wait-online (https://github.com/NixOS/nixpkgs/issues/180175)
+    systemd.services.NetworkManager-wait-online = {
+      serviceConfig = {
+        ExecStart = [ "" "${pkgs.networkmanager}/bin/nm-online -q" ];
+      };
+    };
+
+    networking.nat = mkIf ! cfg.no-nat {
+      enable = true;
+      internalInterfaces = ["ve-+"];
+      externalInterface = hosts."${config.networking.hostName}".default-net-dev;
+      # Lazy IPv6 connectivity for the container
+      enableIPv6 = true;
+    };
+  }
 }
