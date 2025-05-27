@@ -18,12 +18,12 @@ in
       };
     };
 
-    networking.nat = mkIf ! cfg.no-nat {
+    networking.nat = lib.mkIf (!cfg.no-nat) {
       enable = true;
       internalInterfaces = ["ve-+"];
       externalInterface = hosts."${config.networking.hostName}".default-net-dev;
       # Lazy IPv6 connectivity for the container
       enableIPv6 = true;
     };
-  }
+  };
 }

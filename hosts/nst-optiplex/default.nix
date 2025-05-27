@@ -14,6 +14,7 @@ in
       theme = "clean";
       plugins = [ "systemd" "z" ];
     };
+    ytdl.enable = true;
   };
 
   imports = [
@@ -24,9 +25,9 @@ in
     "/apps/cli"
     "/services/tailscale.nix"
     "/services/ytdl.nix"
-  ];
+  ] (p: root-config-dir + p);
   
-  networking.hostname = "nst-optiplex";
+  networking.hostName = "nst-optiplex";
   networking.networkmanager.enable = true;
 
   services.openssh = {
@@ -38,7 +39,7 @@ in
     efi.canTouchEfiVariables = true;
     systemd-boot = {
       enable = true;
-      configuration-limit = 40;
+      configurationLimit = 40;
       memtest86.enable = true;
     };
   };
