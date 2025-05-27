@@ -14,7 +14,10 @@ in
       theme = "clean";
       plugins = [ "systemd" "z" ];
     };
-    ytdl.enable = true;
+    ytdl = {
+      enable = true;
+      workingDir = "/mnt/usb";
+    };
   };
 
   imports = [
@@ -29,6 +32,15 @@ in
   
   networking.hostName = "nst-optiplex";
   networking.networkmanager.enable = true;
+
+  # add dirs for usb
+  systemd.tmpfiles.rules = [
+    "d /mnt 0775 root root - -"
+    "d /mnt/usb 0777 richard users - -"
+  ];
+
+  # alias for mounting usb quickly
+  environment.shellAliases.usbmount = "sudo mount /dev/sdb1 /mnt/usb && sudo chown richard:users /mnt/usb";
 
   services.openssh = {
     enable = true;
