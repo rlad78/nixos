@@ -4,6 +4,7 @@ let
 in
 {
   arf = {
+    no-nat = true;
     gc = {
       enable = true;
       frequency = "weekly";
