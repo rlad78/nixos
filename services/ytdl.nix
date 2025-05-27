@@ -51,7 +51,6 @@ in
 
     systemd.tmpfiles.rules = [
       "d ${targetDir} 0750 richard users - -"
-      "f ${targetDir}/cookies.txt 0640 richard users"
       "L ${targetDir}/how_to_get_cookies.md - - - - ${cookiesInfoFile}"
     ] ++ scriptSymlinkTmpfiles ++ sourceFileTmpfiles;
   };
