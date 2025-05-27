@@ -87,6 +87,12 @@
         ];
       };
 
+      nst-optiplex = systemMake {
+        module-paths = [
+	  ./hosts/nst-optiplex
+	];
+      };
+
       nixps = systemMake {
         module-paths = [
           ./hosts/nixps
