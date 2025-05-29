@@ -18,24 +18,6 @@ in
       plugins = [ "systemd" "z" ];
     };
     nvidia.version = "production";
-    ytdl = {
-      enable = true;
-      workingDir = /snoot/ytdl;
-    };
-    romm = {
-      enable = true;
-      libraryDir = /snoot/romm_library;
-      consoles = [
-        "gba"
-        "gbc"
-        "nds"
-        "n64"
-        "genesis-slash-megadrive"
-        "nes"
-        "ps"
-        "snes"
-      ];
-    };
   };
 
   imports =
@@ -52,8 +34,6 @@ in
         "/apps/cli/editors.nix"
         "/services/tailscale.nix"
         "/services/syncthing.nix"
-        "/services/romm.nix"
-        "/services/ytdl.nix"
       ] (p: root-config-dir + p);
 
   services.scrutiny = {
