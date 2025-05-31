@@ -17,8 +17,8 @@ in
   ];
 
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = lib.mkDefault true;
-  services.xserver.desktopManager.gnome.enable = lib.mkDefault true;
+  services.displayManager.gdm.enable = lib.mkDefault true;
+  services.desktopManager.gnome.enable = lib.mkDefault true;
 
   users.users.richard.packages = with pkgs; [
     # dynamic-wallpaper
