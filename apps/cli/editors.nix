@@ -1,15 +1,5 @@
 { configs, pkgs, lib, ... }:
 {
-  users.users.richard.packages = with pkgs; [
-    (spacevim.override {
-      spacevim_config = import ../configs/spacevim.nix;
-    })
-  ];
-
-  environment.shellAliases = {
-    sv = "spacevim";
-  };
-
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
