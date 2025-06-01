@@ -19,12 +19,14 @@
       set shiftwidth=2
       set expandtab
       set smartindent
+      set rnu
     '';
 
-    colorschemes.ayu.enable = true;
+    colorschemes.catppuccin.enable = true;
 
     plugins = {
-      airline = {
+      nix = { enable = true; autoLoad = true; };
+      lightline = {
         enable = true;
         autoLoad = true;
       };
@@ -51,6 +53,13 @@
           goTo8.key = "<A-8>";
           goTo9.key = "<A-9>";
         }; 
+      };
+      visual-multi = {
+        enable = true;
+        autoLoad = true;
+      };
+      neo-tree = {
+        enable = true;
       };
     };
   };
