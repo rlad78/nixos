@@ -2,10 +2,14 @@
   description = "Nixos config flake";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -16,7 +20,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nixarr, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nixarr, home-manager, nixvim, ... }@inputs:
   let
     pkgsBaseArgs = add-config: {
       system = "x86_64-linux";
@@ -44,6 +48,9 @@
         (pkgsBaseArgs pkg-config-args)
         // pkg-args
       );
+      default-modules = [
+        nixvim.nixosModules.nixvim
+      ];
     in
     pkg-base.lib.nixosSystem {
       specialArgs = rec {
@@ -54,7 +61,7 @@
           else pkgsBuild nixpkgs-unstable;
       } // distributeInputs;
 
-      modules = module-paths;
+      modules = module-paths ++ default-modules;
     };
   in
   {
