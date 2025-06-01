@@ -50,6 +50,15 @@
       };
       neo-tree = {
         enable = true;
+        closeIfLastWindow = true;
+        eventHandlers = {
+          file_opened = ''
+            function(file_path)
+              --auto close
+              require("neo-tree").close_all()
+            end
+          '';
+        };
       };
     };
   };
