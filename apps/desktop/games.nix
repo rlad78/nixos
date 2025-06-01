@@ -1,6 +1,6 @@
-{ configs, pkgs, pkgs-unstable, ... }:
+{ configs, pkgs, ... }:
 let
-  myRetroArch = (pkgs-unstable.retroarch.withCores
+  myRetroArch = (pkgs.retroarch.withCores
     (cores: with cores; [
       mgba
       fceumm

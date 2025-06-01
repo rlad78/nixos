@@ -53,12 +53,12 @@
       ];
     in
     pkg-base.lib.nixosSystem {
-      specialArgs = rec {
-        pkgs = pkgsBuild pkg-base;
-        pkgs-unstable =
-          if pkg-base == nixpkgs-unstable
-          then pkgs
-          else pkgsBuild nixpkgs-unstable;
+      specialArgs = { # rec {
+        # pkgs = pkgsBuild pkg-base;
+        # pkgs-unstable =
+          # if pkg-base == nixpkgs-unstable
+          # then pkgs
+          # else pkgsBuild nixpkgs-unstable;
       } // distributeInputs;
 
       modules = module-paths ++ default-modules;
