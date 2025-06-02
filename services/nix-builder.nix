@@ -46,7 +46,7 @@ in
   };
 
   environment = {
-    systemPackages = [ nix-output-monitor ];
+    systemPackages = with pkgs; [ nix-output-monitor ];
     shellAliases = {
       init-builder = setup-commands;
     };
