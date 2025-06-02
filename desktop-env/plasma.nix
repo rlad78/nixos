@@ -22,14 +22,6 @@
   # don't install discover
   environment.plasma6.excludePackages = [ pkgs.kdePackages.discover ];
 
-  # enable flatpaks
-  services.flatpak.enable = true;
-  services.flatpak.update.onActivation = true;
-
-  services.flatpak.packages = [
-    "org.kde.kalk" # need a calculator
-  ];
-
   users.users.richard.packages = with pkgs; [
     # spell checking
     aspell
@@ -39,16 +31,13 @@
     # disk quota widget
     kdePackages.plasma-disks
 
-    # auto light/dark
-    # kdePackages.koi
-
     # help out flatpaks
     xdg-desktop-portal-gnome
 
-    # android scrcpy
-    # qtscrcpy
-
     # kate nix syntax
     nil
+
+    # calculator
+    kalk
   ];
 }
