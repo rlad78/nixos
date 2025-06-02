@@ -1,6 +1,27 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 with lib; let
   cfg = config.arf.gc;
+
+  nxtype-func =
+    ''
+      nxtype() {
+        realpath $(command -v ''${1})
+      }
+    '';
+  
+  nxsh-func =
+    ''
+      nxsh() {
+        nix shell nixpkgs#''${1}
+      }
+    '';
+    
+  check-alias = "nix flake check --no-build --show-trace";
+
+  shell-functions = [ nxtype-func nxsh-func ];
+  shell-aliases = {
+    nxcheck = check-alias;
+  };
 in 
 {
   options.arf.gc = {
@@ -26,7 +47,11 @@ in
       options = "--delete-older-than ${builtins.toString cfg.older-than}d";
     };
 
-    # enable flakes
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
+    programs.nh.enable = true;
+    programs.nh.flake = "/home/richard/nixos";
+    environment.sessionVariables.NH_FLAKE = "/home/richard/nixos";
+
+    environment.shellAliases = shell-aliases;
+    programs.zsh.promptInit = strings.concatStrings shell-functions;
   };
 }

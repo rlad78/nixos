@@ -5,6 +5,8 @@
     duf
     du-dust
     minicom
+    unzip
+    udftools
   ];
 
   users.users.richard.extraGroups = [ "dialout" ];

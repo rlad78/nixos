@@ -13,6 +13,20 @@ let
     && sudo nix sign-paths --all -k ${secret-key-dir}/cache-priv-key.pem
     \'
   '';
+
+  nix-cmd = "nom";
+  home-dir = config.users.users.richard.home;
+  nix-dir = builtins.toString (home-dir + "/nixos");
+  build-dir = toString (home-dir + "/builds");
+  build-func =
+    ''
+      nxbuild() {
+        screen -dmL -Logfile ${build-dir}/logs/''${1}_$(date -Iminutes) -S ''${1}-build zsh -c \
+          "cd ${nix-dir} && ${nix-cmd} build --out-link ${build-dir}/''${1}_$(date -Iminutes) \
+          --show-trace .#nixosConfigurations.''${1}.config.system.build.toplevel \
+          && find ${build-dir} -mtime +7 -execdir rm -- '{}' \;" 
+      }
+    '';
 in
 {
   # users.users."${builder-username}" = {
@@ -31,13 +45,23 @@ in
     AllowUsers = [ "root" ];
   };
 
-  environment.shellAliases = {
-    init-builder = setup-commands;
+  environment = {
+    systemPackages = [ nix-output-monitor ];
+    shellAliases = {
+      init-builder = setup-commands;
+    };
   };
+
+  programs.zsh.promptInit = build-func;
 
   nix.extraOptions =
     ''
       secret-key-files = /home/${builder-username}/.k/cache-priv-key.pem
     '';
   nix.settings.trusted-users = ["root" "richard" builder-username];
+
+  systemd.tmpfiles.rules = [
+    "d ${build-dir} 755 richard users"
+    "d ${build-dir}/logs 755 richard users"
+  ];
 }

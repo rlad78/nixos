@@ -1,6 +1,7 @@
 { config, ... }:
 {
   imports = [
+    ./base.nix
     ./cli.nix
     ./hosts.nix
     ./locale.nix
