@@ -13,7 +13,7 @@ in
 {
   system.autoUpgrade = {
     enable = true;
-    flake = ../.;
+    flake = "/home/richard/nixos";
     operation = "switch";
     dates = "Mon *-*-* 03:00:00";
     allowReboot = true;
