@@ -96,8 +96,8 @@
 
       nst-optiplex = systemMake {
         module-paths = [
-	  ./hosts/nst-optiplex
-	];
+          ./hosts/nst-optiplex
+        ];
       };
 
       nixps = systemMake {
@@ -120,6 +120,11 @@
             home-manager.users.richard = import ./home.nix;
           }
         ];
+      };
+
+      nst-van-checkout = systemMake {
+        pkg-base = nixpkgs;
+        module-paths = [ ./hosts/nst-van-checkout.nix ];
       };
 
     };
