@@ -53,5 +53,7 @@ in
 
     environment.shellAliases = shell-aliases;
     programs.zsh.promptInit = strings.concatStrings shell-functions;
+
+    nixpkgs.config.allowUnfree = true;
   };
 }
