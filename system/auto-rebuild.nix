@@ -27,7 +27,7 @@ in
     serviceConfig.ExecStart = "${flake-pull-script}/bin/flake-auto-pull";
   };
 
-  system.user.timers.pull-flake = {
+  systemd.user.timers.pull-flake = {
     wantedBy = [ "timers.target" ];
     timerConfig.OnCalendar = "Mon *-*-* 01:00:00";
   };
