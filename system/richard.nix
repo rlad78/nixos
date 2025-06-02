@@ -12,6 +12,7 @@
 
   # richard settings
   users.users.richard = {
+    shell = pkgs.zsh;
     isNormalUser = true;
     extraGroups = [ "wheel" ];
     description = "Richard Lee Carter Jr";

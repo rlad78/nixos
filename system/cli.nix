@@ -93,7 +93,6 @@ in
           fuzzyCompletion = true;
         };
 
-        users.users.richard.shell = pkgs.zsh;
         services.openssh.settings.AllowUsers = [ "richard" ];
 
         #shell settings
