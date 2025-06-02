@@ -19,4 +19,8 @@
 
   # enable powerprofilesctl
   services.power-profiles-daemon.enable = true;
+
+  fonts.packages = with pkgs; [
+      nerd-fonts.jetbrains-mono
+  ];
 }
