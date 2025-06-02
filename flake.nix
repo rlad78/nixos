@@ -124,7 +124,7 @@
 
       nst-van-checkout = systemMake {
         pkg-base = nixpkgs;
-        module-paths = [ ./hosts/nst-van-checkout.nix ];
+        module-paths = [ ./hosts/nst-van-checkout ];
       };
 
     };
