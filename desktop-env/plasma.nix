@@ -31,13 +31,13 @@
     # disk quota widget
     kdePackages.plasma-disks
 
+    # calculator
+    kdePackages.kalk
+
     # help out flatpaks
     xdg-desktop-portal-gnome
 
     # kate nix syntax
     nil
-
-    # calculator
-    kalk
   ];
 }
