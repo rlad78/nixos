@@ -24,6 +24,13 @@ in
     # ];
   # };
 
+  imports = [ ./sshd.nix ];
+
+  services.openssh.settings = {
+    PermitRootLogin = "yes";
+    AllowUsers = [ "root" ];
+  };
+
   environment.shellAliases = {
     init-builder = setup-commands;
   };
