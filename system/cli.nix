@@ -49,16 +49,6 @@ in
     };
 
     programs.zsh = {
-      enable = true;
-
-      autosuggestions = {
-        enable = true;
-        strategy = [
-          "completion"
-          "history"
-        ];
-      };
-
       promptInit = lib.strings.concatStrings shell-functions;
 
       ohMyZsh = {
