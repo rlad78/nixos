@@ -88,20 +88,6 @@ in
 
         environment.enableAllTerminfo = true;
 
-        # programs.neovim = {
-            # enable = true;
-            # defaultEditor = true;
-            # vimAlias = true;
-            # configure = {
-                # customRC = ''
-                    # set tabstop=2
-                    # set shiftwidth=2
-                    # set expandtab
-                    # set smartindent
-                # '';
-            # };
-        # };
-
         programs.fzf = {
           keybindings = true;
           fuzzyCompletion = true;
