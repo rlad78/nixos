@@ -30,7 +30,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
 
   # Enable networking
-  networking.hostName = "nst-vcheckout-laptop"; # Define your hostname.
+  networking.hostName = "nst-van-checkout"; # Define your hostname.
   networking.networkmanager.enable = true;
 
   # we need a browser
