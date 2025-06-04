@@ -30,6 +30,7 @@ in
         "/apps/cli/editors.nix"
         "/services/tailscale.nix"
         "/services/syncthing.nix"
+        "/services/sshd.nix"
       ] (p: root-config-dir + p);
 
   services.scrutiny = {
@@ -42,16 +43,6 @@ in
   # networking
   networking.hostName = "snootflix"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      PermitRootLogin = "yes";
-      AllowUsers = [ "root" ];
-    };
-  };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
