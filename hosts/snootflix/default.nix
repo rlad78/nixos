@@ -31,7 +31,7 @@ in
         "/services/tailscale.nix"
         "/services/syncthing.nix"
         "/services/sshd.nix"
-        "/services/scritiny.nix"
+        "/services/scrutiny.nix"
       ] (p: root-config-dir + p);
 
   # networking
