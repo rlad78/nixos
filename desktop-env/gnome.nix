@@ -36,6 +36,7 @@ in
     totem
     gnome-music
     gnome-maps
+    gnome-software
     simple-scan
     yelp
   ];
