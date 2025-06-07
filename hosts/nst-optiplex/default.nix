@@ -27,6 +27,7 @@ in
     "/system"
     "/apps/cli"
     "/services/tailscale.nix"
+    "/services/sshd.nix"
     "/services/ytdl.nix"
   ] (p: root-config-dir + p);
   
@@ -41,11 +42,6 @@ in
 
   # alias for mounting usb quickly
   environment.shellAliases.usbmount = "sudo mount /dev/sdb1 /mnt/usb && sudo chown richard:users /mnt/usb";
-
-  services.openssh = {
-    enable = true;
-    openFirewall = true;
-  };
 
   boot.loader = {
     efi.canTouchEfiVariables = true;

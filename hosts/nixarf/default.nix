@@ -26,34 +26,26 @@ in
 		  ./storage-disk.nix
     ] ++ lib.lists.forEach [
         "/desktop-env/no-desktop.nix"
-        # "/hosts/common/nvidia.nix"
         "/system"
         "/apps/cli"
+        "/services/sshd.nix"
         "/services/tailscale.nix"
-        # "/services/fah.nix"
         "/services/syncthing.nix"
-        # "/services/torrent.nix"
-        # "/services/palworld.nix"
         "/services/scrutiny.nix"
         "/services/pdf.nix"
         "/services/webdav.nix"
         "/services/nix-builder.nix"
         "/services/hass.nix"
         "/services/rustdesk.nix"
-        # "/services/ai.nix"
       ] (p: root-config-dir + p);
 
-  # sign nix store units with private key
-  # nix.extraOptions =
-  #   ''
-  #     secret-key-files = /home/richard/.k/cache-priv-key.pem
-  #   '';
-  # nix.settings.trusted-users = ["root" "richard"];
-
+  # needed for Jellyfin YouTube metadata plugin
   environment.systemPackages = with pkgs; [
     yt-dlp
     ffmpeg
   ];
+
+  systemd.services.jellyfin.path = [ pkgs.yt-dlp ];
 
   services.jellyfin = {
     enable = true;
@@ -66,26 +58,8 @@ in
 
   users.users.jellyfin.extraGroups = [ "users" ];
 
-  systemd.services.jellyfin.path = [ pkgs.yt-dlp ];
-
   # networking
-  networking.hostName = "nixarf"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
-
-  networking.nat.enable = true;
-  networking.nat.internalInterfaces = ["ve-+"];
-  networking.nat.externalInterface = "enp0s25";
-  networking.networkmanager.unmanaged = [ "interface-name:ve-*" ];
-
-  # Enable the OpenSSH daemon.
-  services.openssh = {
-    enable = true;
-    openFirewall = true;
-    settings = {
-      PermitRootLogin = "yes";
-      AllowUsers = [ "root" ];
-    };
-  };
+  networking.hostName = "nixarf";
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {

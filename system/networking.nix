@@ -11,6 +11,9 @@ in
   };
 
   config = {
+    # the default for networking
+    networking.networkmanager.enable = true;
+
     # fix for nm-wait-online (https://github.com/NixOS/nixpkgs/issues/180175)
     systemd.services.NetworkManager-wait-online = {
       serviceConfig = {
@@ -18,12 +21,15 @@ in
       };
     };
 
-    networking.nat = lib.mkIf (!cfg.no-nat) {
-      enable = true;
-      internalInterfaces = ["ve-+"];
-      externalInterface = hosts."${config.networking.hostName}".default-net-dev;
-      # Lazy IPv6 connectivity for the container
-      enableIPv6 = true;
+    networking = lib.mkIf (!cfg.no-nat) {
+      nat = {
+        enable = true;
+        internalInterfaces = ["ve-+"];
+        externalInterface = hosts."${config.networking.hostName}".default-net-dev;
+        # Lazy IPv6 connectivity for the container
+        enableIPv6 = true;
+      };
+      networkmanager.unmanaged = [ "interface-name:ve-*" ];
     };
   };
 }

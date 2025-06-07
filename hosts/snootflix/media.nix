@@ -246,11 +246,6 @@ in
     };
   };
 
-  # security.acme = {
-    # acceptTerms = true;
-    # defaults.email = "goobysc@gmail.com";
-  # };
-
  # networking.firewall.allowedTCPPorts = [ 8981 5690 ];
  networking.firewall.allowedTCPPorts = [ 80 443 8981 5690 ];
 }

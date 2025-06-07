@@ -31,18 +31,11 @@ in
         "/services/tailscale.nix"
         "/services/syncthing.nix"
         "/services/sshd.nix"
+        "/services/scritiny.nix"
       ] (p: root-config-dir + p);
-
-  services.scrutiny = {
-    enable = true;
-    openFirewall = true;
-    collector.enable = true;
-    settings.web.listen.port = 9999;
-  };
 
   # networking
   networking.hostName = "snootflix"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
