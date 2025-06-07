@@ -2,6 +2,7 @@
 let
   cfg = config.arf.romm;
   romm-version = "3.10.1";
+  storage-gid = config.users.groups.storage.gid;
 in
 {
   options.arf.romm = with lib; {
@@ -12,19 +13,9 @@ in
       default = "romm";
     };
 
-    group = mkOption {
-      type = types.str;
-      default = "romm";
-    };
-
     uid = mkOption {
       type = types.ints.u16;
       default = 7111;
-    };
-
-    gid = mkOption {
-      type = types.ints.u16;
-      default = cfg.uid;
     };
 
     port = mkOption {
@@ -57,7 +48,7 @@ in
           image: rommapp/romm:${romm-version}
           container_name: romm
           restart: unless-stopped
-          user: ${toString cfg.uid}:${toString cfg.gid}
+          user: ${toString cfg.uid}:${toString storage-gid}
           environment:
             - DB_HOST=romm-db
             - DB_NAME=romm # Should match MARIADB_DATABASE in mariadb
@@ -116,31 +107,29 @@ in
     ];
 
     working-subdirs = lib.lists.forEach required-working-dirs (x:
-      "d ${toString cfg.workingDir}/${x} 0770 romm romm"
+      "d ${toString cfg.workingDir}/${x} 0770 romm storage"
     );
 
     console-subdirs = with lib.lists; forEach cfg.consoles (x:
-      "d ${toString cfg.libraryDir}/roms/${x} 0775 romm romm"
+      "d ${toString cfg.libraryDir}/roms/${x} 0775 romm storage"
     ) ++ forEach cfg.consoles (x:
-      "d ${toString cfg.libraryDir}/bios/${x} 0775 romm romm"
+      "d ${toString cfg.libraryDir}/bios/${x} 0775 romm storage"
     );
   in lib.mkIf cfg.enable {
     virtualisation.docker.enable = true;
     environment.systemPackages = [ pkgs.docker-compose ];
 
     users.users.${cfg.user} = {
-      group = cfg.group;
+      group = "storage";
       isSystemUser = true;
       uid = cfg.uid;
     };
 
-    users.groups.${cfg.group}.gid = cfg.gid;
-
     systemd.tmpfiles.rules = [
-      "d ${toString cfg.workingDir} 0775 romm romm"
-      "d ${toString cfg.libraryDir} 0775 romm romm"
-      "d ${toString cfg.libraryDir}/roms 0775 romm romm"
-      "d ${toString cfg.libraryDir}/bios 0775 romm romm"
+      "d ${toString cfg.workingDir} 0775 romm storage"
+      "d ${toString cfg.libraryDir} 0775 romm storage"
+      "d ${toString cfg.libraryDir}/roms 0775 romm storage"
+      "d ${toString cfg.libraryDir}/bios 0775 romm storage"
     ] ++ working-subdirs ++ console-subdirs;
 
     systemd.services.docker-compose-romm = {

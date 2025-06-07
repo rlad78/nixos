@@ -33,7 +33,7 @@ in
     );
 
     tmpfiles-source-file = scriptName: (
-      "f \"${targetDir}/Source - ${builtins.replaceStrings ["_"] [" "] scriptName}.txt\" 0640 richard users - -"
+      "f \"${targetDir}/Source - ${builtins.replaceStrings ["_"] [" "] scriptName}.txt\" 0640 richard storage - -"
     );
 
     scriptSymlinkTmpfiles = lists.forEach scriptNames (x: tmpfiles-symlink-script x);
@@ -50,7 +50,7 @@ in
     ];
 
     systemd.tmpfiles.rules = [
-      "d ${targetDir} 0750 richard users - -"
+      "d ${targetDir} 0750 richard storage - -"
       "L ${targetDir}/how_to_get_cookies.md - - - - ${cookiesInfoFile}"
     ] ++ scriptSymlinkTmpfiles ++ sourceFileTmpfiles;
   };

@@ -5,6 +5,7 @@ in
 {
   services.webdav = {
     enable = true;
+    group = "storage";
     settings = {
       address = "0.0.0.0";
       port = service-port;
@@ -18,7 +19,7 @@ in
   };
 
   systemd.tmpfiles.rules = [
-    "d /webdav 0770 webdav webdav"
+    "d /webdav 0770 webdav group"
   ];
 
   networking.firewall.allowedTCPPorts = [ service-port ];
