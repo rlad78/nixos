@@ -1,7 +1,7 @@
 { config, pkgs, lib, secrets, ... }:
 let
   cfg = config.arf.romm;
-  romm-version = "3.10.0";
+  romm-version = "3.10.1";
 in
 {
   options.arf.romm = with lib; {
