@@ -36,13 +36,12 @@ in
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.initrd.luks.devices."luks-6d6e8c4f-e79f-472b-b999-01c756d1d7ff".device = "/dev/disk/by-uuid/6d6e8c4f-e79f-472b-b999-01c756d1d7ff";
 
   # fwupd works for Latitude 7X80
   services.fwupd.enable = true;
 
   # Enable networking
-  networking.hostName = "nixitude"; # Define your hostname.
+  networking.hostName = "nixitude-e"; # Define your hostname.
   networking.networkmanager.enable = true;
 
   # add xbox one controller support
@@ -54,5 +53,5 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "23.11"; # Did you read the comment?
 }
