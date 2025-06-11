@@ -122,6 +122,20 @@
         ];
       };
 
+      nixitude-e = systemMake {
+        module-paths = [
+          ./hosts/nixitude-e
+          nixos-hardware.nixosModules.common-cpu-intel
+          nixos-hardware.nixosModules.common-pc-laptop-ssd
+          nix-flatpak.nixosModules.nix-flatpak
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.richard = import ./home.nix;
+          }
+        ];
+      };
+
       nst-van-checkout = systemMake {
         pkg-base = nixpkgs;
         module-paths = [ ./hosts/nst-van-checkout ];
