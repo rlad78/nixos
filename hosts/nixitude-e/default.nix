@@ -33,6 +33,7 @@ in
       ] (p: root-config-dir + p);
 
   # Bootloader.
+  boot.initrd.luks.devices."luks-13515456-ad00-4140-a1f1-f4aaba2b3349".device = "/dev/disk/by-uuid/13515456-ad00-4140-a1f1-f4aaba2b3349";
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -53,5 +54,5 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }
