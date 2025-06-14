@@ -5,9 +5,9 @@ let
     caffeine
     runcat
     night-theme-switcher
-    paperwm
-    search-light
-    no-overview
+    # paperwm
+    # search-light
+    # no-overview
     grand-theft-focus
   ];
 in
