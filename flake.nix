@@ -14,13 +14,17 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    firefox-gnome-theme = {
+      url = "github:rafaelmardojai/firefox-gnome-theme";
+      flake = false;
+    };
 
     nixarr = {
       url = "github:rlad78/nixarr/prod";
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nixarr, home-manager, nixvim, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nixarr, home-manager, nixvim, firefox-gnome-theme, ... }@inputs:
   let
     pkgsBaseArgs = add-config: {
       system = "x86_64-linux";
@@ -35,6 +39,13 @@
 
       inherit nix-flatpak;
       inherit nixarr;
+    };
+
+    homeBase = {
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
+      home-manager.extraSpecialArgs = { inherit firefox-gnome-theme; };
+      home-manager.users.richard = import ./home/default.nix;
     };
 
     systemMake = {
@@ -105,11 +116,7 @@
           ./hosts/nixps
           nixos-hardware.nixosModules.dell-xps-15-9560-intel
           nix-flatpak.nixosModules.nix-flatpak
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.richard = import ./home.nix;
-          }
+          home-manager.nixosModules.home-manager homeBase
         ];
       };
 
@@ -119,11 +126,7 @@
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc-laptop-ssd
           nix-flatpak.nixosModules.nix-flatpak
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.richard = import ./home.nix;
-          }
+          home-manager.nixosModules.home-manager homeBase
         ];
       };
 
@@ -133,11 +136,7 @@
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc-laptop-ssd
           nix-flatpak.nixosModules.nix-flatpak
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.richard = import ./home.nix;
-          }
+          home-manager.nixosModules.home-manager homeBase
         ];
       };
 
