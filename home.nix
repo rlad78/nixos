@@ -34,6 +34,7 @@
         "ctrl+shift+right=next_tab"
         "ctrl+shift+left=previous_tab"
         "ctrl+shift+tab=previous_tab"
+        "ctrl+tab=next_tab"
         "ctrl+shift+n=new_window"
         "ctrl+shift+f=toggle_fullscreen"
         "ctrl+shift+d=toggle_window_decorations"
