@@ -40,6 +40,32 @@ in
         TZ = "America/New_York";
       };
     };
+
+    ws4kp = {
+      image = "ghcr.io/netbymatt/ws4kp";
+      autoStart = true;
+      environment = {
+        WSQS_hazards_checkbox = "true";
+        WSQS_current_weather_checkbox = "true";
+        WSQS_latest_observations_checkbox = "false";
+        WSQS_hourly_checkbox = "true";
+        WSQS_hourly_graph_checkbox = "true";
+        WSQS_travel_checkbox = "false";
+        WSQS_regional_forecast_checkbox = "false";
+        WSQS_local_forecast_checkbox = "true";
+        WSQS_extended_forecast_checkbox = "true";
+        WSQS_almanac_checkbox = "true";
+        WSQS_spc_outlook_checkbox = "true";
+        WSQS_radar_checkbox = "true";
+        WSQS_settings_wide_checkbox = "false";
+        WSQS_settings_kiosk_checkbox = "true";
+        WSQS_settings_scanLines_checkbox = "false";
+        WSQS_settings_speed_select = "1.00";
+        WSQS_settings_units_select = "us";
+        WSQS_latLon = "{\"lat\":34.6886,\"lon\":-82.8348}";
+      };
+      ports = [ "4040:8080" ];
+    };
   };
 
   services.mosquitto = {
@@ -88,6 +114,7 @@ in
     8099 # z2m frontend
     51827 # apple homekit
     5353 # apple homekit mdns
+    4040 # ws4kp
   ];
 
   networking.firewall.allowedUDPPorts = [
