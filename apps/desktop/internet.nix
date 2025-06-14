@@ -1,7 +1,7 @@
 { pkgs, ... }:
 {
   programs.firefox = {
-    enable = true;
+    enable = false;
     policies = {
       AutofillAddressEnabled = false;
       AutofillCreditCardEnabled = false;
