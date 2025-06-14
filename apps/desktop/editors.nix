@@ -4,6 +4,5 @@
     poetry
     nixd
     nixpkgs-fmt
-    zed-editor
   ];
 }
