@@ -105,6 +105,11 @@
           ./hosts/nixps
           nixos-hardware.nixosModules.dell-xps-15-9560-intel
           nix-flatpak.nixosModules.nix-flatpak
+          home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.richard = import ./home.nix;
+          }
         ];
       };
 

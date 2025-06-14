@@ -18,6 +18,7 @@ in
       plugins = [ "systemd" "z" ];
     };
     builders = [ "nixarf" ];
+    nixvim.colorscheme = "monokai-pro";
   };
 
   imports =
@@ -27,7 +28,7 @@ in
         "/apps"
         "/system"
         "/system/printing.nix"
-        "/desktop-env/plasma.nix"
+        "/desktop-env/gnome.nix"
         "/services/syncthing.nix"
         "/services/tailscale.nix"
       ] (p: root-config-dir + p);
@@ -36,6 +37,7 @@ in
   boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.initrd.luks.devices."luks-d1392d8f-f461-4039-a78b-256abdf05873".device = "/dev/disk/by-uuid/d1392d8f-f461-4039-a78b-256abdf05873";
 
   # fwupd works on the XPS 15
   services.fwupd.enable = true;
@@ -53,5 +55,5 @@ in
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "24.11"; # Did you read the comment?
+  system.stateVersion = "25.05"; # Did you read the comment?
 }
