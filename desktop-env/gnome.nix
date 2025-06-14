@@ -45,7 +45,6 @@ in
   services.flatpak.update.onActivation = true;
 
   services.flatpak.packages = [
-    "com.mattjakeman.ExtensionManager"
     "me.dusansimic.DynamicWallpaper"
   ];
 }
