@@ -19,8 +19,8 @@
       flake = false;
     };
     psonewserv = {
-      # url = "github:rlad78/newserv/tree/v2025-05-31";
-      url = "path:/home/richard/newserv/";
+      url = "github:rlad78/newserv/arf-v2025-06-22";
+      # url = "path:/home/richard/newserv/";
       flake = false;
     };
 

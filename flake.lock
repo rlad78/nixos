@@ -62,11 +62,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1750304462,
-        "narHash": "sha256-Mj5t4yX05/rXnRqJkpoLZTWqgStB88Mr/fegTRqyiWc=",
+        "lastModified": 1750713626,
+        "narHash": "sha256-uM+hqdMxp+H53d8R7EHn2yY+nLNGgg59pdipIgCZ5yY=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "863842639722dd12ae9e37ca83bcb61a63b36f6c",
+        "rev": "86402a17b6c67b07c5536354da5d56c14196de46",
         "type": "github"
       },
       "original": {
@@ -174,11 +174,11 @@
     },
     "nixpkgs-unstable": {
       "locked": {
-        "lastModified": 1750513514,
-        "narHash": "sha256-L5NpRRTVMvOY4D1BPIunsavIgAoAOmD5YOvaEplhfVQ=",
+        "lastModified": 1750715287,
+        "narHash": "sha256-ex8KJFRG13I/1hl4l0q08xVvr/Fu7k2BoSsMf7pU7yE=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "74c2aa546b33d957987a6b8506d527a2e4c6d9d8",
+        "rev": "6e2869a30dfcd96434f5a85fd730dd65cbcc431b",
         "type": "github"
       },
       "original": {
@@ -213,11 +213,11 @@
         "systems": "systems_2"
       },
       "locked": {
-        "lastModified": 1750345447,
-        "narHash": "sha256-yOuSSfI4xovXQpSkZUK02CBcY1f0Nvm0RhnUN8xn2rY=",
+        "lastModified": 1750691276,
+        "narHash": "sha256-F507hXG4ORVpvuFeuoyDo/bmO/rR2PJRB7XhtDuBnBE=",
         "owner": "nix-community",
         "repo": "nixvim",
-        "rev": "6a1a348ab1f00bd32d2392b5c2fc72489c699af3",
+        "rev": "1f3e5741a927b5b0a983f08ab9d3bcf313bc141e",
         "type": "github"
       },
       "original": {
@@ -252,14 +252,18 @@
     "psonewserv": {
       "flake": false,
       "locked": {
-        "lastModified": 1750538334,
-        "narHash": "sha256-AGzUCfMhhnLeoqFbTLsMPmBciliGPsBUmKc+g6H4KRs=",
-        "path": "/home/richard/newserv/",
-        "type": "path"
+        "lastModified": 1750715786,
+        "narHash": "sha256-kDPPUrxui1zoPtdZz5WzC0ceQ2V9Xlx4fmt5sWu48HY=",
+        "owner": "rlad78",
+        "repo": "newserv",
+        "rev": "97aaa06ec568003c66a2da5982f11bb0ea82017a",
+        "type": "github"
       },
       "original": {
-        "path": "/home/richard/newserv/",
-        "type": "path"
+        "owner": "rlad78",
+        "ref": "arf-v2025-06-22",
+        "repo": "newserv",
+        "type": "github"
       }
     },
     "root": {
