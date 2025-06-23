@@ -3,6 +3,9 @@ let
   mnt-prefix = "mediadisk";
   mergerfs-dir = "/snoot";
 
+  wizarr-port = 6002;
+  jellyseerr-port = 6003;
+
   sonarr-anime = {
     config-dir = "${config.nixarr.stateDir}/sonarr-anime";
     hostPort = 8981;
@@ -90,6 +93,7 @@ in
   services.jellyseerr = {
     enable = true;
     openFirewall = true;
+    port = jellyseerr-port;
   };
 
   users.users.tautulli = {
@@ -187,7 +191,7 @@ in
       extraOptions = [ "--pull=always" ];
       autoStart = true;
       volumes = [ "${config.nixarr.stateDir}/wizarr/database:/data/database" ];
-      ports = [ "5690:5690" ];
+      ports = [ "${toString wizarr-port}:5690" ];
     };
   };
 
@@ -237,16 +241,16 @@ in
       };
     };
     "invite.snootflix.com".locations."/" = {
-      proxyPass = "http://127.0.0.1:5690";
+      proxyPass = "http://127.0.0.1:${toString wizarr-port}";
       proxyWebsockets = true;
     };
     "request.snootflix.com".locations."/" = {
-      proxyPass = "http://127.0.0.1:5055";
+      proxyPass = "http://127.0.0.1:${toString jellyseerr-port}";
       proxyWebsockets = true;
     };
   };
 
  # networking.firewall.allowedTCPPorts = [ 8981 5690 ];
- networking.firewall.allowedTCPPorts = [ 80 443 8981 5690 ];
+ networking.firewall.allowedTCPPorts = [ 80 443 8981 wizarr-port ];
 }
 

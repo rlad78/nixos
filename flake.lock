@@ -249,6 +249,19 @@
         "type": "github"
       }
     },
+    "psonewserv": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1750538334,
+        "narHash": "sha256-AGzUCfMhhnLeoqFbTLsMPmBciliGPsBUmKc+g6H4KRs=",
+        "path": "/home/richard/newserv/",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/richard/newserv/",
+        "type": "path"
+      }
+    },
     "root": {
       "inputs": {
         "firefox-gnome-theme": "firefox-gnome-theme",
@@ -258,7 +271,8 @@
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixvim": "nixvim"
+        "nixvim": "nixvim",
+        "psonewserv": "psonewserv"
       }
     },
     "systems": {

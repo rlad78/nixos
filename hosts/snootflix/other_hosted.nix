@@ -18,11 +18,22 @@ in
         "snes"
       ];
     };
+    pso = {
+      enable = true;
+      server-name = "phantasy-snoot";
+      worker-threads = 5;
+      local-net-interface = "eno1";
+      external-ip = "24.179.16.164";
+      allow-unregistered-users = true;
+      welcome-message = "Ahoy sailors! Swab the scruvy off me poop deck.";
+      rare-item-notify = true;
+    };
   };
 
   imports =  lib.lists.forEach [
     "/filebrowser.nix"
     "/romm.nix"
+    "/pso.nix"
   ] (p: root-config-dir + "/services" + p);
 
   services.nginx.virtualHosts = {

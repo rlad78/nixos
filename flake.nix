@@ -18,13 +18,18 @@
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     };
+    psonewserv = {
+      # url = "github:rlad78/newserv/tree/v2025-05-31";
+      url = "path:/home/richard/newserv/";
+      flake = false;
+    };
 
     nixarr = {
       url = "github:rlad78/nixarr/prod";
     };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nixarr, home-manager, nixvim, firefox-gnome-theme, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nixarr, home-manager, nixvim, firefox-gnome-theme, psonewserv,... }@inputs:
   let
     pkgsBaseArgs = add-config: {
       system = "x86_64-linux";
@@ -39,6 +44,7 @@
 
       inherit nix-flatpak;
       inherit nixarr;
+      inherit psonewserv;
     };
 
     homeBase = {
