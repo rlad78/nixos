@@ -252,16 +252,16 @@
     "psonewserv": {
       "flake": false,
       "locked": {
-        "lastModified": 1750715786,
-        "narHash": "sha256-kDPPUrxui1zoPtdZz5WzC0ceQ2V9Xlx4fmt5sWu48HY=",
+        "lastModified": 1750894438,
+        "narHash": "sha256-1wq2SxIhX60J2skqELHWacHQHuTaT8ohBXbz/t+1kO0=",
         "owner": "rlad78",
         "repo": "newserv",
-        "rev": "97aaa06ec568003c66a2da5982f11bb0ea82017a",
+        "rev": "ccab4990e53a682a7bf61328b88788d2d0d1839c",
         "type": "github"
       },
       "original": {
         "owner": "rlad78",
-        "ref": "arf-v2025-06-22",
+        "ref": "arf-v2025-06-25",
         "repo": "newserv",
         "type": "github"
       }

@@ -1,8 +1,11 @@
-{ config, pkgs, lib, psonewserv, ... }:
+{ config, pkgs, lib, psonewserv, hosts, ... }:
 let
   cfg = config.arf.pso;
+
   storage-gid = config.users.groups.storage.gid;
   source-dir = ./src/pso;
+  host-default-netdev = config.networking.hostName;
+
   config-file-source = source-dir + "/config.nix";
 
   needed-ports = [
@@ -38,9 +41,16 @@ in
   options.arf.pso = with lib; {
     enable = mkEnableOption "";
 
+    user = mkOption {
+      type = types.str;
+      default = "newserv";
+    };
+
     uid = mkOption {
       type = types.ints.u16;
-      default = 7681;
+      default = if cfg.user == "newserv"
+        then 7681
+        else config.users.users.${cfg.user}.uid;
     };
 
     workingDir = mkOption {
@@ -113,13 +123,12 @@ in
       text = config-text;
     };
 
-    compose-text = ''
+    compose-text = with lib; ''
       name: psonewserv
       services:
         newserv:
           image: newserv:latest
           container_name: newserv
-          user: ${toString cfg.uid}:${toString storage-gid}
           volumes:
             - /etc/localtime:/etc/localtime:ro
             - ${toString cfg.workingDir}/players:/newserv/system/players
@@ -127,42 +136,83 @@ in
             - ${toString cfg.workingDir}/licenses:/newserv/system/licenses
             - ${config-file}:/newserv/system/config.json
           restart: unless-stopped
-          network_mode: host
-    '';
+          ports:
+            - 9053:53/udp
+    '' + strings.concatStringsSep "\n" (
+      lists.forEach (lists.remove 53 needed-ports) (
+        x: "      - ${toString x}:${toString x}"
+        )) + "\n";
 
     compose-file = pkgs.writeTextFile {
       name = "pso-compose.yml";
       text = compose-text;
     };
   in lib.mkIf cfg.enable {
-    virtualisation.docker.enable = true;
+    virtualisation.docker = {
+      enable = true;
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
+    };
     environment.systemPackages = [ pkgs.docker-compose ];
 
-    users.users.newserv = {
+    users.users.${cfg.user} = {
       group = "storage";
-      isSystemUser = true;
+      isNormalUser = true;
       uid = cfg.uid;
+      linger = true;
     };
 
     systemd.tmpfiles.rules = [
-      "d ${toString cfg.workingDir} 0750 newserv storage"
-      "d ${toString cfg.workingDir}/players 0750 newserv storage"
-      "d ${toString cfg.workingDir}/teams 0750 newserv storage"
-      "d ${toString cfg.workingDir}/licenses 0750 newserv storage"
+      "d ${toString cfg.workingDir} 0750 ${cfg.user} storage"
+      "d ${toString cfg.workingDir}/players 0750 ${cfg.user} storage"
+      "d ${toString cfg.workingDir}/teams 0750 ${cfg.user} storage"
+      "d ${toString cfg.workingDir}/licenses 0750 ${cfg.user} storage"
+      "d ${toString cfg.workingDir}/.docker 0750 ${cfg.user} storage"
     ];
+
+    boot.kernel.sysctl = {
+      "net.ipv4.conf.eth0.forwarding" = 1;
+    };
 
     networking.firewall = {
       allowedTCPPorts = needed-ports;
       allowedUDPPorts = needed-ports;
+
+      extraCommands = ''
+        iptables -A PREROUTING -t nat -i ${host-default-netdev} -p UDP --dport 53 -j REDIRECT --to-port 9053
+      '';
     };
 
+
     systemd.services.docker-pso = {
-      script = ''
-        ${pkgs.docker}/bin/docker build --build-arg RUN_USER=newserv -t newserv ${psonewserv} \
-        && ${pkgs.docker-compose}/bin/docker-compose -f ${compose-file} up
+      preStart = ''
+        ${pkgs.docker}/bin/docker build -t newserv ${psonewserv}
       '';
-      wantedBy = [ "multi-user.target" ];
-      after = [ "docker.service" "docker.socket" ];
+      script = ''
+        ${pkgs.docker-compose}/bin/docker-compose -f ${compose-file} up
+      '';
+      postStart = ''
+        ${pkgs.docker-compose}/bin/docker-compose -f ${compose-file} logs -f
+      '';
+      after = [ "network-online.target" ];
+      wants = [ "network-online.target" ];
+      wantedBy = [ "default.target" ];
+      serviceConfig = {
+        User = cfg.user;
+        WorkingDirectory = "${toString cfg.workingDir}/.docker";
+        Type = "simple";
+        RemainAfterExit = "yes";
+        # NoNewPrivileges = "true";
+        PrivateTmp = "true";
+        TimeoutStartSec = "infinity";
+        TimeoutStopSec = "100s";
+      };
+      environment = {
+        DOCKER_HOST = "unix:///run/user/${toString cfg.uid}/docker.sock";
+        XDG_RUNTIME_DIR = "/run/user/${toString cfg.uid}";
+      };
     };
   };
 }
