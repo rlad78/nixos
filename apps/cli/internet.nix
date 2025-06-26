@@ -6,10 +6,11 @@
     speedtest-cli
     dig
     trippy
+    curl
   ];
 
   environment.shellAliases = {
-    public-ip = "dig +short myip.opendns.com @resolver1.opendns.com";
+    public-ip = "curl https://ipinfo.io/ip";
   };
 
   # users.users.richard.extraGroups = [ "wireshark" ];
