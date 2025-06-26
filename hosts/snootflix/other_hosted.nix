@@ -20,7 +20,6 @@ in
     };
     pso = {
       enable = true;
-      user = "dockrunner";
       server-name = "phantasy-snoot";
       worker-threads = 5;
       local-net-interface = "eno1";
