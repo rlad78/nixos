@@ -18,6 +18,7 @@ in
       plugins = [ "systemd" "z" ];
     };
     builders = [ "nixarf" "hatab" ];
+    nixvim.colorscheme = "monokai-pro";
   };
 
   imports =
