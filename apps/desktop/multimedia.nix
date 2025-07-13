@@ -9,6 +9,6 @@
 
   services.flatpak.packages = [
     "com.spotify.Client"
-    "com.github.PintaProject.Pinta"
+    "org.gimp.GIMP"
   ];
 }
