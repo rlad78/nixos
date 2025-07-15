@@ -147,7 +147,11 @@
 
       nst-van-checkout = systemMake {
         pkg-base = nixpkgs;
-        module-paths = [ ./hosts/nst-van-checkout ];
+        module-paths = [
+          ./hosts/nst-van-checkout
+          nixos-hardware.nixosModules.common-cpu-intel
+          nixos-hardware.nixosModules.common-pc-laptop-ssd
+        ];
       };
 
     };
