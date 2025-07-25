@@ -13,6 +13,7 @@
       lazygit
       git-crypt
       screen
+      poetry
     ];
     
     environment.shellAliases = {
