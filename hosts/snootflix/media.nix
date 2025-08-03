@@ -74,7 +74,7 @@ in
   };
 
   services.plex = {
-    enable = true;
+    enable = false;
     user = "streamer";
     group = "media";
     dataDir = "${config.nixarr.stateDir}/plex";
