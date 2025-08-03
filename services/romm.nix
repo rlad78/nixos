@@ -1,7 +1,7 @@
 { config, pkgs, lib, secrets, ... }:
 let
   cfg = config.arf.romm;
-  romm-version = "3.10.1";
+  romm-version = "4.0.1";
   storage-gid = config.users.groups.storage.gid;
 in
 {
