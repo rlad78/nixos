@@ -11,7 +11,7 @@ in
     gc = {
       enable = true;
       frequency = "weekly";
-      older-than = 21;
+      older-than = 31;
     };
     cli = {
       theme = "candy";
