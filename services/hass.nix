@@ -44,6 +44,7 @@ in
     ws4kp = {
       image = "ghcr.io/netbymatt/ws4kp";
       autoStart = true;
+      extraOptions = [ "--pull=always" ];
       environment = {
         WSQS_hazards_checkbox = "true";
         WSQS_current_weather_checkbox = "true";
