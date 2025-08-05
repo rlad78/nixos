@@ -45,6 +45,9 @@ in
     ffmpeg
   ];
 
+  # leave two cores open on builds
+  nix.settings.max-jobs = 6;
+
   systemd.services.jellyfin.path = [ pkgs.yt-dlp ];
 
   services.jellyfin = {
