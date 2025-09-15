@@ -20,7 +20,6 @@
   services.flatpak.update.onActivation = true;
 
   services.flatpak.packages = [
-    "one.jwr.interstellar"
     "com.bitwarden.desktop"
     "org.chromium.Chromium"
     "app.zen_browser.zen"
