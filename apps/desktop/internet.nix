@@ -23,6 +23,7 @@
     "one.jwr.interstellar"
     "com.bitwarden.desktop"
     "org.chromium.Chromium"
+    "app.zen_browser.zen"
     "dev.vencord.Vesktop"
     "org.telegram.desktop"
   ];

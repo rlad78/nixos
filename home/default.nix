@@ -2,7 +2,7 @@
 {
   imports = [
     ./ghostty.nix
-    ./firefox.nix
+    # ./firefox.nix
   ];
 
   home.username = "richard";
