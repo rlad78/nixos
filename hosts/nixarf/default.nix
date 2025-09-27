@@ -37,6 +37,7 @@ in
         "/services/nix-builder.nix"
         "/services/hass.nix"
         "/services/rustdesk.nix"
+        "/services/pinchflat.nix"
       ] (p: root-config-dir + p);
 
   # needed for Jellyfin YouTube metadata plugin
