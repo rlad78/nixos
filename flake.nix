@@ -84,7 +84,7 @@
     nixosConfigurations = {
 
       nixarf = systemMake {
-        pkg-base = nixpkgs;
+        # pkg-base = nixpkgs;
         module-paths = [ ./hosts/nixarf ];
       };
 
