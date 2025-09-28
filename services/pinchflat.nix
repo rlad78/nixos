@@ -1,4 +1,4 @@
-{ config }:
+{ config , ...}:
 {
   systemd.tmpfiles.rules = [
     "L /pinchflat - - - - /var/lib/pinchflat"
