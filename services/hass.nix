@@ -1,4 +1,4 @@
-{ config, pkgs, secrets, ... }:
+{ config, lib, pkgs, secrets, ... }:
 let
   hass_version = "2025.9";
 in
@@ -84,7 +84,7 @@ in
   services.zigbee2mqtt = {
     enable = true;
     settings = {
-      homeassistant = true;
+      homeassistant.enabled = true;
       serial = {
         adapter = "ezsp";
         port = "/dev/serial/by-id/usb-ITEAD_SONOFF_Zigbee_3.0_USB_Dongle_Plus_V2_20220718182110-if00";
