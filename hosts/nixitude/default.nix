@@ -29,7 +29,7 @@ in
         "/system"
         "/system/printing.nix"
         # "/desktop-env/gnome.nix"
-        "/desktop/cosmic.nix"
+        "/desktop-env/cosmic.nix"
         "/services/syncthing.nix"
         "/services/tailscale.nix"
       ] (p: root-config-dir + p);
