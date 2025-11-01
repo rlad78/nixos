@@ -28,7 +28,8 @@ in
         "/apps"
         "/system"
         "/system/printing.nix"
-        "/desktop-env/gnome.nix"
+        # "/desktop-env/gnome.nix"
+        "/desktop/cosmic.nix"
         "/services/syncthing.nix"
         "/services/tailscale.nix"
       ] (p: root-config-dir + p);
