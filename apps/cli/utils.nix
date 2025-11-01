@@ -3,7 +3,7 @@
   environment.systemPackages = with pkgs; [
     btop
     duf
-    du-dust
+    dust
     minicom
     unzip
     udftools
