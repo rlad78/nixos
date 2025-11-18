@@ -21,5 +21,6 @@ in
     selfhosted = true;
     mediaDir = mediaTarget;
     user = "pinchflat";
+    group = "storage";
   };
 }
