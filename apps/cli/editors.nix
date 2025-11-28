@@ -86,8 +86,8 @@ in
 
         neo-tree = {
           enable = true;
-          closeIfLastWindow = true;
           settings = {
+            closeIfLastWindow = true;
             event_handlers = {
               file_opened = ''
                 function(file_path)
