@@ -20,6 +20,13 @@ in
     "/system/systemd-boot.nix"
   ] (p: root-config-dir + p);
 
+  services.iptsd.enable = lib.mkDefault true;
+
+  services.thermald = lib.mkDefault {
+    enable = true;
+    configFile = ./thermal-conf.xml;
+  };
+
   networking.hostName = "hatab";
   system.stateVersion = "24.11";
 }
