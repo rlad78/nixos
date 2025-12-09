@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   root-config-dir = ./..;
   cfg = config.arf.laptop;
@@ -8,7 +8,6 @@ in
     "/apps"
     "/system"
     "/system/printing.nix"
-    "/desktop-env/${cfg.desktop}.nix"
     "/services/syncthing.nix"
     "/services/tailscale.nix"
   ] (p: root-config-dir + p);
@@ -19,14 +18,14 @@ in
       default = true;
     };
 
-    desktop = mkOption {
-      type = types.enum [
-        "gnome"
-        "plasma"
-        "cosmic"
-      ];
-      default = "plasma";
-    };
+    # desktop = mkOption {
+      # type = types.enum [
+        # "gnome"
+        # "plasma"
+        # "cosmic"
+      # ];
+      # default = "plasma";
+    # };
   };
 
   config = {

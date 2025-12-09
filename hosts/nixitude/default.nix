@@ -1,4 +1,4 @@
-{ ... }:
+{ lib, ... }:
 let
   root-config-dir = ./../..;
 in
@@ -6,7 +6,6 @@ in
   arf = {
     cli.theme = "fishy";
     nixvim.colorscheme = "monokai-pro";
-    laptop.desktop = "plasma";
   };
 
   imports =
@@ -14,6 +13,7 @@ in
       ./hardware-configuration.nix
     ] ++ lib.lists.forEach [
         "/roles/laptop.nix"
+        "/desktop-env/plasma.nix"
         "/system/systemd-boot.nix"
       ] (p: root-config-dir + p);
 
