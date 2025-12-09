@@ -25,5 +25,7 @@
     "app.zen_browser.zen"
     "dev.vencord.Vesktop"
     "org.telegram.desktop"
+    "org.gabmus.whatip"
+    "xyz.ketok.Speedtest"
   ];
 }
