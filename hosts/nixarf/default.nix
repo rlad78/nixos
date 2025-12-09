@@ -18,6 +18,7 @@ in
       plugins = [ "systemd" "z" ];
     };
     rustdesk.publicIP = "69.59.79.150";
+    inner-nat = true;
   };
 
   imports =

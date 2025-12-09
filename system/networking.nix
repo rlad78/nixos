@@ -4,7 +4,7 @@ let
 in
 {
   options.arf = with lib; {
-    no-nat = mkOption {
+    inner-nat = mkOption {
       type = types.bool;
       default = false;
     };
@@ -21,9 +21,9 @@ in
     networking = {
       networkmanager = {
         enable = true;
-        unmanaged = lib.mkIf (!cfg.no-nat) [ "interface-name:ve-*" ];
+        unmanaged = lib.mkIf (!cfg.inner-nat) [ "interface-name:ve-*" ];
       };
-      nat = lib.mkIf (!cfg.no-nat) {
+      nat = lib.mkIf (cfg.inner-nat) {
         enable = true;
         internalInterfaces = ["ve-+"];
         externalInterface = hosts."${config.networking.hostName}".default-net-dev;

@@ -9,7 +9,6 @@ in
       frequency = "monthly";
       older-than = 14;
     };
-    no-nat = true;
   };
 
   imports =

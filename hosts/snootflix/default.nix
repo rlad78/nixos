@@ -14,6 +14,7 @@ in
       plugins = [ "systemd" "z" ];
     };
     nvidia.version = "production";
+    inner-nat = true;
   };
 
   imports =
