@@ -39,5 +39,8 @@
 
     # kate nix syntax
     nil
+
+    # tailscale monitor
+    ktailctl
   ];
 }
