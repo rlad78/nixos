@@ -4,7 +4,7 @@ let
   cfg = config.arf.laptop;
 in
 {
-  options = with lib; {
+  options.arf.laptop = with lib; {
     fwupd = mkOption {
       type = types.bool;
       default = true;

@@ -4,7 +4,7 @@ let
   cfg = config.arf.hass-tablet;
 in
 {
-  options = with lib; {
+  options.arf.hass-tablet = with lib; {
     page-url = mkOption {
       type = types.str;
     };
