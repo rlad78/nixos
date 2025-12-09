@@ -135,6 +135,14 @@
         ];
       };
 
+      nixpad = systemMake {
+        pkg-base = nixpkgs;
+        module-paths = [
+          ./hosts/nixpad
+          nixos-hardware.nixosModules.lenovo-thinkpad-l13
+          nix-flatpak.nixosModules.nix-flatpak
+        ];
+      };
     };
   };
 }
