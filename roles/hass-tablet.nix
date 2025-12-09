@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 let
   root-config-dir = ./..;
   cfg = config.arf.hass-tablet;
@@ -33,5 +33,7 @@ in
         time = "02:00:00";
       };
     };
+
+    boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
   };
 }

@@ -89,9 +89,10 @@
       };
 
       hatab = systemMake {
+        pkg-base = nixpkgs;
         module-paths = [
           ./hosts/hatab
-          nixos-hardware.nixosModules.microsoft-surface-pro-intel
+          # nixos-hardware.nixosModules.microsoft-surface-pro-intel
         ];
       };
 
