@@ -116,28 +116,9 @@
         ];
       };
 
-      nixps = systemMake {
-        module-paths = [
-          ./hosts/nixps
-          nixos-hardware.nixosModules.dell-xps-15-9560-intel
-          nix-flatpak.nixosModules.nix-flatpak
-          home-manager.nixosModules.home-manager homeBase
-        ];
-      };
-
       nixitude = systemMake {
         module-paths = [
           ./hosts/nixitude
-          nixos-hardware.nixosModules.common-cpu-intel
-          nixos-hardware.nixosModules.common-pc-laptop-ssd
-          nix-flatpak.nixosModules.nix-flatpak
-          home-manager.nixosModules.home-manager homeBase
-        ];
-      };
-
-      nixitude-e = systemMake {
-        module-paths = [
-          ./hosts/nixitude-e
           nixos-hardware.nixosModules.common-cpu-intel
           nixos-hardware.nixosModules.common-pc-laptop-ssd
           nix-flatpak.nixosModules.nix-flatpak
