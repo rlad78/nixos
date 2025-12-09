@@ -4,6 +4,15 @@ let
   cfg = config.arf.laptop;
 in
 {
+  imports = lib.lists.forEach [
+    "/apps"
+    "/system"
+    "/system/printing.nix"
+    "/desktop-env/${cfg.desktop}.nix"
+    "/services/syncthing.nix"
+    "/services/tailscale.nix"
+  ] (p: root-config-dir + p);
+
   options.arf.laptop = with lib; {
     fwupd = mkOption {
       type = types.bool;
@@ -30,15 +39,6 @@ in
       cli.plugins = [ "systemd" "z" ];
       builders = [ "nixarf" ];
     };
-
-    imports = lib.lists.forEach [
-      "/apps"
-      "/system"
-      "/system/printing.nix"
-      "/desktop-env/${cfg.desktop}.nix"
-      "/services/syncthing.nix"
-      "/services/tailscale.nix"
-    ] (p: root-config-dir + p);
 
     boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
     networking.networkmanager.enable = true;

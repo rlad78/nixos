@@ -4,6 +4,16 @@ let
   cfg = config.arf.hass-tablet;
 in
 {
+  imports = lib.lists.forEach [
+    "/system"
+    "/desktop-env/kiosk.nix"
+    "/apps/cli"
+    "/services/sshd.nix"
+    "/services/restart.nix"
+    "/services/tailscale.nix"
+    "/services/syncthing.nix"
+  ] (p: root-config-dir + p);
+
   options.arf.hass-tablet = with lib; {
     page-url = mkOption {
       type = types.str;
@@ -23,15 +33,5 @@ in
         time = "02:00:00";
       };
     };
-
-    imports = lib.lists.forEach [
-      "/desktop-env/kiosk.nix"
-      "/system"
-      "/apps/cli"
-      "/services/sshd.nix"
-      "/services/restart.nix"
-      "/services/tailscale.nix"
-      "/services/syncthing.nix"
-    ] (p: root-config-dir + p);
   };
 }
