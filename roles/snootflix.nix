@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ...}:
+{ config, lib, pkgs, hosts, ...}:
 let
   root-config-dir = ./..;
   cfg = config.arf.snootflix;
@@ -50,14 +50,14 @@ in
     nixarr = {
       enable = true;
       mediaUsers = [ "richard" ];
-      mediaDir = cfg.mediaRootDir;
-      stateDir = cfg.stateRootDir;
+      mediaDir = builtins.toString cfg.mediaRootDir;
+      stateDir = builtins.toString cfg.stateRootDir;
 
       jellyfin = {
         enable = true;
         openFirewall = true;
         expose.https = {
-          enable = true;
+          enable = false;
           domainName = "snootflix.com";
         };
       };
@@ -67,7 +67,7 @@ in
         openFirewall = true;
         port = 5055;
         expose.https = {
-          enable = true;
+          enable = false;
           domainName = "request.snootflix.com";
         };
       };
@@ -94,9 +94,9 @@ in
         guiPort = 6336;
         openFirewall = true;
         whitelistHostnames = [
-          ${networking.hostName} # tailscale
-          hosts.${networking.hostName}.tail-ip
-          hosts.${networking.hostName}.local-ip
+          config.networking.hostName # tailscale
+          hosts.${config.networking.hostName}.tail-ip
+          # hosts.${config.networking.hostName}.local-ip
         ];
         whitelistRanges = [
           "10.69.0.0/22"

@@ -24,7 +24,7 @@
     };
 
     nixarr = {
-      url = "github:rlad78/nixarr/prod";
+      url = "github:rasmus-kirk/nixarr";
     };
   };
 
