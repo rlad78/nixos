@@ -97,16 +97,9 @@
       };
 
       snootflix = systemMake {
-        pkg-config-args = {
-          permittedInsecurePackages = [
-            "aspnetcore-runtime-6.0.36"
-            "aspnetcore-runtime-wrapped-6.0.36"
-            "dotnet-sdk-6.0.428"
-            "dotnet-sdk-wrapped-6.0.428"
-          ];
-        };
+        pkg-base = nixpkgs;
         module-paths = [
-          ./hosts/snootflix
+          ./hosts/snootflix2
           nixarr.nixosModules.default
         ];
       };
