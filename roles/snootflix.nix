@@ -128,8 +128,10 @@ in
       };
     };
 
+    # add sonarr-anime
     # add unmanic
     # add janitorr
+    # add wizarr
 
   };
 }
