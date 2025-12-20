@@ -24,6 +24,7 @@ in
     # dynamic-wallpaper
     gnome-tweaks
     vanilla-dmz
+    gnome-disk-utility
   ] ++ gnome-extensions;
 
   environment.gnome.excludePackages = with pkgs; [

@@ -22,6 +22,9 @@
   # don't install discover
   environment.plasma6.excludePackages = [ pkgs.kdePackages.discover ];
 
+  # install and enable KDE partition-manager
+  programs.partition-manager.enable = true;
+
   users.users.richard.packages = with pkgs; [
     # spell checking
     aspell
@@ -30,6 +33,9 @@
 
     # disk quota widget
     kdePackages.plasma-disks
+
+    # partition editor
+    kdePackages.partitionmanager
 
     # calculator
     kdePackages.kalk
