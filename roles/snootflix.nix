@@ -129,6 +129,7 @@ in
     };
 
     # add sonarr-anime
+    # add jellarr
     # add unmanic
     # add janitorr
     # add wizarr
