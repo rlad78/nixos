@@ -26,6 +26,7 @@ in
     "org.gnome.Mahjongg"
     "dev.bragefuglseth.Keypunch"
     "com.valvesoftware.Steam"
+    "org.vinegarhq.Sober"
   ];
 }
 
