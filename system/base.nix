@@ -1,4 +1,4 @@
-{ pkgs, lib, ... }:
+{ pkgs, pkgs-unstable, lib, ... }:
 {
   config = {
     # enable flakes
@@ -6,14 +6,13 @@
     
     # pkgs required for flakes and shell
     environment.systemPackages = with pkgs; [
-      zsh
       git
-      gh
       curl
-      lazygit
       git-crypt
       screen
       poetry
+      pkgs-unstable.gh
+      pkgs-unstable.lazygit
     ];
     
     environment.shellAliases = {

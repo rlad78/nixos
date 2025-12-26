@@ -1,10 +1,10 @@
-{ ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
   imports = [
     ./base.nix
   ];
 
-  users.users.richard.packages = with pkgs; [
+  users.users.richard.packages = with pkgs-unstable; [
     gnome-disk-utility
   ];
 

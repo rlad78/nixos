@@ -1,6 +1,6 @@
-{ configs, pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs-unstable; [
     btop
     duf
     dust

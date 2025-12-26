@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, pkgs-unstable, lib, ... }:
 {
   imports = [
     ./base.nix
@@ -15,7 +15,7 @@
   programs.kdeconnect.enable = true;
 
   # Fonts for Plasma
-  fonts.packages = with pkgs; [
+  fonts.packages = with pkgs-unstable; [
     ibm-plex
   ];
 
@@ -23,9 +23,12 @@
   environment.plasma6.excludePackages = [ pkgs.kdePackages.discover ];
 
   # install and enable KDE partition-manager
-  programs.partition-manager.enable = true;
+  programs.partition-manager = {
+    enable = true;
+    package = lib.mkForce pkgs-unstable.kdePackages.partitionmanager;
+  };
 
-  users.users.richard.packages = with pkgs; [
+  users.users.richard.packages = with pkgs-unstable; [
     # spell checking
     aspell
     aspellDicts.en
@@ -33,9 +36,6 @@
 
     # disk quota widget
     kdePackages.plasma-disks
-
-    # partition editor
-    kdePackages.partitionmanager
 
     # calculator
     kdePackages.kalk

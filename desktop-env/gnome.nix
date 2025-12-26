@@ -1,4 +1,4 @@
-{ configs, pkgs, lib, ... }:
+{ pkgs, pkgs-unstable, lib, ... }:
 let
   gnome-extensions = with pkgs.gnomeExtensions; [
     auto-power-profile

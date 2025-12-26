@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 let
   root-config-dir = ./..;
   cfg = config.arf.laptop;
@@ -17,15 +17,6 @@ in
       type = types.bool;
       default = true;
     };
-
-    # desktop = mkOption {
-      # type = types.enum [
-        # "gnome"
-        # "plasma"
-        # "cosmic"
-      # ];
-      # default = "plasma";
-    # };
   };
 
   config = {
@@ -39,7 +30,7 @@ in
       builders = [ "nixarf" ];
     };
 
-    boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
+    boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_zen;
     networking.networkmanager.enable = true;
 
     services.fwupd.enable = cfg.fwupd;

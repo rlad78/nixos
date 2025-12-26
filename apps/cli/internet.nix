@@ -1,6 +1,6 @@
-{ configs, pkgs, ... }:
+{ pkgs, pkgs-unstable, ... }:
 {
-  environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs-unstable; [
     aria2
     # termshark
     speedtest-cli

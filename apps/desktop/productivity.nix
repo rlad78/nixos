@@ -1,6 +1,6 @@
-{ config, pkgs, lib, pomatez, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 {
-  users.users.richard.packages = with pkgs; [
+  users.users.richard.packages = with pkgs-unstable; [
     (if config.services.desktopManager.plasma6.enable == true
       then libreoffice-qt6
       else libreoffice
