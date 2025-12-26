@@ -27,6 +27,7 @@ in
     "dev.bragefuglseth.Keypunch"
     "com.valvesoftware.Steam"
     "org.vinegarhq.Sober"
+    "com.play0ad.zeroad"
   ];
 }
 
