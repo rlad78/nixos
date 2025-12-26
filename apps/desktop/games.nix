@@ -13,7 +13,7 @@ let
 in
 {
   environment.systemPackages = with pkgs; [
-    myRetroArch
+    # myRetroArch
   ];
 
   programs.gamemode.enable = true;
