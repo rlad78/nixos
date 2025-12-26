@@ -6,34 +6,34 @@
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
+    nixarr.url = "github:rasmus-kirk/nixarr";
+    jellarr.url = "github:venkyr77/jellarr";
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
-    firefox-gnome-theme = {
-      url = "github:rafaelmardojai/firefox-gnome-theme";
-      flake = false;
-    };
-    psonewserv = {
-      url = "github:rlad78/newserv/arf-v2025-06-25";
-      flake = false;
-    };
-
-    nixarr = {
-      url = "github:rasmus-kirk/nixarr";
-    };
   };
 
-  outputs = { self, nixpkgs, nixpkgs-unstable, nixos-hardware, nix-flatpak, nixarr, home-manager, nixvim, firefox-gnome-theme, psonewserv,... }@inputs:
+  outputs = {
+    self,
+    nixpkgs,
+    nixpkgs-unstable,
+    nixos-hardware,
+    nix-flatpak,
+    nixarr,
+    jellarr,
+    nixvim,
+    ...
+  }@inputs:
   let
-    pkgsBaseArgs = add-config: {
+    pkgsBaseArgs = {
       system = "x86_64-linux";
-      config = { allowUnfree = true; } // add-config;
+      config = { allowUnfree = true; };
     };
+
+    modulesForAllSystems = [
+      nixvim.nixosModules.nixvim
+    ];
 
     distributeInputs = {
       util = import ./util.nix nixpkgs.lib;
@@ -43,53 +43,24 @@
 
       inherit nix-flatpak;
       inherit nixarr;
-      inherit psonewserv;
     };
 
-    homeBase = {
-      home-manager.useGlobalPkgs = true;
-      home-manager.useUserPackages = true;
-      home-manager.extraSpecialArgs = { inherit firefox-gnome-theme; };
-      home-manager.users.richard = import ./home/default.nix;
-    };
-
-    systemMake = {
-      pkg-base ? nixpkgs-unstable,
-      pkg-args ? {},
-      pkg-config-args ? {},
-      module-paths ? [],
-    }:
-    let
-      pkgsBuild = pkg: import pkg (
-        (pkgsBaseArgs pkg-config-args)
-        // pkg-args
-      );
-      default-modules = [
-        nixvim.nixosModules.nixvim
-      ];
-    in
-    pkg-base.lib.nixosSystem {
-      specialArgs = { # rec {
-        # pkgs = pkgsBuild pkg-base;
-        # pkgs-unstable =
-          # if pkg-base == nixpkgs-unstable
-          # then pkgs
-          # else pkgsBuild nixpkgs-unstable;
+    systemMake = { module-paths ? [] }: nixpkgs.lib.nixosSystem {
+      specialArgs = rec {
+        pkgs-unstable = import nixpkgs-unstable pkgsBaseArgs;
       } // distributeInputs;
 
-      modules = module-paths ++ default-modules;
+      modules = module-paths ++ modulesForAllSystems;
     };
   in
   {
     nixosConfigurations = {
 
       nixarf = systemMake {
-        # pkg-base = nixpkgs;
         module-paths = [ ./hosts/nixarf ];
       };
 
       hatab = systemMake {
-        pkg-base = nixpkgs;
         module-paths = [
           ./hosts/hatab
           # nixos-hardware.nixosModules.microsoft-surface-pro-intel
@@ -97,10 +68,10 @@
       };
 
       snootflix = systemMake {
-        pkg-base = nixpkgs;
         module-paths = [
           ./hosts/snootflix2
           nixarr.nixosModules.default
+          jellarr.nixosModules.default
         ];
       };
 
@@ -110,18 +81,7 @@
         ];
       };
 
-      nixitude = systemMake {
-        module-paths = [
-          ./hosts/nixitude
-          nixos-hardware.nixosModules.common-cpu-intel
-          nixos-hardware.nixosModules.common-pc-laptop-ssd
-          nix-flatpak.nixosModules.nix-flatpak
-          home-manager.nixosModules.home-manager homeBase
-        ];
-      };
-
       nst-van-checkout = systemMake {
-        pkg-base = nixpkgs;
         module-paths = [
           ./hosts/nst-van-checkout
           nixos-hardware.nixosModules.common-cpu-intel
@@ -130,7 +90,6 @@
       };
 
       nixpad = systemMake {
-        pkg-base = nixpkgs;
         module-paths = [
           ./hosts/nixpad
           nixos-hardware.nixosModules.lenovo-thinkpad-l13
