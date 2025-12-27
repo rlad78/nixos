@@ -9,6 +9,7 @@
   services.flatpak.packages = [
     "com.github.tchx84.Flatseal"
     "org.filezillaproject.Filezilla"
+    "github.peazip.PeaZip"
   ];
 
   # environment.shellAliases = {
