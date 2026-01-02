@@ -1,4 +1,4 @@
-{ config, pkgs, lib, hosts, secrets, ... }:
+{ config, pkgs, pkgs-unstable, lib, hosts, secrets, ... }:
 let
   local-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["local-ip"] v) (removeAttrs hosts [config.networking.hostName]);
   tail-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["tail-ip"] v) (removeAttrs hosts [config.networking.hostName]);
@@ -9,6 +9,7 @@ in
 {
     services.foldingathome = {
         enable = true;
+        package = pkgs-unstable.fahclient;
         user = "rcarte4";
         team = 60194;
         extraArgs = [
