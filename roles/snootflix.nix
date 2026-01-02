@@ -1,4 +1,4 @@
-{ config, lib, pkgs, hosts, ...}:
+{ config, lib, pkgs, pkgs-unstable, hosts, ...}:
 let
   root-config-dir = ./..;
   cfg = config.arf.snootflix;
@@ -62,6 +62,7 @@ in
 
       jellyfin = {
         enable = true;
+        package = pkgs-unstable.jellyfin;
         openFirewall = true;
         expose.https = {
           enable = false;
@@ -71,6 +72,7 @@ in
 
       jellyseerr = {
         enable = true;
+        package = pkgs-unstable.jellyseerr;
         openFirewall = true;
         port = 5055;
         expose.https = {
@@ -81,23 +83,27 @@ in
 
       prowlarr = {
         enable = true;
+        package = pkgs-unstable.prowlarr;
         openFirewall = true;
         port = 9696;
       };
 
       radarr = {
         enable = true;
+        package = pkgs-unstable.radarr;
         openFirewall = true;
         port = 7878;
       };
 
       recyclarr = {
         enable = true;
+        package = pkgs-unstable.recyclarr;
         configuration = import ./snootflix_src/recyclarr.nix;
       };
 
       sabnzbd = {
         enable = true;
+        package = pkgs.sabnzbd;
         guiPort = 6336;
         openFirewall = true;
         whitelistHostnames = [
@@ -119,6 +125,7 @@ in
 
       transmission = {
         enable = true;
+        package = pkgs-unstable.transmission_4;
         extraAllowedIps = my-device-ips;
         flood.enable = true;
         extraSettings = {
@@ -152,7 +159,7 @@ in
           name = "media";
           gid = sonarr-anime.media-gid;
         };
-        sonarr-package = pkgs.sonarr;
+        sonarr-package = pkgs-unstable.sonarr;
         media-dir = builtins.toString cfg.mediaRootDir;
       };
     in {
@@ -207,7 +214,6 @@ in
       };
     };
 
-    # add jellarr
     # add unmanic
     # add janitorr
     # add wizarr
