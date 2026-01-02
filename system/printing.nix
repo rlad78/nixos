@@ -1,10 +1,12 @@
-{ config, pkgs, ... }:
+{ config, pkgs, pkgs-unstable, ... }:
 {
-  services.printing.enable = true;
-
-  # environment.systemPackages = with pkgs; [
-    # hplipWithPlugin
-  # ];
+  services.printing = {
+    enable = true;
+    drivers = with pkgs-unstable; [
+      gutenprint
+      gutenprintBin
+    ];
+  };
 
   services.avahi = {
     enable = true;
