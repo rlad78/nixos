@@ -7,7 +7,6 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
     nixarr.url = "github:rasmus-kirk/nixarr";
-    jellarr.url = "github:venkyr77/jellarr";
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -21,7 +20,6 @@
     nixos-hardware,
     nix-flatpak,
     nixarr,
-    jellarr,
     nixvim,
     ...
   }@inputs:
@@ -71,7 +69,6 @@
         module-paths = [
           ./hosts/snootflix2
           nixarr.nixosModules.default
-          jellarr.nixosModules.default
         ];
       };
 
