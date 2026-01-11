@@ -25,7 +25,6 @@
   # install and enable KDE partition-manager
   programs.partition-manager = {
     enable = true;
-    package = lib.mkForce pkgs-unstable.kdePackages.partitionmanager;
   };
 
   users.users.richard.packages = with pkgs-unstable; [
