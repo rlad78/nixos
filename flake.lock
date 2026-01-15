@@ -73,6 +73,22 @@
         "type": "github"
       }
     },
+    "nixos-hardware-surface": {
+      "locked": {
+        "lastModified": 1765371797,
+        "narHash": "sha256-yaHE0vpK7XN/BR6B8jufAWrp7uYzwkhUbqk8G9EU1ak=",
+        "owner": "8bitbuddhist",
+        "repo": "nixos-hardware",
+        "rev": "4bf4cf11ca79c4169617eabd7d57696fe6d2954c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "8bitbuddhist",
+        "ref": "surface-rust-target-spec-fix",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1765608474,
@@ -147,6 +163,7 @@
         "nix-flatpak": "nix-flatpak",
         "nixarr": "nixarr",
         "nixos-hardware": "nixos-hardware",
+        "nixos-hardware-surface": "nixos-hardware-surface",
         "nixpkgs": "nixpkgs_2",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nixvim": "nixvim"

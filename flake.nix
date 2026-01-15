@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware-surface.url = "github:8bitbuddhist/nixos-hardware?ref=surface-rust-target-spec-fix";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
     nixarr.url = "github:rasmus-kirk/nixarr";
     nixvim = {
@@ -18,6 +19,7 @@
     nixpkgs,
     nixpkgs-unstable,
     nixos-hardware,
+    nixos-hardware-surface,
     nix-flatpak,
     nixarr,
     nixvim,
@@ -58,10 +60,10 @@
         module-paths = [ ./hosts/nixarf ];
       };
 
-      hatab = systemMake {
+      nst-van-checkout-surface = systemMake {
         module-paths = [
-          ./hosts/hatab
-          # nixos-hardware.nixosModules.microsoft-surface-pro-intel
+          ./hosts/nst-van-checkout-surface
+          nixos-hardware-surface.nixosModules.microsoft-surface-pro-intel
         ];
       };
 
@@ -69,12 +71,6 @@
         module-paths = [
           ./hosts/snootflix2
           nixarr.nixosModules.default
-        ];
-      };
-
-      nst-optiplex = systemMake {
-        module-paths = [
-          ./hosts/nst-optiplex
         ];
       };
 
