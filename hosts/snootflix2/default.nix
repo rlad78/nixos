@@ -13,7 +13,6 @@ in
   ] ++ lib.lists.forEach [
     "/roles/snootflix.nix"
     "/system/systemd-boot.nix"
-    "/services/cockpit.nix"
   ] (p: root-config-dir + p);
 
   networking.hostName = "snootflix";
