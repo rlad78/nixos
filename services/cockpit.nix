@@ -1,14 +1,18 @@
 { config, ... }:
+let
+  cockpit-port = 9090;
+in
 {
   services.cockpit = {
     enable = true;
     openFirewall = true;
-    port = 9090;
+    port = cockpit-port;
     showBanner = true;
-    options = {
-      AllowUnencrypted = false;
+    settings = {
+      webService.AllowUnencrypted = true;
     };
     allowed-origins = [
-      config.networking.hostName
+      "https://${config.networking.hostName}:${builtins.toString cockpit-port}"
     ];
+  };
 }
