@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, hosts, ...}:
+{ config, lib, pkgs, pkgs-unstable, hosts, secrets, ...}:
 let
   root-config-dir = ./..;
   cfg = config.arf.snootflix;
@@ -39,7 +39,7 @@ in
 
     stateRootDir = mkOption {
       type = types.path;
-      default = /snoot;
+      default = /config;
     };
   };
 
@@ -98,7 +98,7 @@ in
       recyclarr = {
         enable = true;
         package = pkgs-unstable.recyclarr;
-        configuration = import ./snootflix_src/recyclarr.nix;
+        configuration = import ./snootflix_src/recyclarr.nix { inherit secrets; };
       };
 
       sabnzbd = {
@@ -148,6 +148,13 @@ in
       group = "media";
       uid = sonarr-anime.uid;
     };
+
+    systemd.tmpfiles.rules = [
+      "d ${sonarr-anime.config-dir} 0700 sonarr-anime media"
+      "d ${toString cfg.mediaRootDir}/library/anime 0775 streamer media"
+      "d ${toString cfg.mediaRootDir}/usenet/sonarr-anime 0775 usenet media"
+      "d ${toString cfg.mediaRootDir}/torrents/sonarr-anime 0755 torrenter media"
+    ];
 
     containers.sonarr-anime = let
       fromHost = {

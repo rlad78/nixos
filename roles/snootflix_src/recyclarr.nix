@@ -1,3 +1,4 @@
+{ secrets }:
 {
   sonarr = {
     series = {
@@ -11,8 +12,8 @@
     };
 
     anime = {
-      base_url = "http://localhost:8981";
-      api_key = "";
+      base_url = "http://10.0.0.10:8981";
+      api_key = secrets.sonarr-anime-key;
       include = [
         { template = "sonarr-quality-definition-anime"; }
         { template = "sonarr-v4-quality-profile-anime"; }
