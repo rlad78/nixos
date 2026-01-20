@@ -1,4 +1,4 @@
-{ lib, ...}:
+{ lib, pkgs, ...}:
 let
   root-config-dir = ./../..;
 in
@@ -10,6 +10,7 @@ in
   
   imports = [
     ./hardware-configuration.nix
+    ./media-storage.nix
   ] ++ lib.lists.forEach [
     "/roles/snootflix.nix"
     "/system/systemd-boot.nix"
