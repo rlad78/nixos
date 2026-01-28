@@ -48,6 +48,8 @@ in
     ffmpeg
   ];
 
+  boot.kernelParams = [ "fsck.mode=force" "fsck.repair=yes" ];
+
   # leave two cores open on builds
   nix.settings.max-jobs = 6;
 
