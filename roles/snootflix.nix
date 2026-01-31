@@ -3,6 +3,10 @@ let
   root-config-dir = ./..;
   cfg = config.arf.snootflix;
 
+  media-root-dir-name = "snoot";
+  media-root-dir = "/${media-root-dir-name}";
+  disks-target-name = "snoot-disks";
+
   sonarr-anime = {
     config-dir = "${config.nixarr.stateDir}/sonarr-anime";
     hostPort = 8981;
@@ -32,9 +36,9 @@ in
   ] (p: root-config-dir + p);
 
   options.arf.snootflix = with lib; {
-    mediaRootDir = mkOption {
-      type = types.path;
-      default = /snoot;
+    mediaDiskPrefix = mkOption {
+      type = types.str;
+      default = "mediadisk";
     };
 
     stateRootDir = mkOption {
@@ -54,10 +58,38 @@ in
       inner-nat = true;
     };
 
+    systemd.targets.${disks-target-name} = let
+      media-mounts = with lib; lists.forEach (range 1 4) (
+        n: "mnt-${cfg.mediaDiskPrefix}${toString n}.mount"
+      );
+    in {
+      requires = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
+      after = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
+      bindsTo = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
+      wantedBy = [ "multi-user.target" ];
+    };
+
+    systemd.services = let
+      snoot-group-def = {
+        bindsTo = [ "${disks-target-name}.target" ];
+        partOf = [ "${disks-target-name}.target" ];
+        after = [ "${disks-target-name}.target" ];
+        wantedBy = [ "${disks-target-name}.target" ];
+      };
+    in lib.attrsets.genAttrs [
+      "jellyfin"
+      "jellyseerr"
+      "prowlarr"
+      "sonarr"
+      "container@sonarr-anime"
+      "sabnzbd"
+      "transmission"
+    ] (n: snoot-group-def);
+
     nixarr = {
       enable = true;
       mediaUsers = [ "richard" ];
-      mediaDir = builtins.toString cfg.mediaRootDir;
+      mediaDir = media-root-dir;
       stateDir = builtins.toString cfg.stateRootDir;
 
       jellyfin = {
@@ -151,9 +183,9 @@ in
 
     systemd.tmpfiles.rules = [
       "d ${sonarr-anime.config-dir} 0700 sonarr-anime media"
-      "d ${toString cfg.mediaRootDir}/library/anime 0775 streamer media"
-      "d ${toString cfg.mediaRootDir}/usenet/sonarr-anime 0775 usenet media"
-      "d ${toString cfg.mediaRootDir}/torrents/sonarr-anime 0755 torrenter media"
+      "d ${media-root-dir}/library/anime 0775 streamer media"
+      "d ${media-root-dir}/usenet/sonarr-anime 0775 usenet media"
+      "d ${media-root-dir}/torrents/sonarr-anime 0755 torrenter media"
     ];
 
     containers.sonarr-anime = let
@@ -167,7 +199,7 @@ in
           gid = sonarr-anime.media-gid;
         };
         sonarr-package = pkgs-unstable.sonarr;
-        media-dir = builtins.toString cfg.mediaRootDir;
+        media-dir = media-root-dir;
       };
     in {
       autoStart = true;

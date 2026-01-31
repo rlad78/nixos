@@ -4,6 +4,7 @@ let
     "compress-force=zstd:11"
     "noatime"
     "autodefrag"
+    "nofail"
   ];
 
   mkBtrfsDisk = label: {
@@ -21,10 +22,6 @@ in
     mergerfs-tools
   ];
 
-  systemd.tmpfiles.rules = [
-    # "d ${mergerfs-dir} 0775 root media"
-  ];
-
   fileSystems = {
     "/mnt/${media-disk-prefix}1" = mkBtrfsDisk "usb-4T-1";
     "/mnt/${media-disk-prefix}2" = mkBtrfsDisk "usb-4T-2";
@@ -39,6 +36,7 @@ in
         "defaults"
         "minfreespace=500M"
         "category.create=mfs"
+        "nofail"
       ];
     };
   };
