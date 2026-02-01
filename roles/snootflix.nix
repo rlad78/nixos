@@ -182,9 +182,9 @@ in
 
     systemd.tmpfiles.rules = [
       "d ${sonarr-anime.config-dir} 0700 sonarr-anime media"
-      "d ${media-root-dir}/library/anime 0775 streamer media"
-      "d ${media-root-dir}/usenet/sonarr-anime 0775 usenet media"
-      "d ${media-root-dir}/torrents/sonarr-anime 0755 torrenter media"
+      "d ${media-root-dir}/library/anime 0775 root media"
+      "d ${media-root-dir}/usenet/sonarr-anime 0775 sabnzbd media"
+      "d ${media-root-dir}/torrents/sonarr-anime 0755 transmission media"
     ];
 
     containers.sonarr-anime = let
