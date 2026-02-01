@@ -14,6 +14,7 @@ in
   ] ++ lib.lists.forEach [
     "/roles/snootflix.nix"
     "/system/systemd-boot.nix"
+    "/hosts/common/nvidia.nix"
   ] (p: root-config-dir + p);
 
   networking.hostName = "snootflix";

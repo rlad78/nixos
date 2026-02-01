@@ -27,7 +27,6 @@ in
   imports = lib.lists.forEach [
     "/system"
     "/desktop-env/no-desktop.nix"
-    "/hosts/common/nvidia.nix"
     "/apps/cli"
     "/services/tailscale.nix"
     "/services/syncthing.nix"
