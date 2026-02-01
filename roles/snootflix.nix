@@ -157,7 +157,7 @@ in
       transmission = {
         enable = true;
         package = pkgs-unstable.transmission_4;
-        extraAllowedIps = my-device-ips;
+        extraAllowedIps = my-device-ips ++ [ "10.0.0.69" "10.0.0.10" ];
         flood.enable = true;
         extraSettings = {
           speed-limit-down = 37500;
