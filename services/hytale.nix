@@ -24,7 +24,7 @@ in
     hytale = {
       image = "indifferentbroccoli/hytale-server-docker";
       pull = "always";
-      autoStart = true;
+      autoStart = false;
       extraOptions = [
         # "-it"
         # "--restart=unless-stopped"
