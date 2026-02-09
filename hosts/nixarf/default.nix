@@ -40,6 +40,7 @@ in
         "/services/rustdesk.nix"
         "/services/pinchflat.nix"
         "/services/fah.nix"
+        "/services/hytale.nix"
       ] (p: root-config-dir + p);
 
   # needed for Jellyfin YouTube metadata plugin
