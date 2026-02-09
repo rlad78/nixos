@@ -7,6 +7,7 @@
     minicom
     unzip
     udftools
+    zellij
   ];
 
   users.users.richard.extraGroups = [ "dialout" ];
