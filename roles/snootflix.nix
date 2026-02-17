@@ -145,6 +145,7 @@ in
         whitelistRanges = [
           "10.69.0.0/22"
           "100.64.0.0/10" # tailscale
+          "10.0.0.0/24" # nixos-containers
         ];
       };
 
