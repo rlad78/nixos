@@ -186,6 +186,9 @@ in
       "d ${media-root-dir}/library/anime 0775 root media"
       "d ${media-root-dir}/usenet/sonarr-anime 0775 sabnzbd media"
       "d ${media-root-dir}/torrents/sonarr-anime 0755 transmission media"
+
+      "d ${media-root-dir}/library/christmas 0775 root media"
+      "d ${media-root-dir}/library/halloween 0775 root media"
     ];
 
     containers.sonarr-anime = let
