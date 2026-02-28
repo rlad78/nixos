@@ -7,11 +7,21 @@ let
   media-root-dir = "/${media-root-dir-name}";
   disks-target-name = "snoot-disks";
 
+  wizarr-uid = 8100;
+  wizarr-gid = 8100;
+
   sonarr-anime = {
     config-dir = "${config.nixarr.stateDir}/sonarr-anime";
     hostPort = 8981;
     uid = 8981;
     media-gid = config.users.groups.media.gid;
+  };
+
+  wizarr-config = {
+    config-dir = "${config.nixarr.stateDir}/wizarr";
+    hostPort = 5690;
+    uid = 8100;
+    gid = 8100;
   };
 
   my-device-ips = with lib; lists.unique (lists.flatten (
@@ -189,6 +199,8 @@ in
 
       "d ${media-root-dir}/library/christmas 0775 root media"
       "d ${media-root-dir}/library/halloween 0775 root media"
+
+      "d ${wizarr-config.config-dir} 0700 wizarr root"
     ];
 
     containers.sonarr-anime = let
@@ -259,6 +271,31 @@ in
     # add unmanic
     # add janitorr
     # add wizarr
+
+    users.groups.wizarr.gid = wizarr-config.gid;
+    users.users.wizarr = {
+      isSystemUser = true;
+      uid = wizarr-config.uid;
+      group = "wizarr";
+    };
+    
+    virtualisation.docker.enable = true;
+    virtualisation.oci-containers.containers = {
+      "wizarr" = {
+        image = "ghcr.io/wizarrrr/wizarr";
+        extraOptions = [ "--pull=always" "--network=host" ];
+        ports = [ "5690:5690" ];
+        volumes = [ "/config/wizarr:/data" ];
+        environment = {
+          PUID = toString wizarr-uid;
+          PGID = toString wizarr-gid;
+          TZ = "America/New_York";
+        };
+      };
+    };
+
+
+  networking.firewall.allowedTCPPorts = [ wizarr-config.hostPort ];
 
   };
 }
