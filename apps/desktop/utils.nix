@@ -1,15 +1,12 @@
 { configs, pkgs, ... }:
 {
   users.users.richard.packages = with pkgs; [
-    # kitty
-    # kitty-themes
-    # ghostty
+    peazip
   ];
 
   services.flatpak.packages = [
     "com.github.tchx84.Flatseal"
     "org.filezillaproject.Filezilla"
-    "github.peazip.PeaZip"
   ];
 
   # environment.shellAliases = {
