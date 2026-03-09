@@ -8,6 +8,7 @@
     unzip
     udftools
     zellij
+    codex
   ];
 
   users.users.richard.extraGroups = [ "dialout" ];
