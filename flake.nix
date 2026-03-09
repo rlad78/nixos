@@ -7,7 +7,10 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixos-hardware-surface.url = "github:8bitbuddhist/nixos-hardware?ref=surface-rust-target-spec-fix";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
-    nixarr.url = "github:rasmus-kirk/nixarr";
+    nixarr = {
+      url = "github:rasmus-kirk/nixarr";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
@@ -28,7 +31,7 @@
   let
     pkgsBaseArgs = {
       system = "x86_64-linux";
-      config = { allowUnfree = true; };
+      config = { allowUnfree = true; cudaSupport = true; };
     };
 
     modulesForAllSystems = [

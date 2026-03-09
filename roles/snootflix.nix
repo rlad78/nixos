@@ -103,7 +103,7 @@ in
 
       jellyfin = {
         enable = true;
-        package = pkgs-unstable.jellyfin;
+        # package = pkgs-unstable.jellyfin;
         openFirewall = true;
         expose.https = {
           enable = false;
@@ -113,7 +113,7 @@ in
 
       jellyseerr = {
         enable = true;
-        package = pkgs-unstable.jellyseerr;
+        # package = pkgs-unstable.jellyseerr;
         openFirewall = true;
         port = 5055;
         expose.https = {
@@ -144,7 +144,7 @@ in
 
       sabnzbd = {
         enable = true;
-        package = pkgs.sabnzbd;
+        # package = pkgs.sabnzbd;
         guiPort = 6336;
         openFirewall = true;
         whitelistHostnames = [
@@ -161,13 +161,14 @@ in
 
       sonarr = {
         enable = true;
+        package = pkgs-unstable.sonarr;
         openFirewall = true;
         port = 8989;
       };
 
       transmission = {
         enable = true;
-        package = pkgs-unstable.transmission_4;
+        # package = pkgs-unstable.transmission_4;
         extraAllowedIps = my-device-ips ++ [ "10.0.0.69" "10.0.0.10" ];
         flood.enable = true;
         extraSettings = {
