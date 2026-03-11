@@ -279,7 +279,7 @@ in
       uid = wizarr-config.uid;
       group = "wizarr";
     };
-    
+
     virtualisation.docker.enable = true;
     virtualisation.oci-containers.containers = {
       "wizarr" = {
