@@ -9,6 +9,7 @@
     udftools
     zellij
     codex
+    codex-acp
   ];
 
   users.users.richard.extraGroups = [ "dialout" ];
