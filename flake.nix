@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
-    nixpkgs-unstable.url = "github:NixOS/nixpkgs";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixos-hardware-surface.url = "github:8bitbuddhist/nixos-hardware?ref=surface-rust-target-spec-fix";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
