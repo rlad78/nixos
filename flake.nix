@@ -34,6 +34,10 @@
       config = { allowUnfree = true; cudaSupport = true; };
     };
 
+    unstableExtraArgs = {
+      config.permittedInsecurePackages = [ "openclaw-2026.2.26" ];
+    };
+
     modulesForAllSystems = [
       nixvim.nixosModules.nixvim
     ];
@@ -50,7 +54,7 @@
 
     systemMake = { module-paths ? [] }: nixpkgs.lib.nixosSystem {
       specialArgs = rec {
-        pkgs-unstable = import nixpkgs-unstable pkgsBaseArgs;
+        pkgs-unstable = import nixpkgs-unstable (pkgsBaseArgs // unstableExtraArgs);
       } // distributeInputs;
 
       modules = module-paths ++ modulesForAllSystems;
