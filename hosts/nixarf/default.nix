@@ -17,7 +17,7 @@ in
       theme = "candy";
       plugins = [ "systemd" "z" ];
     };
-    rustdesk.publicIP = "69.59.79.150";
+    # rustdesk.publicIP = "69.59.79.150";
     inner-nat = true;
   };
 
@@ -27,6 +27,7 @@ in
 		  ./storage-disk.nix
     ] ++ lib.lists.forEach [
         "/desktop-env/no-desktop.nix"
+        "/hosts/common/nvidia.nix"
         "/system"
         "/apps/cli"
         "/services/sshd.nix"
@@ -34,13 +35,14 @@ in
         "/services/syncthing.nix"
         "/services/scrutiny.nix"
         "/services/pdf.nix"
-        "/services/webdav.nix"
+        # "/services/webdav.nix"
         "/services/nix-builder.nix"
         "/services/hass.nix"
-        "/services/rustdesk.nix"
+        # "/services/rustdesk.nix"
         "/services/pinchflat.nix"
         "/services/fah.nix"
         "/services/hytale.nix"
+        "/services/ai.nix"
       ] (p: root-config-dir + p);
 
   # needed for Jellyfin YouTube metadata plugin
