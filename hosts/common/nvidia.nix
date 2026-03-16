@@ -21,6 +21,8 @@ in
     hardware.graphics.enable = true;
 
     hardware.nvidia = {
+      nvidiaSettings = true;
+
       # Modesetting is required.
       modesetting.enable = true;
 
