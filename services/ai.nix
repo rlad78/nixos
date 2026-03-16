@@ -1,23 +1,28 @@
-{ config, pkgs-unstable, ... }:
+{ config, lib, pkgs-unstable, ... }:
+let
+  cfg = config.arf.ollama;
+in
 {
-  services.ollama = {
-    enable = true;
-    acceleration = "cuda";
-    port = 11434;
-    openFirewall = true;
-    package = pkgs-unstable.ollama;
-    # loadModels = [ "deepseek-r1:32b" ];
+  options.arf.ollama = with lib; {
+    models = mkOption {
+      type = with types; listOf str;
+      default = [ ];
+    };
   };
 
-  environment.systemPackages = with pkgs-unstable; [
-    llmfit
-  ];
+  config = {
+    services.ollama = {
+      enable = true;
+      acceleration = "cuda";
+      port = 11434;
+      openFirewall = true;
+      package = pkgs-unstable.ollama;
+      loadModels = cfg.models;
+    };
 
-  # services.nextjs-ollama-llm-ui = {
-  #   enable = true;
-  #   hostname = "0.0.0.0";
-  #   port = 3000;
-  # };
-
-  # networking.firewall.allowedTCPPorts = [ config.services.nextjs-ollama-llm-ui.port ];
+    environment.systemPackages = with pkgs-unstable; [
+      llmfit
+      openclaw
+    ];
+  };
 }
