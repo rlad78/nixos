@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
   virtualisation = {
     libvirtd = {
@@ -17,7 +17,7 @@
   programs.virt-manager.enable = true;
 
   environment.systemPackages = with pkgs; [
-    pkgs-unstable.winboat
+    winboat
     podman-compose
   ];
 }

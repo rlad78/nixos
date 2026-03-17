@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, hosts, secrets, ...}:
+{ config, lib, pkgs, hosts, secrets, ...}:
 let
   root-config-dir = ./..;
   cfg = config.arf.snootflix;
@@ -103,7 +103,7 @@ in
 
       jellyfin = {
         enable = true;
-        # package = pkgs-unstable.jellyfin;
+        # package = pkgs.jellyfin;
         openFirewall = true;
         expose.https = {
           enable = false;
@@ -113,7 +113,7 @@ in
 
       jellyseerr = {
         enable = true;
-        # package = pkgs-unstable.jellyseerr;
+        # package = pkgs.jellyseerr;
         openFirewall = true;
         port = 5055;
         expose.https = {
@@ -124,21 +124,21 @@ in
 
       prowlarr = {
         enable = true;
-        package = pkgs-unstable.prowlarr;
+        # package = pkgs.prowlarr;
         openFirewall = true;
         port = 9696;
       };
 
       radarr = {
         enable = true;
-        package = pkgs-unstable.radarr;
+        # package = pkgs.radarr;
         openFirewall = true;
         port = 7878;
       };
 
       recyclarr = {
         enable = true;
-        package = pkgs-unstable.recyclarr;
+        # package = pkgs.recyclarr;
         configuration = import ./snootflix_src/recyclarr.nix { inherit secrets; };
       };
 
@@ -161,14 +161,14 @@ in
 
       sonarr = {
         enable = true;
-        package = pkgs-unstable.sonarr;
+        # package = pkgs.sonarr;
         openFirewall = true;
         port = 8989;
       };
 
       transmission = {
         enable = true;
-        # package = pkgs-unstable.transmission_4;
+        # package = pkgs.transmission_4;
         extraAllowedIps = my-device-ips ++ [ "10.0.0.69" "10.0.0.10" ];
         flood.enable = true;
         extraSettings = {
@@ -214,7 +214,7 @@ in
           name = "media";
           gid = sonarr-anime.media-gid;
         };
-        sonarr-package = pkgs-unstable.sonarr;
+        sonarr-package = pkgs.sonarr;
         media-dir = media-root-dir;
       };
     in {

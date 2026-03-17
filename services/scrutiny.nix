@@ -1,8 +1,8 @@
-{ config, pkgs-unstable, ... }:
+{ config, pkgs, ... }:
 {
   services.scrutiny = {
     enable = true;
-    package = pkgs-unstable.scrutiny;
+    # package = pkgs.scrutiny;
     openFirewall = true;
     collector.enable = true;
     settings.web.listen.port = 9999;

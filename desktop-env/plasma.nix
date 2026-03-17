@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, lib, ... }:
+{ config, pkgs, lib, ... }:
 {
   imports = [
     ./base.nix
@@ -15,7 +15,7 @@
   programs.kdeconnect.enable = true;
 
   # Fonts for Plasma
-  fonts.packages = with pkgs-unstable; [
+  fonts.packages = with pkgs; [
     ibm-plex
   ];
 
@@ -27,7 +27,7 @@
     enable = true;
   };
 
-  users.users.richard.packages = with pkgs-unstable; [
+  users.users.richard.packages = with pkgs; [
     # spell checking
     aspell
     aspellDicts.en

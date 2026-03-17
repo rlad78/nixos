@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, ... }:
 with lib; let
   cfg = config.arf.ytdl;
 
@@ -44,7 +44,7 @@ in
       text = builtins.readFile (sourceDir + "/how_to_get_cookies.md");
     };
   in mkIf cfg.enable {
-    environment.systemPackages = with pkgs-unstable; [
+    environment.systemPackages = with pkgs; [
       yt-dlp
       ffmpeg
     ];

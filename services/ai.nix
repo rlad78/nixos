@@ -1,4 +1,4 @@
-{ config, lib, pkgs-unstable, ... }:
+{ config, lib, pkgs, ... }:
 let
   cfg = config.arf.ollama;
 in
@@ -13,16 +13,16 @@ in
   config = {
     services.ollama = {
       enable = true;
-      acceleration = "cuda";
+      # acceleration = "cuda";
       port = 11434;
       openFirewall = true;
-      package = pkgs-unstable.ollama;
+      package = pkgs.ollama-cuda;
       loadModels = cfg.models;
     };
 
-    environment.systemPackages = with pkgs-unstable; [
+    environment.systemPackages = with pkgs; [
       llmfit
-      openclaw
+      # openclaw
     ];
   };
 }

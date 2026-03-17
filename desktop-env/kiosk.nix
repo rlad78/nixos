@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, lib, ...}:
+{ config, pkgs, lib, ...}:
 let
   cfg = config.arf;
   kiosk-user = "richard";
@@ -17,13 +17,13 @@ in
 
     users.users.${kiosk-user}.extraGroups = [ "seat" ];
 
-    environment.systemPackages = with pkgs-unstable; [
+    environment.systemPackages = with pkgs; [
       chromium
       swayidle
       light
     ];
 
-    fonts.packages = with pkgs-unstable; [
+    fonts.packages = with pkgs; [
       noto-fonts-color-emoji
       noto-fonts-monochrome-emoji
     ];
@@ -96,7 +96,7 @@ in
 
     services.cage = {
       enable = true;
-      package = pkgs-unstable.cage;
+      # package = pkgs.cage;
       user = kiosk-user;
       program = "${pkgs.chromium}/bin/chromium --enable-features=UseOzonePlatform --ozone-platform=wayland --kiosk ${cfg.web-kiosk-url}";
     };

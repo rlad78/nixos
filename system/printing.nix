@@ -1,8 +1,8 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, ... }:
 {
   services.printing = {
     enable = true;
-    drivers = with pkgs-unstable; [
+    drivers = with pkgs; [
       gutenprint
       gutenprintBin
     ];

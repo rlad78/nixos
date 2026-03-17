@@ -52,11 +52,8 @@
       inherit nixarr;
     };
 
-    systemMake = { module-paths ? [] }: nixpkgs.lib.nixosSystem {
-      specialArgs = rec {
-        pkgs-unstable = import nixpkgs-unstable (pkgsBaseArgs // unstableExtraArgs);
-      } // distributeInputs;
-
+    systemMake = { module-paths ? [] }: nixpkgs-unstable.lib.nixosSystem {
+      specialArgs = distributeInputs;
       modules = module-paths ++ modulesForAllSystems;
     };
   in

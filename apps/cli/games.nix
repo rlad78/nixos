@@ -1,6 +1,6 @@
-{ pkgs, pkgs-unstable, ... }:
+{ pkgs, ... }:
 {
-  users.users.richard.packages = with pkgs-unstable; [
+  users.users.richard.packages = with pkgs; [
     typespeed
   ];
 }

@@ -1,4 +1,4 @@
-{ config, pkgs-unstable, ...}:
+{ config, pkgs, ...}:
 let
   mediaTarget = "/storage/pinchflat";
 in
@@ -16,7 +16,7 @@ in
 
   services.pinchflat = {
     enable = true;
-    package = pkgs-unstable.pinchflat;
+    # package = pkgs.pinchflat;
     openFirewall = true;
     secretsFile = ./../secrets/pinchflat.txt;
     selfhosted = true;

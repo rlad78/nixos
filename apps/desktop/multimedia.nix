@@ -1,6 +1,6 @@
-{ configs, pkgs, pkgs-unstable, ... }:
+{ configs, pkgs, ... }:
 {
-  environment.systemPackages = with pkgs-unstable; [
+  environment.systemPackages = with pkgs; [
     mpv
   ];
 

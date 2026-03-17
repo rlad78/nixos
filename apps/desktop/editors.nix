@@ -1,7 +1,7 @@
-{ config, pkgs, pkgs-unstable, ... }:
+{ config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    pkgs-unstable.poetry
+    poetry
     nixd
     nixpkgs-fmt
   ];

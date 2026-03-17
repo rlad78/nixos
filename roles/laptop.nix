@@ -1,4 +1,4 @@
-{ config, lib, pkgs, pkgs-unstable, ... }:
+{ config, lib, pkgs, ... }:
 let
   root-config-dir = ./..;
   cfg = config.arf.laptop;
@@ -30,7 +30,7 @@ in
       builders = [ "nixarf" ];
     };
 
-    boot.kernelPackages = pkgs-unstable.linuxKernel.packages.linux_zen;
+    boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
     networking.networkmanager.enable = true;
 
     services.fwupd.enable = cfg.fwupd;

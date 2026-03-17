@@ -1,4 +1,4 @@
-{ pkgs, pkgs-unstable, lib, ... }:
+{ pkgs, lib, ... }:
 {
   config = {
     # enable flakes
@@ -11,8 +11,8 @@
       git-crypt
       screen
       poetry
-      pkgs-unstable.gh
-      pkgs-unstable.lazygit
+      gh
+      lazygit
     ];
     
     environment.shellAliases = {

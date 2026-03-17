@@ -1,4 +1,4 @@
-{ config, pkgs, pkgs-unstable, lib, ... }:
+{ config, pkgs, lib, ... }:
 let
   cfg = config.arf.cli;
 
@@ -24,7 +24,7 @@ in
   };
     
   config = {
-    environment.systemPackages = with pkgs-unstable; [
+    environment.systemPackages = with pkgs; [
       eza
       tldr
       ripgrep
