@@ -1,7 +1,7 @@
 { configs, pkgs, ... }:
 {
   imports = [
-    ./editors.nix
+    ./develop.nix
     ./games.nix
     ./internet.nix
     ./multimedia.nix
