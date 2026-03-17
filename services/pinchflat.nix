@@ -16,8 +16,8 @@ in
 
   services.pinchflat = {
     enable = true;
-    # package = pkgs.pinchflat;
     openFirewall = true;
+    port = 8945;
     secretsFile = ./../secrets/pinchflat.txt;
     selfhosted = true;
     mediaDir = mediaTarget;
