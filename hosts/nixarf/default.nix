@@ -19,7 +19,10 @@ in
     };
     # rustdesk.publicIP = "69.59.79.150";
     inner-nat = true;
-    ollama.models = [ "qwen3.5:2b" ];
+    ollama = {
+      models = [ "qwen3.5:2b" ];
+      context-window = 16 * 1024;
+    };
   };
 
   imports =
