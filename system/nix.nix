@@ -1,28 +1,30 @@
-{ config, lib, pkgs, ... }:
-with lib; let
+{ config, lib, ... }:
+with lib;
+let
   cfg = config.arf.gc;
 
-  nxtype-func =
-    ''
-      nxtype() {
-        realpath $(command -v ''${1})
-      }
-    '';
-  
-  nxsh-func =
-    ''
-      nxsh() {
-        nix shell nixpkgs#''${1}
-      }
-    '';
-    
+  nxtype-func = ''
+    nxtype() {
+      realpath $(command -v ''${1})
+    }
+  '';
+
+  nxsh-func = ''
+    nxsh() {
+      nix shell nixpkgs#''${1}
+    }
+  '';
+
   check-alias = "nix flake check --no-build --show-trace";
 
-  shell-functions = [ nxtype-func nxsh-func ];
+  shell-functions = [
+    nxtype-func
+    nxsh-func
+  ];
   shell-aliases = {
     nxcheck = check-alias;
   };
-in 
+in
 {
   options.arf.gc = {
     enable = mkOption {
@@ -44,7 +46,7 @@ in
       automatic = true;
       dates = cfg.frequency;
       persistent = true;
-      options = "--delete-older-than ${builtins.toString cfg.older-than}d";
+      options = "--delete-older-than ${toString cfg.older-than}d";
     };
 
     programs.nh.enable = true;

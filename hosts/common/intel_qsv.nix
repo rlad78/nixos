@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 {
   boot.kernelParams = [
     "i915.enable_guc=2"
@@ -24,5 +24,7 @@
     intel-gpu-tools
   ];
 
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; };
+  environment.sessionVariables = {
+    LIBVA_DRIVER_NAME = "iHD";
+  };
 }

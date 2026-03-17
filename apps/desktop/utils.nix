@@ -1,4 +1,4 @@
-{ configs, pkgs, ... }:
+{ pkgs, ... }:
 {
   users.users.richard.packages = with pkgs; [
     peazip
@@ -8,10 +8,6 @@
     "com.github.tchx84.Flatseal"
     "org.filezillaproject.Filezilla"
   ];
-
-  # environment.shellAliases = {
-    # kssh = "kitty +kitten ssh";
-  # };
 
   services.flatpak.enable = true;
   services.flatpak.update.onActivation = true;

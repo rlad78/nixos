@@ -21,6 +21,6 @@
   services.power-profiles-daemon.enable = true;
 
   fonts.packages = with pkgs; [
-      nerd-fonts.jetbrains-mono
+    nerd-fonts.jetbrains-mono
   ];
 }

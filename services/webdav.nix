@@ -1,4 +1,4 @@
-{ config, pkgs, secrets, ... }:
+{ secrets, ... }:
 let
   service-port = 5151;
 in

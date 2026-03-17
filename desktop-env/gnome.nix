@@ -5,9 +5,6 @@ let
     caffeine
     runcat
     night-theme-switcher
-    # paperwm
-    # search-light
-    # no-overview
     grand-theft-focus
   ];
 in
@@ -20,12 +17,15 @@ in
   services.displayManager.gdm.enable = lib.mkDefault true;
   services.desktopManager.gnome.enable = lib.mkDefault true;
 
-  users.users.richard.packages = with pkgs; [
-    # dynamic-wallpaper
-    gnome-tweaks
-    vanilla-dmz
-    gnome-disk-utility
-  ] ++ gnome-extensions;
+  users.users.richard.packages =
+    with pkgs;
+    [
+      # dynamic-wallpaper
+      gnome-tweaks
+      vanilla-dmz
+      gnome-disk-utility
+    ]
+    ++ gnome-extensions;
 
   environment.gnome.excludePackages = with pkgs; [
     atomix

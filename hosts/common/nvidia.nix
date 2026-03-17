@@ -1,11 +1,20 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.arf.nvidia;
 in
 {
   options.arf.nvidia = with lib; {
     version = mkOption {
-      type = types.enum [ "stable" "beta" "production" ];
+      type = types.enum [
+        "stable"
+        "beta"
+        "production"
+      ];
       default = "stable";
     };
   };
@@ -29,7 +38,7 @@ in
       # independent third-party "nouveau" open source driver).
       open = false;
 
-      # nvidia-persistenced a update for NVIDIA GPU headless mode 
+      # nvidia-persistenced a update for NVIDIA GPU headless mode
       # i.e. It ensures all GPUs stay awake even during headless mode
       nvidiaPersistenced = true;
     };

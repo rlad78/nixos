@@ -12,7 +12,7 @@ in
       webService.AllowUnencrypted = true;
     };
     allowed-origins = [
-      "https://${config.networking.hostName}:${builtins.toString cockpit-port}"
+      "https://${config.networking.hostName}:${toString cockpit-port}"
     ];
   };
 }

@@ -1,13 +1,17 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.arf.cli;
 
-  mkdown-func =
-    ''
-      mkdown() {
-        sudo install -d -m ''${4:-0755} -o ''$2 -g ''${3:-$2} ''$1
-      }
-    '';
+  mkdown-func = ''
+    mkdown() {
+      sudo install -d -m ''${4:-0755} -o ''$2 -g ''${3:-$2} ''$1
+    }
+  '';
 
   shell-functions = [ mkdown-func ];
 in
@@ -15,14 +19,16 @@ in
   options.arf.cli = with lib; {
     theme = mkOption {
       type = types.str;
-      default = "robbyrussell"; 
+      default = "robbyrussell";
     };
-    plugins = with types; mkOption {
-      type = listOf str;
-      default = [ "systemd" ];
-    };
+    plugins =
+      with types;
+      mkOption {
+        type = listOf str;
+        default = [ "systemd" ];
+      };
   };
-    
+
   config = {
     environment.systemPackages = with pkgs; [
       eza
@@ -54,7 +60,7 @@ in
       ohMyZsh = {
         enable = true;
         plugins = cfg.plugins;
-        theme = cfg.theme; 
+        theme = cfg.theme;
         customPkgs = with pkgs; [
           nix-zsh-completions
         ];
@@ -62,4 +68,3 @@ in
     };
   };
 }
-

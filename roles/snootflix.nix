@@ -1,4 +1,11 @@
-{ config, lib, pkgs, hosts, secrets, ...}:
+{
+  config,
+  lib,
+  pkgs,
+  hosts,
+  secrets,
+  ...
+}:
 let
   root-config-dir = ./..;
   cfg = config.arf.snootflix;
@@ -24,14 +31,24 @@ let
     gid = 8100;
   };
 
-  my-device-ips = with lib; lists.unique (lists.flatten (
-    builtins.map (a: attrsets.attrValues a) (
-      builtins.map (x: attrsets.filterAttrs (
-        n: v: builtins.elem n [ "tail-ip" "local-ip" ]) x) (
-          builtins.attrValues hosts)
+  my-device-ips =
+    with lib;
+    lists.unique (
+      lists.flatten (
+        map (a: attrsets.attrValues a) (
+          map (
+            x:
+            attrsets.filterAttrs (
+              n: v:
+              builtins.elem n [
+                "tail-ip"
+                "local-ip"
+              ]
+            ) x
+          ) (builtins.attrValues hosts)
+        )
       )
-    )
-  );
+    );
 in
 {
   imports = lib.lists.forEach [
@@ -67,43 +84,46 @@ in
       inner-nat = true;
     };
 
-    systemd.targets.${disks-target-name} = let
-      media-mounts = with lib; lists.forEach (range 1 4) (
-        n: "mnt-${cfg.mediaDiskPrefix}${toString n}.mount"
-      );
-    in {
-      requires = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
-      after = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
-      bindsTo = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
-      wantedBy = [ "multi-user.target" ];
-    };
-
-    systemd.services = let
-      snoot-group-def = {
-        bindsTo = [ "${disks-target-name}.target" ];
-        partOf = [ "${disks-target-name}.target" ];
-        after = [ "${disks-target-name}.target" ];
-        wantedBy = [ "${disks-target-name}.target" ];
+    systemd.targets.${disks-target-name} =
+      let
+        media-mounts =
+          with lib;
+          lists.forEach (range 1 4) (n: "mnt-${cfg.mediaDiskPrefix}${toString n}.mount");
+      in
+      {
+        requires = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
+        after = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
+        bindsTo = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
+        wantedBy = [ "multi-user.target" ];
       };
-    in lib.attrsets.genAttrs [
-      "jellyfin"
-      "jellyseerr"
-      "prowlarr"
-      "sonarr"
-      "container@sonarr-anime"
-      "sabnzbd"
-      "transmission"
-    ] (n: snoot-group-def);
+
+    systemd.services =
+      let
+        snoot-group-def = {
+          bindsTo = [ "${disks-target-name}.target" ];
+          partOf = [ "${disks-target-name}.target" ];
+          after = [ "${disks-target-name}.target" ];
+          wantedBy = [ "${disks-target-name}.target" ];
+        };
+      in
+      lib.attrsets.genAttrs [
+        "jellyfin"
+        "jellyseerr"
+        "prowlarr"
+        "sonarr"
+        "container@sonarr-anime"
+        "sabnzbd"
+        "transmission"
+      ] (n: snoot-group-def);
 
     nixarr = {
       enable = true;
       mediaUsers = [ "richard" ];
       mediaDir = media-root-dir;
-      stateDir = builtins.toString cfg.stateRootDir;
+      stateDir = toString cfg.stateRootDir;
 
       jellyfin = {
         enable = true;
-        # package = pkgs.jellyfin;
         openFirewall = true;
         expose.https = {
           enable = false;
@@ -113,7 +133,6 @@ in
 
       jellyseerr = {
         enable = true;
-        # package = pkgs.jellyseerr;
         openFirewall = true;
         port = 5055;
         expose.https = {
@@ -124,27 +143,23 @@ in
 
       prowlarr = {
         enable = true;
-        # package = pkgs.prowlarr;
         openFirewall = true;
         port = 9696;
       };
 
       radarr = {
         enable = true;
-        # package = pkgs.radarr;
         openFirewall = true;
         port = 7878;
       };
 
       recyclarr = {
         enable = true;
-        # package = pkgs.recyclarr;
         configuration = import ./snootflix_src/recyclarr.nix { inherit secrets; };
       };
 
       sabnzbd = {
         enable = true;
-        # package = pkgs.sabnzbd;
         guiPort = 6336;
         openFirewall = true;
         whitelistHostnames = [
@@ -161,15 +176,16 @@ in
 
       sonarr = {
         enable = true;
-        # package = pkgs.sonarr;
         openFirewall = true;
         port = 8989;
       };
 
       transmission = {
         enable = true;
-        # package = pkgs.transmission_4;
-        extraAllowedIps = my-device-ips ++ [ "10.0.0.69" "10.0.0.10" ];
+        extraAllowedIps = my-device-ips ++ [
+          "10.0.0.69"
+          "10.0.0.10"
+        ];
         flood.enable = true;
         extraSettings = {
           speed-limit-down = 37500;
@@ -204,75 +220,78 @@ in
       "d ${wizarr-config.config-dir} 0700 wizarr root"
     ];
 
-    containers.sonarr-anime = let
-      fromHost = {
-        user = rec {
-          name = "sonarr-anime";
-          uid = sonarr-anime.uid;
-        };
-        group = rec {
-          name = "media";
-          gid = sonarr-anime.media-gid;
-        };
-        sonarr-package = pkgs.sonarr;
-        media-dir = media-root-dir;
-      };
-    in {
-      autoStart = true;
-      privateNetwork = true;
-      hostAddress = "10.0.0.10";
-      localAddress = "10.0.0.69";
-      ephemeral = true;
-      bindMounts = {
-        "${fromHost.media-dir}" = {
-          hostPath = fromHost.media-dir;
-          isReadOnly = false;
-        };
-        "${sonarr-anime.config-dir}" = {
-          hostPath = sonarr-anime.config-dir;
-          isReadOnly = false;
-        };
-      };
-      forwardPorts = [
-        {
-          containerPort = 8989;
-          hostPort = sonarr-anime.hostPort;
-          protocol = "tcp";
-        }
-      ];
-
-      config = { config, pkgs, ... }: {
-        users = {
-          users."${fromHost.user.name}" = {
-            uid = fromHost.user.uid;
-            isSystemUser = true;
-            group = fromHost.group.name;
+    containers.sonarr-anime =
+      let
+        fromHost = {
+          user = {
+            name = "sonarr-anime";
+            uid = sonarr-anime.uid;
           };
-          groups."${fromHost.group.name}" = {
-            gid = fromHost.group.gid;
-
+          group = {
+            name = "media";
+            gid = sonarr-anime.media-gid;
+          };
+          sonarr-package = pkgs.sonarr;
+          media-dir = media-root-dir;
+        };
+      in
+      {
+        autoStart = true;
+        privateNetwork = true;
+        hostAddress = "10.0.0.10";
+        localAddress = "10.0.0.69";
+        ephemeral = true;
+        bindMounts = {
+          "${fromHost.media-dir}" = {
+            hostPath = fromHost.media-dir;
+            isReadOnly = false;
+          };
+          "${sonarr-anime.config-dir}" = {
+            hostPath = sonarr-anime.config-dir;
+            isReadOnly = false;
           };
         };
-        services.sonarr = {
-          enable = true;
-          package = fromHost.sonarr-package;
-          openFirewall = true;
-          user = fromHost.user.name;
-          group = fromHost.group.name;
-          dataDir = "${sonarr-anime.config-dir}";
-        };
+        forwardPorts = [
+          {
+            containerPort = 8989;
+            hostPort = sonarr-anime.hostPort;
+            protocol = "tcp";
+          }
+        ];
 
-        networking.useHostResolvConf = lib.mkForce false;
-        services.resolved.enable = true;
+        config =
+          { ... }:
+          {
+            users = {
+              users."${fromHost.user.name}" = {
+                uid = fromHost.user.uid;
+                isSystemUser = true;
+                group = fromHost.group.name;
+              };
+              groups."${fromHost.group.name}" = {
+                gid = fromHost.group.gid;
 
-        system.stateVersion = "25.11";
+              };
+            };
+            services.sonarr = {
+              enable = true;
+              package = fromHost.sonarr-package;
+              openFirewall = true;
+              user = fromHost.user.name;
+              group = fromHost.group.name;
+              dataDir = "${sonarr-anime.config-dir}";
+            };
+
+            networking.useHostResolvConf = lib.mkForce false;
+            services.resolved.enable = true;
+
+            system.stateVersion = "25.11";
+          };
       };
-    };
 
-    # add unmanic
     # add janitorr
-    # add wizarr
 
+    # wizarr
     users.groups.wizarr.gid = wizarr-config.gid;
     users.users.wizarr = {
       isSystemUser = true;
@@ -284,7 +303,10 @@ in
     virtualisation.oci-containers.containers = {
       "wizarr" = {
         image = "ghcr.io/wizarrrr/wizarr";
-        extraOptions = [ "--pull=always" "--network=host" ];
+        extraOptions = [
+          "--pull=always"
+          "--network=host"
+        ];
         ports = [ "5690:5690" ];
         volumes = [ "/config/wizarr:/data" ];
         environment = {
@@ -295,8 +317,7 @@ in
       };
     };
 
-
-  networking.firewall.allowedTCPPorts = [ wizarr-config.hostPort ];
+    networking.firewall.allowedTCPPorts = [ wizarr-config.hostPort ];
 
   };
 }

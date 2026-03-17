@@ -1,8 +1,7 @@
-{ config, pkgs, inputs, ... }:
+{ ... }:
 {
   services.tailscale = {
     enable = true;
-    # package = pkgs.tailscale;
     openFirewall = true;
   };
 }

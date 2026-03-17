@@ -1,9 +1,12 @@
-{ pkgs, lib, ... }:
+{ pkgs, ... }:
 {
   config = {
     # enable flakes
-    nix.settings.experimental-features = [ "nix-command" "flakes" ];
-    
+    nix.settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+
     # pkgs required for flakes and shell
     environment.systemPackages = with pkgs; [
       git
@@ -14,11 +17,11 @@
       gh
       lazygit
     ];
-    
+
     environment.shellAliases = {
       lzgit = "lazygit";
     };
-    
+
     programs.zsh = {
       enable = true;
       autosuggestions = {

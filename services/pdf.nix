@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 {
   virtualisation.docker.enable = true;
   users.users.richard.extraGroups = [ "docker" ];

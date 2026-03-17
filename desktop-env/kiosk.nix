@@ -1,13 +1,20 @@
-{ config, pkgs, lib, ...}:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   cfg = config.arf;
   kiosk-user = "richard";
 in
 {
-  options.arf.web-kiosk-url = with lib; mkOption {
-    type = types.str;
-    default = "https://google.com";
-  };
+  options.arf.web-kiosk-url =
+    with lib;
+    mkOption {
+      type = types.str;
+      default = "https://google.com";
+    };
 
   config = {
     services.seatd = {
@@ -68,29 +75,39 @@ in
         User = "richard";
         Group = "users";
         ExecStartPre = "${pkgs.coreutils-full}/bin/sleep 10";
-        ExecStart = let
-          mkTimeout = t:
-            [ "timeout" (toString t.timeout) t.command ]
-            ++ optionals (t.resumeCommand != null) [ "resume" t.resumeCommand ];
-          timeouts =
-            let
-              set_light = n: "${pkgs.light}/bin/light -S ${builtins.toString n}";
-              default_light = 5;
-              dim_light = 1;
-            in
-            [
-              {
-                timeout = 45;
-                command = set_light dim_light;
-                resumeCommand = set_light default_light;
-              }
-              {
-                timeout = 60;
-                command = set_light 0;
-                resumeCommand = set_light default_light;
-              }
-            ];
-        in "+${meta.getExe pkgs.swayidle} -w ${strings.escapeShellArgs (concatMap mkTimeout timeouts)}";
+        ExecStart =
+          let
+            mkTimeout =
+              t:
+              [
+                "timeout"
+                (toString t.timeout)
+                t.command
+              ]
+              ++ optionals (t.resumeCommand != null) [
+                "resume"
+                t.resumeCommand
+              ];
+            timeouts =
+              let
+                set_light = n: "${pkgs.light}/bin/light -S ${toString n}";
+                default_light = 5;
+                dim_light = 1;
+              in
+              [
+                {
+                  timeout = 45;
+                  command = set_light dim_light;
+                  resumeCommand = set_light default_light;
+                }
+                {
+                  timeout = 60;
+                  command = set_light 0;
+                  resumeCommand = set_light default_light;
+                }
+              ];
+          in
+          "+${meta.getExe pkgs.swayidle} -w ${strings.escapeShellArgs (concatMap mkTimeout timeouts)}";
       };
     };
 

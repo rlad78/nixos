@@ -13,7 +13,9 @@ let
 in
 {
   systemd.tmpfiles.settings."50-terraria" = (
-    lib.attrsets.genAttrs terraria-dirs (dir: {d = dir-settings;})
+    lib.attrsets.genAttrs terraria-dirs (dir: {
+      d = dir-settings;
+    })
   );
 
   services.terraria = {
@@ -25,7 +27,7 @@ in
     dataDir = "/terraria/data";
     worldPath = "/terraria/worlds/main.wld";
     autoCreatedWorldSize = "medium";
-    
+
     secure = true;
     password = secrets.terraria;
     messageOfTheDay = "yo yo yo";

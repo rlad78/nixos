@@ -1,4 +1,4 @@
-{ configs, pkgs, ... }:
+{ ... }:
 {
   imports = [
     ./develop.nix

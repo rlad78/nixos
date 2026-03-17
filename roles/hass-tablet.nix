@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   root-config-dir = ./..;
   cfg = config.arf.hass-tablet;

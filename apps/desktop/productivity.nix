@@ -1,10 +1,7 @@
 { config, pkgs, ... }:
 {
   users.users.richard.packages = with pkgs; [
-    (if config.services.desktopManager.plasma6.enable == true
-      then libreoffice-qt6
-      else libreoffice
-    )
+    (if config.services.desktopManager.plasma6.enable == true then libreoffice-qt6 else libreoffice)
     hunspell
     hunspellDicts.en_US
   ];

@@ -1,11 +1,11 @@
-{ config, pkgs, lib, ... }:
+{ lib, ... }:
 {
   services.xserver.enable = lib.mkDefault false;
   services.printing.enable = lib.mkDefault false;
   services.libinput.enable = lib.mkDefault false;
 
   # prevent suspend/hibernate (mostly for laptops)
-  systemd.sleep.settings.Sleep = { 
+  systemd.sleep.settings.Sleep = {
     AllowSuspend = "no";
     AllowHibernation = "no";
     AllowHybridSleep = "no";

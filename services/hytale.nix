@@ -1,4 +1,4 @@
-{ secrets, config, ... }:
+{ ... }:
 let
   hytale-uid = 15520;
   hytale-gid = 15520;
@@ -37,7 +37,7 @@ in
         PGID = "${toString hytale-gid}";
         SERVER_NAME = "Twilight";
         ENABLE_BACKUPS = "true";
-        BACKUP_FREQUENCY = "90";  # minutes
+        BACKUP_FREQUENCY = "90"; # minutes
         MAX_MEMORY = "12G";
       };
     };

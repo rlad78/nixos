@@ -1,22 +1,28 @@
-{ config, pkgs, lib, hosts, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  hosts,
+  ...
+}:
 let
-  local-addresses = with lib.attrsets; (this-host:
-    mapAttrsToList (n: v: v.local-ip) (
-      filterAttrs (n: v: hasAttrByPath ["local-ip"] v) (
-        removeAttrs hosts [this-host]
+  local-addresses =
+    with lib.attrsets;
+    (
+      this-host:
+      mapAttrsToList (n: v: v.local-ip) (
+        filterAttrs (n: v: hasAttrByPath [ "local-ip" ] v) (removeAttrs hosts [ this-host ])
       )
-    )
-  );
-  tail-addresses = with lib.attrsets; (this-host:
-    mapAttrsToList (n: v: v.tail-ip) (
-      filterAttrs (n: v: hasAttrByPath ["tail-ip"] v) (
-        removeAttrs hosts [this-host]
+    );
+  tail-addresses =
+    with lib.attrsets;
+    (
+      this-host:
+      mapAttrsToList (n: v: v.tail-ip) (
+        filterAttrs (n: v: hasAttrByPath [ "tail-ip" ] v) (removeAttrs hosts [ this-host ])
       )
-    )
-  );
-  all-host-addresses = (this-host:
-    (local-addresses this-host) ++ (tail-addresses this-host)
-  );
+    );
+  all-host-addresses = (this-host: (local-addresses this-host) ++ (tail-addresses this-host));
 in
 {
   users.users.transmission = {
@@ -40,9 +46,7 @@ in
       rpc-enabled = true;
       rpc-bind-address = "0.0.0.0";
       # rpc-whitelist = "10.0.0.*,10.0.1.*,10.0.2.111,10.0.3.*,100.126.192.113,100.68.24.62";
-      rpc-whitelist = lib.strings.concatStringsSep "," (
-        all-host-addresses config.networking.hostName
-      );
+      rpc-whitelist = lib.strings.concatStringsSep "," (all-host-addresses config.networking.hostName);
 
       # allow for hostname instead of ip
       rpc-host-whitelist = "nixarf";
@@ -62,7 +66,7 @@ in
       alt-speed-time-begin = 240;
       alt-speed-time-end = 1350;
     };
-    
+
     openRPCPort = true;
     openPeerPorts = true;
   };

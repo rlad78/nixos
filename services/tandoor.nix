@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 {
   services.tandoor-recipes = {
     enable = true;

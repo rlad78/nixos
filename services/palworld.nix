@@ -1,4 +1,4 @@
-{ config, pkgs, secrets, ... }:
+{ config, secrets, ... }:
 let
   public-ip = "69.59.79.150";
   palworld-uid = 6969;
@@ -32,13 +32,13 @@ in
       volumes = [
         "/palworld:/palworld"
       ];
-      ports = with builtins; [
+      ports = [
         "${toString host-game-port}:8211/udp"
         "27015:27015/udp"
       ];
       environment = {
-        PUID = "${builtins.toString config.users.users.palworld.uid}";
-        PGID = "${builtins.toString config.users.groups.palworld.gid}";
+        PUID = "${toString config.users.users.palworld.uid}";
+        PGID = "${toString config.users.groups.palworld.gid}";
         PORT = "8211";
         PLAYERS = "8";
         MULTITHREADING = "true";
@@ -51,7 +51,7 @@ in
         SERVER_NAME = "Crescent";
         SERVER_DESCRIPTION = "Fun times with arf & Moon";
         PUBLIC_IP = public-ip;
-        PUBLIC_PORT = builtins.toString forwarded-port;
+        PUBLIC_PORT = toString forwarded-port;
         DELETE_OLD_BACKUPS = "true";
         OLD_BACKUP_DAYS = "14";
         UPDATE_ON_BOOT = "true";
@@ -79,5 +79,8 @@ in
 
   };
 
-  networking.firewall.allowedUDPPorts = [ host-game-port 27015 ];
+  networking.firewall.allowedUDPPorts = [
+    host-game-port
+    27015
+  ];
 }

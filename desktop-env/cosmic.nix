@@ -1,4 +1,4 @@
-{ pkgs, pkgs, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./base.nix

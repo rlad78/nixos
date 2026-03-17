@@ -1,20 +1,22 @@
-{ configs, pkgs, ... }:
-let
-  myRetroArch = (pkgs.retroarch.withCores
-    (cores: with cores; [
-      mgba
-      fceumm
-      snes9x2005-plus
-      genesis-plus-gx
-      beetle-saturn
-      beetle-psx-hw
-    ])
-  );
-in
+{ ... }:
+# let
+#   myRetroArch = (
+#     pkgs.retroarch.withCores (
+#       cores: with cores; [
+#         mgba
+#         fceumm
+#         snes9x2005-plus
+#         genesis-plus-gx
+#         beetle-saturn
+#         beetle-psx-hw
+#       ]
+#     )
+#   );
+# in
 {
-  environment.systemPackages = with pkgs; [
-    # myRetroArch
-  ];
+  # environment.systemPackages = with pkgs; [
+  #   myRetroArch
+  # ];
 
   programs.gamemode.enable = true;
 
@@ -30,4 +32,3 @@ in
     "com.play0ad.zeroad"
   ];
 }
-

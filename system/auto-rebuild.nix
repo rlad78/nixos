@@ -1,7 +1,5 @@
 { pkgs, ... }:
 let
-  flake-dir = "/home/richard/nixos";
-
   flake-pull-script = pkgs.writeShellApplication {
     name = "flake-auto-pull";
     runtimeInputs = [ pkgs.git ];

@@ -1,7 +1,10 @@
-{ config, pkgs, lib, ... }:
+{ config, lib, ... }:
 let
   cfg = config.arf.nixvim;
-  plug-on = { enable = true; autoLoad = true; };
+  plug-on = {
+    enable = true;
+    autoLoad = true;
+  };
 in
 {
   options.arf.nixvim = with lib; {
@@ -62,11 +65,11 @@ in
         barbar = {
           enable = true;
           autoLoad = true;
-          keymaps = with lib; {
+          keymaps = {
             close.key = "<A-x>";
             closeAllButCurrent.key = "<A-S-x>";
             first.key = "<A-S-h>";
-            last.key = "<A-S-l>"; 
+            last.key = "<A-S-l>";
             next.key = "<A-l>";
             previous.key = "<A-h>";
             moveNext.key = "<A-S-k>";
@@ -80,7 +83,7 @@ in
             goTo7.key = "<A-7>";
             goTo8.key = "<A-8>";
             goTo9.key = "<A-9>";
-          }; 
+          };
         };
         web-devicons.enable = true; # required for barbar
 

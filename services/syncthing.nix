@@ -1,20 +1,38 @@
-{ config, lib, hosts, ... }:
-
+{
+  config,
+  lib,
+  hosts,
+  ...
+}:
 let
   sync_dir = "/syncthing";
 
-  addr_gen = {addr, port}: [
-    ("tcp://" + addr + ":" + port)
-    ("quic://" + addr + ":" + port)
-  ];
-  sync_addrs = addresses: port: lib.lists.flatten (
-    lib.lists.forEach addresses (x: addr_gen { addr=x; port=port; })
-  );
+  addr_gen =
+    { addr, port }:
+    [
+      ("tcp://" + addr + ":" + port)
+      ("quic://" + addr + ":" + port)
+    ];
+  sync_addrs =
+    addresses: port:
+    lib.lists.flatten (
+      lib.lists.forEach addresses (
+        x:
+        addr_gen {
+          addr = x;
+          port = port;
+        }
+      )
+    );
 
-  syncthing-hosts = with lib.attrsets; filterAttrs (n: v: hasAttrByPath ["sync-id"] v) (removeAttrs hosts [config.networking.hostName]);
+  syncthing-hosts =
+    with lib.attrsets;
+    filterAttrs (n: v: hasAttrByPath [ "sync-id" ] v) (
+      removeAttrs hosts [ config.networking.hostName ]
+    );
   syncthing-hosts-names = lib.attrsets.mapAttrsToList (n: v: n) syncthing-hosts;
 
-  exists = name: attrset: lib.lists.optional (builtins.hasAttr name attrset) attrset.${name}; 
+  exists = name: attrset: lib.lists.optional (builtins.hasAttr name attrset) attrset.${name};
   get-host-ips = host: (exists "tail-ip" host) ++ (exists "local-ip" host);
 in
 {
@@ -39,12 +57,14 @@ in
     openDefaultPorts = true;
 
     settings = {
-      devices = with lib.attrsets; concatMapAttrs (n: v: {
-        "${n}" = {
-          addresses = sync_addrs (get-host-ips v) "22000";
-          id = v.sync-id;
-        };
-      }) syncthing-hosts;
+      devices =
+        with lib.attrsets;
+        concatMapAttrs (n: v: {
+          "${n}" = {
+            addresses = sync_addrs (get-host-ips v) "22000";
+            id = v.sync-id;
+          };
+        }) syncthing-hosts;
 
       folders = {
         notes = {

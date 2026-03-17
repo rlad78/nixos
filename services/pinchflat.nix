@@ -1,4 +1,4 @@
-{ config, pkgs, ...}:
+{ ... }:
 let
   mediaTarget = "/storage/pinchflat";
 in
@@ -7,7 +7,6 @@ in
     # "L /pinchflat - - - - /var/lib/pinchflat"
     "d ${mediaTarget} 0770 pinchflat storage"
   ];
-
 
   users.users.pinchflat = {
     # group = "storage";
