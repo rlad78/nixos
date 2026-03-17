@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 let
   root-config-dir = ./../..;
 in
@@ -15,7 +15,10 @@ in
     };
     cli = {
       theme = "candy";
-      plugins = [ "systemd" "z" ];
+      plugins = [
+        "systemd"
+        "z"
+      ];
     };
     # rustdesk.publicIP = "69.59.79.150";
     inner-nat = true;
@@ -25,29 +28,29 @@ in
     };
   };
 
-  imports =
-    [
-      ./hardware-configuration.nix
-		  ./storage-disk.nix
-    ] ++ lib.lists.forEach [
-        "/desktop-env/no-desktop.nix"
-        "/hosts/common/nvidia.nix"
-        "/system"
-        "/apps/cli"
-        "/services/sshd.nix"
-        "/services/tailscale.nix"
-        "/services/syncthing.nix"
-        "/services/scrutiny.nix"
-        "/services/pdf.nix"
-        # "/services/webdav.nix"
-        "/services/nix-builder.nix"
-        "/services/hass.nix"
-        # "/services/rustdesk.nix"
-        "/services/pinchflat.nix"
-        "/services/fah.nix"
-        "/services/hytale.nix"
-        "/services/ai.nix"
-      ] (p: root-config-dir + p);
+  imports = [
+    ./hardware-configuration.nix
+    ./storage-disk.nix
+  ]
+  ++ lib.lists.forEach [
+    "/desktop-env/no-desktop.nix"
+    "/hosts/common/nvidia.nix"
+    "/system"
+    "/apps/cli"
+    "/services/sshd.nix"
+    "/services/tailscale.nix"
+    "/services/syncthing.nix"
+    "/services/scrutiny.nix"
+    "/services/pdf.nix"
+    # "/services/webdav.nix"
+    "/services/nix-builder.nix"
+    "/services/hass.nix"
+    # "/services/rustdesk.nix"
+    "/services/pinchflat.nix"
+    "/services/fah.nix"
+    "/services/hytale.nix"
+    "/services/ai.nix"
+  ] (p: root-config-dir + p);
 
   # needed for Jellyfin YouTube metadata plugin
   environment.systemPackages = with pkgs; [
@@ -55,7 +58,10 @@ in
     ffmpeg
   ];
 
-  boot.kernelParams = [ "fsck.mode=force" "fsck.repair=yes" ];
+  boot.kernelParams = [
+    "fsck.mode=force"
+    "fsck.repair=yes"
+  ];
 
   # leave two cores open on builds
   nix.settings.max-jobs = 6;
@@ -65,6 +71,7 @@ in
   services.jellyfin = {
     enable = true;
     openFirewall = true;
+    group = "storage";
   };
 
   systemd.tmpfiles.rules = [
@@ -86,7 +93,10 @@ in
     };
   };
 
-  users.users.richard.extraGroups = [ "networkmanager" "wheel" ];
+  users.users.richard.extraGroups = [
+    "networkmanager"
+    "wheel"
+  ];
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you
@@ -112,4 +122,3 @@ in
   system.stateVersion = "23.11"; # Did you read the comment?
 
 }
-
