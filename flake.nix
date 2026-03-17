@@ -9,7 +9,7 @@
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=v0.1.0";
     nixarr = {
       url = "github:rasmus-kirk/nixarr";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
     nixvim = {
       url = "github:nix-community/nixvim";
