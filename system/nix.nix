@@ -55,5 +55,6 @@ in
     programs.zsh.promptInit = strings.concatStrings shell-functions;
 
     nixpkgs.config.allowUnfree = true;
+    nixpkgs.config.cudaSupport = true;
   };
 }
