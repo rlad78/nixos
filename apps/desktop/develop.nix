@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
   environment.systemPackages = with pkgs; [
-    zed
+    zed-editor
   ];
 }
