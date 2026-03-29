@@ -125,20 +125,12 @@ in
       jellyfin = {
         enable = true;
         openFirewall = true;
-        expose.https = {
-          enable = false;
-          domainName = "snootflix.com";
-        };
       };
 
       jellyseerr = {
         enable = true;
         openFirewall = true;
         port = 5055;
-        expose.https = {
-          enable = false;
-          domainName = "request.snootflix.com";
-        };
       };
 
       prowlarr = {
@@ -289,7 +281,6 @@ in
           };
       };
 
-    # add janitorr
 
     # wizarr
     users.groups.wizarr.gid = wizarr-config.gid;
@@ -317,7 +308,32 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = [ wizarr-config.hostPort ];
+    services.nginx = {
+      enable = true;
+      recommendedTlsSettings = true;
+      recommendedOptimisation = true;
+      recommendedGzipSettings = true;
+      recommendedProxySettings = true;
+    };
 
+    services.nginx.virtualHosts = {
+      "snootflix.com" = {
+        serverAliases = [ "www.snootflix.com" ];
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:8096";
+          proxyWebsockets = true;
+        };
+      };
+      "invite.snootflix.com".locations."/" = {
+        proxyPass = "http://127.0.0.1:${toString wizarr-config.hostPort}";
+        proxyWebsockets = true;
+      };
+      "request.snootflix.com".locations."/" = {
+        proxyPass = "http://127.0.0.1:${toString config.nixarr.jellyseerr.port}";
+        proxyWebsockets = true;
+      };
+    };
+
+    networking.firewall.allowedTCPPorts = [ 80 443 ];
   };
 }
