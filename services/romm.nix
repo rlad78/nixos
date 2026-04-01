@@ -7,8 +7,9 @@
 }:
 let
   cfg = config.arf.romm;
-  romm-version = "4.0.1";
+  romm-version = "4.7.0";
   storage-gid = config.users.groups.storage.gid;
+  consoles = import ./src/romm/consoles.nix;
 in
 {
   options.arf.romm = with lib; {
@@ -39,10 +40,10 @@ in
       default = "${toString cfg.workingDir}/library";
     };
 
-    consoles = mkOption {
-      type = types.listOf types.str;
-      default = [ ];
-    };
+    # consoles = mkOption {
+    #   type = types.listOf types.str;
+    #   default = [ ];
+    # };
   };
 
   config =
@@ -119,10 +120,10 @@ in
 
       console-subdirs =
         with lib.lists;
-        forEach cfg.consoles (x: "d ${toString cfg.libraryDir}/roms/${x} 0775 romm storage")
-        ++ forEach cfg.consoles (x: "d ${toString cfg.libraryDir}/bios/${x} 0775 romm storage");
+        forEach consoles (x: "d ${toString cfg.libraryDir}/roms/${x} 0775 romm storage")
+        ++ forEach consoles (x: "d ${toString cfg.libraryDir}/bios/${x} 0775 romm storage");
     in
-    lib.mkIf cfg.enable {
+    {
       virtualisation.docker.enable = true;
       environment.systemPackages = [ pkgs.docker-compose ];
 
@@ -141,7 +142,7 @@ in
       ++ working-subdirs
       ++ console-subdirs;
 
-      systemd.services.docker-compose-romm = {
+      systemd.services.docker-compose-romm = lib.mkIf cfg.enable {
         script = "${pkgs.docker-compose}/bin/docker-compose -f ${compose-file} up";
         wantedBy = [ "multi-user.target" ];
         after = [
