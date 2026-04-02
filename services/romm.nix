@@ -39,6 +39,13 @@ in
       type = types.path;
       default = "${toString cfg.workingDir}/library";
     };
+
+    hosting = {
+      enable = mkEnableOption "";
+      url = mkOption {
+        type = types.str;
+      };
+    };
   };
 
   config =
@@ -145,5 +152,24 @@ in
           "docker.socket"
         ];
       };
+
+      services.nginx = lib.mkIf cfg.hosting.enable {
+        enable = true;
+        recommendedTlsSettings = true;
+        recommendedOptimisation = true;
+        recommendedGzipSettings = true;
+        recommendedProxySettings = true;
+
+        virtualHosts = {
+          "${cfg.hosting.url}".locations."/" = {
+            proxyPass = "http://127.0.0.1:${toString cfg.port}";
+            extraConfig = ''
+              client_max_body_size 0;
+            '';
+          };
+        };
+      };
+
+      networking.firewall.allowedTCPPorts = lib.mkIf cfg.hosting.enable [ 80 443 ];
     };
 }

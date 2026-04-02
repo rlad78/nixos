@@ -11,6 +11,10 @@ in
     romm = {
       enable = true;
       libraryDir = /snoot/romm;
+      hosting = {
+        enable = true;
+        url = "retro.snootflix.com";
+      };
     };
   };
   
