@@ -9,7 +9,7 @@ in
       plugins = [ "systemd" "z" ];
     };
     romm = {
-      enable = false;
+      enable = true;
       libraryDir = /snoot/romm;
     };
   };

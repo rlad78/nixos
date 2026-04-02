@@ -39,11 +39,6 @@ in
       type = types.path;
       default = "${toString cfg.workingDir}/library";
     };
-
-    # consoles = mkOption {
-    #   type = types.listOf types.str;
-    #   default = [ ];
-    # };
   };
 
   config =
