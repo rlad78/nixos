@@ -70,6 +70,10 @@ in
               - STEAMGRIDDB_API_KEY=${secrets.romm.steamgrid-api} # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#steamgriddb
               - SCREENSCRAPER_USER=${secrets.romm.screenscraper-user} # Use your ScreenScraper username and password
               - SCREENSCRAPER_PASSWORD=${secrets.romm.screenscraper-password} # https://docs.romm.app/latest/Getting-Started/Generate-API-Keys/#screenscraper
+              - ENABLE_SCHEDULED_RESCAN=true
+              - SCHEDULED_RESCAN_CRON=0 3 * * *
+              - ENABLE_RESCAN_ON_FILESYSTEM_CHANGE=true
+              - RESCAN_ON_FILESYSTEM_CHANGE_DELAY=5
             volumes:
               - ${toString cfg.workingDir}/resources:/romm/resources # Resources fetched from IGDB (covers, screenshots, etc.)
               - ${toString cfg.workingDir}/redis:/redis-data # Cached data for background tasks
