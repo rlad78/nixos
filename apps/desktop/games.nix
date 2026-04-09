@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 # let
 #   myRetroArch = (
 #     pkgs.retroarch.withCores (
@@ -17,6 +17,10 @@
   # environment.systemPackages = with pkgs; [
   #   myRetroArch
   # ];
+
+  users.users.richard.packages = with pkgs; [
+    openrct2
+  ];
 
   programs.gamemode.enable = true;
 
