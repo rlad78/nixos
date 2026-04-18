@@ -15,7 +15,7 @@ in
     };
 
     context-window = mkOption {
-      type = types.ints.u16; # increase limit if we ever buy crazy vram
+      type = types.ints.u32; # increase limit if we ever buy crazy vram
       default = 4096;
     };
   };

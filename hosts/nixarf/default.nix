@@ -24,7 +24,7 @@ in
     inner-nat = true;
     ollama = {
       models = [ "qwen3.5:2b" ];
-      context-window = 16 * 1024;
+      context-window = 100000;
     };
   };
 
