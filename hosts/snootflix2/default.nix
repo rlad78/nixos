@@ -8,6 +8,7 @@ in
       theme = "jonathan";
       plugins = [ "systemd" "z" ];
     };
+    nvidia.version = "legacy_580";
     romm = {
       enable = true;
       libraryDir = /snoot/romm;

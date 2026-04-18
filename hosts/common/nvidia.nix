@@ -14,6 +14,7 @@ in
         "stable"
         "beta"
         "production"
+        "legacy_580"
       ];
       default = "stable";
     };

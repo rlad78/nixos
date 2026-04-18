@@ -80,7 +80,6 @@ in
         frequency = "weekly";
         older-than = 14;
       };
-      nvidia.version = "production";
       inner-nat = true;
     };
 
