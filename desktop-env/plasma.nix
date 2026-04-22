@@ -39,6 +39,9 @@
     # calculator
     kdePackages.kalk
 
+    # RDP client
+    kdePackages.krdc
+
     # help out flatpaks
     xdg-desktop-portal-gnome
 
