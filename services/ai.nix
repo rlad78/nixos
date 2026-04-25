@@ -14,8 +14,13 @@ in
       default = [ ];
     };
 
+    host = mkOption {
+      type = types.str;
+      default = "127.0.0.1";
+    };
+
     context-window = mkOption {
-      type = types.ints.u32; # increase limit if we ever buy crazy vram
+      type = types.ints.u32;
       default = 4096;
     };
   };
@@ -28,8 +33,10 @@ in
       openFirewall = true;
       loadModels = cfg.models;
       syncModels = true;
+      host = cfg.host;
       environmentVariables = {
         OLLAMA_CONTEXT_LENGTH = toString cfg.context-window;
+        # OLLAMA_FLASH_ATTENTION = 0;
       };
     };
 
