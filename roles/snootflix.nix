@@ -181,7 +181,7 @@ in
         extraSettings = {
           speed-limit-down = 37500;
           speed-limit-down-enabled = true;
-          speed-limit-up = 2500;
+          speed-limit-up = 1250;
           speed-limit-up-enabled = true;
 
           trash-can-enabled = false;
