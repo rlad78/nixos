@@ -29,7 +29,7 @@ in
       user = "richard";
     };
 
-    environment.systemPackages = with pkgs; [ firefox ];
+    environment.systemPackages = with pkgs; [ firefox-bin ];
     networking.networkmanager.enable = true;
 
     systemd.user.services.nst-van-checkout = {
@@ -41,7 +41,7 @@ in
       ];
       wants = [ "network-online.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.firefox}/bin/firefox -kiosk http://vcheckout.nst.clemson.edu:3000/";
+        ExecStart = "${pkgs.firefox-bin}/bin/firefox -kiosk http://vcheckout.nst.clemson.edu:3000/";
       };
     };
 
