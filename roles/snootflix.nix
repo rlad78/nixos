@@ -56,7 +56,6 @@ in
     "/desktop-env/no-desktop.nix"
     "/apps/cli"
     "/services/tailscale.nix"
-    "/services/syncthing.nix"
     "/services/sshd.nix"
     "/services/scrutiny.nix"
   ] (p: root-config-dir + p);
