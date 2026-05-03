@@ -1,5 +1,10 @@
 { ... }:
 {
+  programs.ssh.extraConfig = "
+    Host optiserv
+      User rcarte4
+  ";
+
   programs.ssh.kexAlgorithms = [
     # default
     "sntrup761x25519-sha512@openssh.com"
