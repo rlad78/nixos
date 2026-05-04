@@ -43,8 +43,6 @@ in
     environment.systemPackages = with pkgs; [
       llmfit
       opencode
-      codex
-      codex-acp
     ];
   };
 }
