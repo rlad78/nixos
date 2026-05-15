@@ -1,6 +1,6 @@
 { secrets, ... }:
 let
-  hass_version = "2026.4";
+  hass_version = "2026.5";
 in
 {
   virtualisation.docker.enable = true;
