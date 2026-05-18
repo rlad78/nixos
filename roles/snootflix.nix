@@ -106,7 +106,7 @@ in
       in
       lib.attrsets.genAttrs [
         "jellyfin"
-        "jellyseerr"
+        "seerr"
         "prowlarr"
         "sonarr"
         "container@sonarr-anime"
@@ -125,7 +125,7 @@ in
         openFirewall = true;
       };
 
-      jellyseerr = {
+      seerr = {
         enable = true;
         openFirewall = true;
         port = 5055;
@@ -327,7 +327,7 @@ in
         proxyWebsockets = true;
       };
       "request.snootflix.com".locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.nixarr.jellyseerr.port}";
+        proxyPass = "http://127.0.0.1:${toString config.nixarr.seerr.port}";
         proxyWebsockets = true;
       };
     };
