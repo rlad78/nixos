@@ -15,6 +15,10 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
+    psonewserv = {
+      url = "github:rlad78/newserv";
+      flake = false;
+    };
   };
 
   outputs =
@@ -27,6 +31,7 @@
       nix-flatpak,
       nixarr,
       nixvim,
+      psonewserv,
       ...
     }:
     let
@@ -42,6 +47,7 @@
 
         inherit nix-flatpak;
         inherit nixarr;
+        inherit psonewserv;
       };
 
       systemMake =

@@ -146,6 +146,22 @@
         "type": "github"
       }
     },
+    "psonewserv": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1779141547,
+        "narHash": "sha256-S2bs2vVgAOJu8qWjm6IHC+YognoFScPnL4pwqcXDPEU=",
+        "owner": "rlad78",
+        "repo": "newserv",
+        "rev": "61fab4271e524539451707a86a5ea53e65681bb7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "rlad78",
+        "repo": "newserv",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "nix-flatpak": "nix-flatpak",
@@ -154,7 +170,8 @@
         "nixos-hardware-surface": "nixos-hardware-surface",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nixvim": "nixvim"
+        "nixvim": "nixvim",
+        "psonewserv": "psonewserv"
       }
     },
     "systems": {

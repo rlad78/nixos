@@ -17,6 +17,16 @@ in
         url = "retro.snootflix.com";
       };
     };
+    pso = {
+      enable = true;
+      server-name = "phantasy-snoot";
+      worker-threads = 5;
+      local-net-interface = "eno1";
+      external-ip = "97.89.132.36";
+      allow-unregistered-users = true;
+      welcome-message = "Ahoy sailors! Swab the scruvy off me poop deck.";
+      rare-item-notify = true;
+    };
   };
   
   imports = [
@@ -27,6 +37,7 @@ in
     "/system/systemd-boot.nix"
     "/hosts/common/nvidia.nix"
     "/services/romm.nix"
+    "/services/pso.nix"
   ] (p: root-config-dir + p);
 
   networking.hostName = "snootflix";
