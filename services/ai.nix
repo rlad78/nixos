@@ -40,6 +40,11 @@ in
       };
     };
 
+    systemd.services.ollama = {
+      requires = [ "tailscaled.service" ];
+      after = [ "tailscaled.service" ];
+    };
+
     environment.systemPackages = with pkgs; [
       llmfit
       opencode
