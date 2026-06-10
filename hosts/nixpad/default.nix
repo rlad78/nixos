@@ -5,7 +5,6 @@ in
 {
   arf = {
     cli.theme = "kolo";
-    nixvim.colorscheme = "monokai-pro";
   };
 
   imports =
