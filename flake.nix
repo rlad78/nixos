@@ -11,13 +11,17 @@
       url = "github:rasmus-kirk/nixarr";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
+    # nixvim = {
+      # url = "github:nix-community/nixvim";
+      # inputs.nixpkgs.follows = "nixpkgs-unstable";
+    # };
     psonewserv = {
       url = "github:rlad78/newserv";
       flake = false;
+    };
+    hermes-agent = {
+      url = "github:NousResearch/hermes-agent";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
@@ -30,13 +34,14 @@
       nixos-hardware-surface,
       nix-flatpak,
       nixarr,
-      nixvim,
       psonewserv,
+      hermes-agent,
       ...
     }:
     let
       modulesForAllSystems = [
-        nixvim.nixosModules.nixvim
+        # nixvim.nixosModules.nixvim
+        hermes-agent.nixosModules.default
       ];
 
       distributeInputs = {
