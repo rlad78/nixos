@@ -188,7 +188,8 @@ in
         misc = {
           host = "0.0.0.0";
           port = 6336;
-          host_whitelist = "${config.networking.hostName}," + toString(hosts.${config.networking.hostName}.tail-ip);
+          host_whitelist =
+            "${config.networking.hostName}," + toString (hosts.${config.networking.hostName}.tail-ip);
           bandwidth_max = "75M";
           bandwidth_perc = 80;
           cache_limit = "1G";
@@ -211,7 +212,6 @@ in
         };
       };
     };
-
 
     # sonarr-anime
     users.users.sonarr-anime = {
@@ -301,7 +301,6 @@ in
           };
       };
 
-
     # wizarr
     users.groups.wizarr.gid = wizarr-config.gid;
     users.users.wizarr = {
@@ -354,6 +353,9 @@ in
       };
     };
 
-    networking.firewall.allowedTCPPorts = [ 80 443 ];
+    networking.firewall.allowedTCPPorts = [
+      80
+      443
+    ];
   };
 }
