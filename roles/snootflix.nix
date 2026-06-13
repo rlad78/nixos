@@ -148,22 +148,6 @@ in
         configuration = import ./snootflix_src/recyclarr.nix { inherit secrets; };
       };
 
-      sabnzbd = {
-        enable = true;
-        guiPort = 6336;
-        openFirewall = true;
-        whitelistHostnames = [
-          config.networking.hostName # tailscale
-          hosts.${config.networking.hostName}.tail-ip
-          # hosts.${config.networking.hostName}.local-ip
-        ];
-        whitelistRanges = [
-          "10.69.0.0/22"
-          "100.64.0.0/10" # tailscale
-          "10.0.0.0/24" # nixos-containers
-        ];
-      };
-
       sonarr = {
         enable = true;
         openFirewall = true;
@@ -190,6 +174,43 @@ in
         };
       };
     };
+
+    services.sabnzbd = {
+      enable = true;
+      group = "media";
+      openFirewall = true;
+      secretFiles = [
+        (root-config-dir + "/secrets/sabnzbd_secrets.ini")
+        ./snootflix_src/sabnzbd_extra.ini
+      ];
+      configFile = null;
+      settings = {
+        misc = {
+          host = "0.0.0.0";
+          port = 6336;
+          host_whitelist = "${config.networking.hostName}," + toString(hosts.${config.networking.hostName}.tail-ip);
+          bandwidth_max = "75M";
+          bandwidth_perc = 80;
+          cache_limit = "1G";
+          complete_dir = "${media-root-dir}/usenet/manual";
+          dirscan_dir = "${media-root-dir}/usenet/watch";
+          download_dir = "${media-root-dir}/usenet/.incomplete";
+        };
+        servers = {
+          "sslreader.eweka.nl" = {
+            name = "sslreader.eweka.nl";
+            displayname = "Eweka";
+            host = "sslreader.eweka.nl";
+            port = 563;
+            timeout = 60;
+            connections = 18;
+            ssl = true;
+            ssl_verify = 2;
+          };
+        };
+      };
+    };
+
 
     # sonarr-anime
     users.users.sonarr-anime = {
