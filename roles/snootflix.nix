@@ -195,6 +195,7 @@ in
           complete_dir = "${media-root-dir}/usenet/manual";
           dirscan_dir = "${media-root-dir}/usenet/watch";
           download_dir = "${media-root-dir}/usenet/.incomplete";
+          permissions = "775";
         };
         servers = {
           "sslreader.eweka.nl" = {
