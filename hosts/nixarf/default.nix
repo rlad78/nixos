@@ -48,7 +48,7 @@ in
     "/services/hass.nix"
     # "/services/rustdesk.nix"
     "/services/pinchflat.nix"
-    "/services/fah.nix"
+    # "/services/fah.nix"
     "/services/hytale.nix"
     "/services/ai.nix"
   ] (p: root-config-dir + p);
