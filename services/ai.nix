@@ -49,5 +49,9 @@ in
       llmfit
       opencode
     ];
+
+    environment.variables = {
+      OLLAMA_HOST = "http://${cfg.host}:11434";
+    };
   };
 }
