@@ -14,6 +14,7 @@ in
         "/roles/laptop.nix"
         "/desktop-env/plasma.nix"
         "/system/systemd-boot.nix"
+        "/services/virt-manager.nix"
       ] (p: root-config-dir + p);
 
   networking.hostName = "nixpad"; # Define your hostname.
