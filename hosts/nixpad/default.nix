@@ -15,6 +15,7 @@ in
         "/desktop-env/plasma.nix"
         "/system/systemd-boot.nix"
         "/services/virt-manager.nix"
+        "/apps/cli/distrobox.nix"
       ] (p: root-config-dir + p);
 
   networking.hostName = "nixpad"; # Define your hostname.
