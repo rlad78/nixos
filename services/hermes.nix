@@ -18,7 +18,7 @@ in
   };
 
   config = {
-    services.hermes-agent = lib.mkIf cfg.hermes.enable {
+    services.hermes-agent = {
       enable = true;
       addToSystemPackages = true;
       settings = {
