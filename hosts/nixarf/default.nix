@@ -23,8 +23,9 @@ in
     # rustdesk.publicIP = "69.59.79.150";
     inner-nat = true;
     ollama = {
+      enable = true;
       host = "100.122.79.3";
-      models = [ "qwen3.5:2b" "gemma4:e2b" ];
+      models = [ "qwen3.5:9b" ];
       context-window = 64 * 1024;
     };
   };
@@ -43,14 +44,14 @@ in
     "/services/syncthing.nix"
     "/services/scrutiny.nix"
     "/services/pdf.nix"
-    # "/services/webdav.nix"
     "/services/nix-builder.nix"
     "/services/hass.nix"
     # "/services/rustdesk.nix"
     "/services/pinchflat.nix"
     # "/services/fah.nix"
-    "/services/hytale.nix"
-    "/services/ai.nix"
+    # "/services/hytale.nix"
+    "/services/ollama.nix"
+    # "/services/hermes.nix"
   ] (p: root-config-dir + p);
 
   # needed for Jellyfin YouTube metadata plugin
