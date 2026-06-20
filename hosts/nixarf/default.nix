@@ -27,6 +27,10 @@ in
       models = [ "qwen3.5:9b" ];
       context-window = 64 * 1024;
     };
+    searxng = {
+      bind-address = "0.0.0.0";
+      port = 5454;
+    };
   };
 
   imports = [
@@ -38,6 +42,7 @@ in
     "/hosts/common/nvidia.nix"
     "/system"
     "/apps/cli"
+    "/apps/cli/distrobox.nix"
     "/services/sshd.nix"
     "/services/tailscale.nix"
     "/services/syncthing.nix"
@@ -50,7 +55,7 @@ in
     # "/services/fah.nix"
     # "/services/hytale.nix"
     "/services/ollama.nix"
-    # "/services/hermes.nix"
+    "/services/searxng.nix"
   ] (p: root-config-dir + p);
 
   # needed for Jellyfin YouTube metadata plugin
