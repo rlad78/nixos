@@ -22,15 +22,15 @@ in
     };
     # rustdesk.publicIP = "69.59.79.150";
     inner-nat = true;
-    ollama = {
-      host = "100.122.79.3";
-      models = [ "qwen3.5:9b" ];
-      context-window = 64 * 1024;
-    };
-    searxng = {
-      bind-address = "0.0.0.0";
-      port = 5454;
-    };
+    # ollama = {
+    #   host = "100.122.79.3";
+    #   models = [ "qwen3.5:9b" ];
+    #   context-window = 64 * 1024;
+    # };
+    # searxng = {
+    #   bind-address = "0.0.0.0";
+    #   port = 5454;
+    # };
   };
 
   imports = [
@@ -54,8 +54,8 @@ in
     "/services/pinchflat.nix"
     # "/services/fah.nix"
     # "/services/hytale.nix"
-    "/services/ollama.nix"
-    "/services/searxng.nix"
+    # "/services/ollama.nix"
+    # "/services/searxng.nix"
   ] (p: root-config-dir + p);
 
   # needed for Jellyfin YouTube metadata plugin
