@@ -23,7 +23,6 @@ in
     # rustdesk.publicIP = "69.59.79.150";
     inner-nat = true;
     ollama = {
-      enable = true;
       host = "100.122.79.3";
       models = [ "qwen3.5:9b" ];
       context-window = 64 * 1024;

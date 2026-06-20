@@ -24,18 +24,18 @@ in
       default = 4096;
     };
   };
-  
+
   config = {
     services.ollama = {
       enable = true;
       package = pkgs.ollama-cuda;
       port = 11434;
       openFirewall = true;
-      loadModels = cfg.ollama.models;
+      loadModels = cfg.models;
       syncModels = true;
-      host = cfg.ollama.host;
+      host = cfg.host;
       environmentVariables = {
-        OLLAMA_CONTEXT_LENGTH = toString cfg.ollama.context-window;
+        OLLAMA_CONTEXT_LENGTH = toString cfg.context-window;
         OLLAMA_KV_CACHE_TYPE = "q4_0";
         OLLAMA_FLASH_ATTENTION = "1";
       };
@@ -47,6 +47,7 @@ in
     };
 
     environment.variables = {
-      OLLAMA_HOST = "http://${cfg.ollama.host}:11434";
+      OLLAMA_HOST = "http://${cfg.host}:11434";
     };
+  };
 }
