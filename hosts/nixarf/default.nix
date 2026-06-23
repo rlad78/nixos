@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ lib, pkgs, ... }:
+{ lib, pkgs, hosts, ... }:
 let
   root-config-dir = ./../..;
 in
@@ -27,10 +27,10 @@ in
     #   models = [ "qwen3.5:9b" ];
     #   context-window = 64 * 1024;
     # };
-    # searxng = {
-    #   bind-address = "0.0.0.0";
-    #   port = 5454;
-    # };
+    searxng = {
+      bind-address = hosts.nixarf.tail-ip;
+      port = 5454;
+    };
   };
 
   imports = [
@@ -55,7 +55,7 @@ in
     # "/services/fah.nix"
     # "/services/hytale.nix"
     # "/services/ollama.nix"
-    # "/services/searxng.nix"
+    "/services/searxng.nix"
   ] (p: root-config-dir + p);
 
   # needed for Jellyfin YouTube metadata plugin
