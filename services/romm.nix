@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.arf.romm;
-  romm-version = "4.9.1";
+  romm-version = "4.9.2";
   storage-gid = config.users.groups.storage.gid;
   consoles = import ./src/romm/consoles.nix;
 in
@@ -174,6 +174,9 @@ in
         };
       };
 
-      networking.firewall.allowedTCPPorts = lib.mkIf cfg.hosting.enable [ 80 443 ];
+      networking.firewall.allowedTCPPorts = lib.mkIf cfg.hosting.enable [
+        80
+        443
+      ];
     };
 }
