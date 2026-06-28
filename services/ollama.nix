@@ -21,6 +21,11 @@ in
 
     waitForTailscale = mkEnableOption "";
 
+    keep-alive = mkOption {
+      type = types.str;
+      default = "5m";
+    };
+
     context-window = mkOption {
       type = types.ints.u32;
       default = 4096;
@@ -40,6 +45,7 @@ in
         OLLAMA_CONTEXT_LENGTH = toString cfg.context-window;
         OLLAMA_KV_CACHE_TYPE = "q4_0";
         OLLAMA_FLASH_ATTENTION = "1";
+        OLLAMA_KEEP_ALIVE = cfg.keep-alive;
       };
     };
 
