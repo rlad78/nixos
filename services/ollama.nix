@@ -19,6 +19,8 @@ in
       default = "127.0.0.1";
     };
 
+    waitForTailscale = mkEnableOption "";
+
     context-window = mkOption {
       type = types.ints.u32;
       default = 4096;
@@ -41,7 +43,7 @@ in
       };
     };
 
-    systemd.services.ollama = {
+    systemd.services.ollama = lib.mkIf cfg.waitForTailscale {
       requires = [ "tailscaled.service" ];
       after = [ "tailscaled.service" ];
     };

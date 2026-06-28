@@ -1,4 +1,4 @@
-{ lib, pkgs, ...}:
+{ lib, pkgs, hosts, ...}:
 let
   root-config-dir = ./../..;
 in
@@ -27,6 +27,12 @@ in
       welcome-message = "Ahoy sailors! Swab the scruvy off me poop deck.";
       rare-item-notify = true;
     };
+    ollama = {
+      host = hosts.snootflix.tail-ip;
+      waitForTailscale = true;
+      models = [ "qwen3.5:4b" ];
+      context-window = 36 * 1024;
+    };
   };
   
   imports = [
@@ -38,6 +44,7 @@ in
     "/hosts/common/nvidia.nix"
     "/services/romm.nix"
     "/services/pso.nix"
+    "/services/ollama.nix"
   ] (p: root-config-dir + p);
 
   networking.hostName = "snootflix";

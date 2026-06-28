@@ -22,11 +22,12 @@ in
     };
     # rustdesk.publicIP = "69.59.79.150";
     inner-nat = true;
-    # ollama = {
-    #   host = "100.122.79.3";
-    #   models = [ "qwen3.5:9b" ];
-    #   context-window = 64 * 1024;
-    # };
+    ollama = {
+      host = hosts.nixarf.tail-ip;
+      waitForTailscale = true;
+      models = [ "qwen3.5:9b" ];
+      context-window = 24 * 1024;
+    };
     searxng = {
       bind-address = hosts.nixarf.tail-ip;
       port = 5454;
@@ -54,7 +55,7 @@ in
     "/services/pinchflat.nix"
     # "/services/fah.nix"
     # "/services/hytale.nix"
-    # "/services/ollama.nix"
+    "/services/ollama.nix"
     "/services/searxng.nix"
   ] (p: root-config-dir + p);
 
