@@ -31,6 +31,7 @@ in
     };
     searxng = {
       bind-address = hosts.nixarf.tail-ip;
+      waitForTailscale = true;
       port = 5454;
     };
   };
