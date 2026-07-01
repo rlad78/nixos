@@ -1,4 +1,4 @@
-{ lib, pkgs, hosts, ...}:
+{ lib, hosts, ... }:
 let
   root-config-dir = ./../..;
 in
@@ -6,7 +6,10 @@ in
   arf = {
     cli = {
       theme = "jonathan";
-      plugins = [ "systemd" "z" ];
+      plugins = [
+        "systemd"
+        "z"
+      ];
     };
     nvidia.version = "legacy_580";
     romm = {
@@ -34,11 +37,12 @@ in
       context-window = 24 * 1024;
     };
   };
-  
+
   imports = [
     ./hardware-configuration.nix
     ./media-storage.nix
-  ] ++ lib.lists.forEach [
+  ]
+  ++ lib.lists.forEach [
     "/roles/snootflix.nix"
     "/system/systemd-boot.nix"
     "/hosts/common/nvidia.nix"

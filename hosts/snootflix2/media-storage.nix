@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }:
+{ pkgs, ... }:
 let
   btrfs-options = [
     "compress-force=zstd:11"

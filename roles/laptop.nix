@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   root-config-dir = ./..;
   cfg = config.arf.laptop;
@@ -26,13 +31,17 @@ in
         frequency = "weekly";
         older-than = 14;
       };
-      cli.plugins = [ "systemd" "z" ];
+      cli.plugins = [
+        "systemd"
+        "z"
+      ];
       builders = [ "nixarf" ];
     };
 
     boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
     networking.networkmanager.enable = true;
 
+    system.boot.loader.kernelFile = "vmlinuz";
     services.fwupd.enable = cfg.fwupd;
   };
 }

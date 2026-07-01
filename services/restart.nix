@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   cfg = config.arf.restart;
 in
@@ -6,7 +11,7 @@ in
   options.arf.restart = with lib; {
     enable = mkEnableOption "";
     time = mkOption {
-      type = types.strMatching ''[0-9]{2}:[0-9]{2}:[0-9]{2}'';
+      type = types.strMatching "[0-9]{2}:[0-9]{2}:[0-9]{2}";
       default = "00:00:00";
     };
   };
