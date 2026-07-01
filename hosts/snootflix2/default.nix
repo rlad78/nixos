@@ -31,7 +31,7 @@ in
       host = hosts.snootflix.tail-ip;
       waitForTailscale = true;
       models = [ "qwen3.5:4b" ];
-      context-window = 36 * 1024;
+      context-window = 24 * 1024;
     };
   };
   

@@ -26,7 +26,7 @@ in
       host = hosts.nixarf.tail-ip;
       waitForTailscale = true;
       models = [ "qwen3.5:9b" ];
-      context-window = 24 * 1024;
+      context-window = 16 * 1024;
       keep-alive = "20m";
     };
     searxng = {
