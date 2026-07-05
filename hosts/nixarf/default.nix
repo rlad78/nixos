@@ -26,7 +26,7 @@ in
     ollama = {
       host = hosts.nixarf.tail-ip;
       waitForTailscale = true;
-      models = [ "qwen3.5:9b" ];
+      models = [ "qwen3.5:4b" ];
       context-window = 16 * 1024;
       keep-alive = "20m";
     };
