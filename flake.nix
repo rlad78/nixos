@@ -5,23 +5,14 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
-    nixos-hardware-surface.url = "github:8bitbuddhist/nixos-hardware?ref=surface-rust-target-spec-fix";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
     nixarr = {
       url = "github:rasmus-kirk/nixarr";
       inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
-    # nixvim = {
-      # url = "github:nix-community/nixvim";
-      # inputs.nixpkgs.follows = "nixpkgs-unstable";
-    # };
     psonewserv = {
       url = "github:rlad78/newserv";
       flake = false;
-    };
-    hermes-agent = {
-      url = "github:NousResearch/hermes-agent";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
     };
   };
 
@@ -31,17 +22,15 @@
       nixpkgs,
       nixpkgs-unstable,
       nixos-hardware,
-      nixos-hardware-surface,
       nix-flatpak,
       nixarr,
       psonewserv,
-      hermes-agent,
       ...
     }:
     let
       modulesForAllSystems = [
         # nixvim.nixosModules.nixvim
-        hermes-agent.nixosModules.default
+        # hermes-agent.nixosModules.default
       ];
 
       distributeInputs = {
@@ -69,13 +58,6 @@
 
         nixarf = systemMake {
           module-paths = [ ./hosts/nixarf ];
-        };
-
-        nst-van-checkout-surface = systemMake {
-          module-paths = [
-            ./hosts/nst-van-checkout-surface
-            nixos-hardware-surface.nixosModules.microsoft-surface-pro-intel
-          ];
         };
 
         snootflix = systemMake {
