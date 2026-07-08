@@ -41,7 +41,6 @@ in
     boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
     networking.networkmanager.enable = true;
 
-    system.boot.loader.kernelFile = "vmlinuz";
     services.fwupd.enable = cfg.fwupd;
   };
 }
