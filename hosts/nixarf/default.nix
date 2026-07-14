@@ -60,6 +60,7 @@ in
     # "/services/hytale.nix"
     "/services/ollama.nix"
     "/services/searxng.nix"
+    "/services/palworld.nix"
   ] (p: root-config-dir + p);
 
   # needed for Jellyfin YouTube metadata plugin

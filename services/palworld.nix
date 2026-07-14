@@ -1,6 +1,6 @@
 { config, secrets, ... }:
 let
-  public-ip = "69.59.79.150";
+  public-ip = "69.59.79.165";
   palworld-uid = 6969;
   palworld-gid = 6969;
 
