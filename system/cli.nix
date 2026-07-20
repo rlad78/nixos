@@ -66,5 +66,7 @@ in
         ];
       };
     };
+
+    services.atd.enable = true;
   };
 }
