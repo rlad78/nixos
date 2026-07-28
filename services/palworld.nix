@@ -41,7 +41,7 @@ in
         PGID = "${toString config.users.groups.palworld.gid}";
         PORT = "8211";
         PLAYERS = "8";
-        MULTITHREADING = "true";
+        ENABLE_PERF_THREADING_ARGS = "true";
         RCON_ENABLED = "true";
         RCON_PORT = "25575";
         TZ = "America/New_York";
@@ -59,7 +59,6 @@ in
         AUTO_REBOOT_CRON_EXPRESSION = "0 4 * * *";
         AUTO_REBOOT_WARN_MINUTES = "30";
         AUTO_REBOOT_EVEN_IF_PLAYERS_ONLINE = "true";
-        # TARGET_MANIFEST_ID = "5441332432956841998";
         REST_API_ENABLED = "true";
 
         # WORLD CONFIG
