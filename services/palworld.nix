@@ -6,6 +6,8 @@ let
 
   host-game-port = 8211;
   forwarded-port = 8211;
+
+  idle-pause-timer-minutes = 10;
 in
 {
   virtualisation.docker.enable = true;
@@ -60,6 +62,9 @@ in
         AUTO_REBOOT_WARN_MINUTES = "30";
         AUTO_REBOOT_EVEN_IF_PLAYERS_ONLINE = "true";
         REST_API_ENABLED = "true";
+        ENABLE_PLAYER_LOGGING = "true";
+        AUTO_PAUSE_ENABLED = "true";
+        AUTO_PAUSE_TIMEOUT_EST = toString(60 * idle-pause-timer-minutes);
 
         # WORLD CONFIG
         ENABLE_INVADER_ENEMY = "False";
