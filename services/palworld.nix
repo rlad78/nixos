@@ -57,10 +57,10 @@ in
         DELETE_OLD_BACKUPS = "true";
         OLD_BACKUP_DAYS = "14";
         UPDATE_ON_BOOT = "true";
-        AUTO_REBOOT_ENABLED = "true";
-        AUTO_REBOOT_CRON_EXPRESSION = "0 4 * * *";
-        AUTO_REBOOT_WARN_MINUTES = "30";
-        AUTO_REBOOT_EVEN_IF_PLAYERS_ONLINE = "true";
+        # AUTO_REBOOT_ENABLED = "true";
+        # AUTO_REBOOT_CRON_EXPRESSION = "0 4 * * *";
+        # AUTO_REBOOT_WARN_MINUTES = "30";
+        # AUTO_REBOOT_EVEN_IF_PLAYERS_ONLINE = "true";
         REST_API_ENABLED = "true";
         ENABLE_PLAYER_LOGGING = "true";
         AUTO_PAUSE_ENABLED = "true";
