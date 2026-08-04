@@ -79,6 +79,7 @@ in
         PAL_EGG_DEFAULT_HATCHING_TIME = "0.000001";
         BASE_CAMP_WORKER_MAX_NUM = "20";
         BASE_CAMP_MAX_NUM_IN_GUILD = "10";
+        SUPPLY_DROP_SPAN = "20";
       };
     };
 
