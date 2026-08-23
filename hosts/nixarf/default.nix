@@ -96,6 +96,11 @@ in
   # networking
   networking.hostName = "nixarf";
 
+  # pub key for docker hermes ssh
+  users.users.richard.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJjMacfz1k73vc29tMmFmv2vLjIc2Rh+mRMRDCbpHJp+ hermes@nixarf"
+  ];
+
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
     efi.canTouchEfiVariables = true;
