@@ -190,7 +190,7 @@ in
           port = 6336;
           host_whitelist =
             "${config.networking.hostName}," + toString (hosts.${config.networking.hostName}.tail-ip);
-          bandwidth_max = "75M";
+          bandwidth_max = "112M";
           bandwidth_perc = 80;
           cache_limit = "1G";
           complete_dir = "${media-root-dir}/usenet/manual";
