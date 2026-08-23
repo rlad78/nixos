@@ -26,10 +26,19 @@ in
     services.searx = {
       enable = true;
       redisCreateLocally = true;
-      settings.server = {
-        bind_address = cfg.bind-address;
-        port = cfg.port;
-        secret_key = secrets.searxng-secret-key;
+      settings = {
+        server = {
+          bind_address = cfg.bind-address;
+          port = cfg.port;
+          secret_key = secrets.searxng-secret-key;
+        };
+
+        # Hermes consumes SearXNG's JSON Search API. SearXNG returns 403
+        # unless each non-HTML response format is explicitly enabled.
+        search.formats = [
+          "html"
+          "json"
+        ];
       };
     };
 
