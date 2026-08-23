@@ -8,9 +8,27 @@ let
   # richard is the established primary NixOS account (UID 1000).
   uid = "1000";
   gid = toString config.users.groups.${config.users.users.${user}.group}.gid;
-  docker = "${pkgs.docker}/bin/docker";
+  docker-bin = "${pkgs.docker}/bin/docker";
+  host-loopback-ip = "10.254.254.1";
 in
 {
+  # A NetworkManager-owned dummy interface provides a stable, host-only
+  # address for the rootless container. It has no physical network link.
+  networking.networkmanager.ensureProfiles.profiles.hermes-host = {
+    connection = {
+      id = "Hermes host endpoint";
+      type = "dummy";
+      interface-name = "hermes0";
+      autoconnect = true;
+    };
+    ipv4 = {
+      method = "manual";
+      address1 = "${host-loopback-ip}/32";
+      never-default = true;
+    };
+    ipv6.method = "disabled";
+  };
+
   # Keep a Docker daemon in richard's user namespace. The system-level
   # Docker daemon remains available for the other OCI services on nixarf.
   virtualisation.docker.rootless = {
@@ -28,10 +46,12 @@ in
   systemd.services.docker-hermes = {
     description = "Hermes Agent rootless container";
     after = [
+      "NetworkManager.service"
       "network-online.target"
       "user@${uid}.service"
     ];
     wants = [
+      "NetworkManager.service"
       "network-online.target"
       "user@${uid}.service"
     ];
@@ -49,11 +69,11 @@ in
       RestartSec = "5s";
       TimeoutStopSec = "30s";
       ExecStartPre = [
-        "-${docker} rm -f hermes"
-        "${docker} pull nousresearch/hermes-agent:latest"
+        "-${docker-bin} rm -f hermes"
+        "${docker-bin} pull nousresearch/hermes-agent:latest"
       ];
-      ExecStart = "${docker} run --rm --name hermes --add-host=host.docker.internal:host-gateway --volume hermes-data:/opt/data --env HERMES_UID=${uid} --env HERMES_GID=${gid} nousresearch/hermes-agent:latest sleep infinity";
-      ExecStop = "-${docker} stop --time 30 hermes";
+      ExecStart = "${docker-bin} run --rm --name hermes --add-host=host.docker.internal:${host-loopback-ip} --volume hermes-data:/opt/data --env HERMES_UID=${uid} --env HERMES_GID=${gid} nousresearch/hermes-agent:latest sleep infinity";
+      ExecStop = "-${docker-bin} stop --time 30 hermes";
     };
   };
 
