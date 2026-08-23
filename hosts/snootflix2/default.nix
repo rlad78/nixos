@@ -11,7 +11,6 @@ in
         "z"
       ];
     };
-    nvidia.version = "legacy_580";
     romm = {
       enable = true;
       libraryDir = /snoot/romm;
@@ -19,22 +18,6 @@ in
         enable = true;
         url = "retro.snootflix.com";
       };
-    };
-    pso = {
-      enable = true;
-      server-name = "phantasy-snoot";
-      worker-threads = 5;
-      local-net-interface = "eno1";
-      external-ip = "97.89.132.36";
-      allow-unregistered-users = true;
-      welcome-message = "Ahoy sailors! Swab the scruvy off me poop deck.";
-      rare-item-notify = true;
-    };
-    ollama = {
-      host = hosts.snootflix.tail-ip;
-      waitForTailscale = true;
-      models = [ "qwen3.5:4b" ];
-      context-window = 24 * 1024;
     };
   };
 
@@ -47,9 +30,14 @@ in
     "/system/systemd-boot.nix"
     "/hosts/common/nvidia.nix"
     "/services/romm.nix"
-    "/services/pso.nix"
-    "/services/ollama.nix"
+    "/services/mcp-nixos.nix"
+    "/services/hermes-docker.nix"
   ] (p: root-config-dir + p);
+
+  # pub key for docker hermes ssh
+  users.users.richard.openssh.authorizedKeys.keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFYCF8xscUgYYkxKQ9sjSjKQ1D+cJDIVlJ7cIUI1rFCk hermes@snootflix"
+  ];
 
   networking.hostName = "snootflix";
   system.stateVersion = "25.11";
