@@ -61,6 +61,7 @@ in
     "/services/ollama.nix"
     "/services/searxng.nix"
     "/services/palworld.nix"
+    "/services/mcp-nixos.nix"
   ] (p: root-config-dir + p);
 
   # needed for Jellyfin YouTube metadata plugin
