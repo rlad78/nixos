@@ -38,6 +38,11 @@ in
       builders = [ "nixarf" ];
     };
 
+    # add udev rules for 8bitdo web updater
+    services.udev.extraRules = ''
+      SUBSYSTEM=="hidraw", ATTRS{idVendor}=="2dc8", MODE="0666", GROUP="users", TAG+="uaccess"
+    '';
+
     boot.kernelPackages = pkgs.linuxKernel.packages.linux_zen;
     networking.networkmanager.enable = true;
 
