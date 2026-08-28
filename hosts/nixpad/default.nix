@@ -12,6 +12,7 @@ in
   ]
   ++ lib.lists.forEach [
     "/roles/laptop.nix"
+    "/system/jenn.nix"
     "/desktop-env/plasma.nix"
     "/system/systemd-boot.nix"
     "/services/virt-manager.nix"
