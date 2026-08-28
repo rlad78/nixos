@@ -170,7 +170,8 @@ in
           trash-can-enabled = false;
           trash-original-torrent-files = true;
 
-          rpc-host-whitelist = "snootflix";
+          rpc-host-whitelist = "snootflix,10.0.0.10";
+          rpc-bind-address = "0.0.0.0";
         };
       };
     };
@@ -356,6 +357,7 @@ in
     networking.firewall.allowedTCPPorts = [
       80
       443
+      9091
     ];
   };
 }
