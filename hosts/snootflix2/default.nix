@@ -19,6 +19,11 @@ in
         url = "retro.snootflix.com";
       };
     };
+    searxng = {
+      bind-address = hosts.snootflix.tail-ip;
+      waitForTailscale = true;
+      port = 5454;
+    };
   };
 
   imports = [
@@ -31,7 +36,7 @@ in
     "/hosts/common/nvidia.nix"
     "/services/romm.nix"
     "/services/mcp-nixos.nix"
-    "/services/hermes-docker.nix"
+    "/services/searxng.nix"
   ] (p: root-config-dir + p);
 
   # pub key for docker hermes ssh
