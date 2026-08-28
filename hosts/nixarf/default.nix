@@ -21,15 +21,7 @@ in
         "z"
       ];
     };
-    # rustdesk.publicIP = "69.59.79.150";
     inner-nat = true;
-    ollama = {
-      host = hosts.nixarf.tail-ip;
-      waitForTailscale = true;
-      models = [ "qwen3.5:4b" ];
-      context-window = 16 * 1024;
-      keep-alive = "20m";
-    };
     searxng = {
       bind-address = hosts.nixarf.tail-ip;
       waitForTailscale = true;
@@ -43,10 +35,9 @@ in
   ]
   ++ lib.lists.forEach [
     "/desktop-env/no-desktop.nix"
-    "/hosts/common/nvidia.nix"
     "/system"
     "/apps/cli"
-    "/apps/cli/distrobox.nix"
+    # "/apps/cli/distrobox.nix"
     "/services/sshd.nix"
     "/services/tailscale.nix"
     "/services/syncthing.nix"
@@ -58,10 +49,8 @@ in
     "/services/pinchflat.nix"
     # "/services/fah.nix"
     # "/services/hytale.nix"
-    "/services/ollama.nix"
     "/services/searxng.nix"
     "/services/palworld.nix"
-    "/services/hermes-docker.nix"
     "/services/mcp-nixos.nix"
   ] (p: root-config-dir + p);
 
@@ -96,10 +85,6 @@ in
   # networking
   networking.hostName = "nixarf";
 
-  # pub key for docker hermes ssh
-  users.users.richard.openssh.authorizedKeys.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJjMacfz1k73vc29tMmFmv2vLjIc2Rh+mRMRDCbpHJp+ hermes@nixarf"
-  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader = {
