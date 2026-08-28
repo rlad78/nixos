@@ -20,6 +20,8 @@ in
       type = types.str;
       default = "127.0.0.1";
     };
+
+    openFirewall = mkEnableOption "";
   };
 
   config = {
@@ -47,6 +49,6 @@ in
       after = [ "tailscaled.service" ];
     };
 
-    networking.firewall.allowedTCPPorts = [ cfg.port ];
+    networking.firewall.allowedTCPPorts = lib.mkIf (cfg.openFirewall || cfg.waitForTailscale) [ cfg.port ];
   };
 }
