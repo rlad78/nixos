@@ -7,7 +7,7 @@
 }:
 let
   cfg = config.arf.romm;
-  romm-version = "4.9.2";
+  romm-version = "5.1.0";
   storage-gid = config.users.groups.storage.gid;
   consoles = import ./src/romm/consoles.nix;
 in
