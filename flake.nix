@@ -14,6 +14,9 @@
       url = "github:rlad78/newserv";
       flake = false;
     };
+    unifi-os-server = {
+      url = "github:rcambrj/unifi-os-server";
+    };
   };
 
   outputs =
@@ -25,6 +28,7 @@
       nix-flatpak,
       nixarr,
       psonewserv,
+      unifi-os-server,
       ...
     }:
     let
@@ -42,6 +46,7 @@
         inherit nix-flatpak;
         inherit nixarr;
         inherit psonewserv;
+        inherit unifi-os-server;
       };
 
       systemMake =
@@ -57,7 +62,10 @@
       nixosConfigurations = {
 
         nixarf = systemMake {
-          module-paths = [ ./hosts/nixarf ];
+          module-paths = [
+            ./hosts/nixarf
+            unifi-os-server.nixosModules.unifi-os-server
+          ];
         };
 
         snootflix = systemMake {

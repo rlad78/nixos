@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  services.unifi = {
-    enable = true;
-    openFirewall = true;
-    unifiPackage = pkgs.unifi;
-    mongodbPackage = pkgs.mongodb-7_0;
-  };
+  virtualisation.podman.enable = true;
 
-  networking.firewall.allowedTCPPorts = [ 8443 ];
+  services.unifi-os-server = {
+    enable = true;
+    uosSystemIP = "10.69.2.1";
+    openFirewallUiPort = true;
+    openFirewallServicePorts = true;
+  };
 }
