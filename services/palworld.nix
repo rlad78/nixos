@@ -10,8 +10,8 @@ let
   idle-pause-timer-minutes = 10;
 in
 {
-  virtualisation.docker.enable = true;
-  users.users.richard.extraGroups = [ "docker" ];
+  # virtualisation.docker.enable = true;
+  # users.users.richard.extraGroups = [ "docker" ];
 
   users.groups.palworld.gid = palworld-gid;
 
@@ -25,7 +25,7 @@ in
     "d /palworld 0700 palworld palworld"
   ];
 
-  virtualisation.oci-containers.backend = "docker";
+  # virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers = {
     palworld = {
       image = "thijsvanloef/palworld-server-docker:latest";

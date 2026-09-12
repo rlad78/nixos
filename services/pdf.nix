@@ -1,9 +1,9 @@
 { ... }:
 {
-  virtualisation.docker.enable = true;
-  users.users.richard.extraGroups = [ "docker" ];
+  # virtualisation.docker.enable = true;
+  # users.users.richard.extraGroups = [ "docker" ];
 
-  virtualisation.oci-containers.backend = "docker";
+  # virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers.stirlingpdf = {
     image = "frooodle/s-pdf:latest";
     ports = [ "5050:8080" ];

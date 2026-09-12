@@ -4,9 +4,9 @@ let
   hytale-gid = 15520;
 in
 {
-  virtualisation.docker.enable = true;
-  virtualisation.oci-containers.backend = "docker";
-  users.users.richard.extraGroups = [ "docker" ];
+  # virtualisation.docker.enable = true;
+  # virtualisation.oci-containers.backend = "docker";
+  # users.users.richard.extraGroups = [ "docker" ];
 
   users.users.hytale = {
     isSystemUser = true;

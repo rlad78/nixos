@@ -3,8 +3,8 @@ let
   hass_version = "2026.7";
 in
 {
-  virtualisation.docker.enable = true;
-  users.users.richard.extraGroups = [ "docker" ];
+  # virtualisation.docker.enable = true;
+  # users.users.richard.extraGroups = [ "docker" ];
 
   users.groups.homeauto.name = "homeauto";
 
@@ -20,7 +20,7 @@ in
     "d /hass/backups 0750 hass homeauto"
   ];
 
-  virtualisation.oci-containers.backend = "docker";
+  # virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers = {
     hass = {
       image = "homeassistant/home-assistant:${hass_version}";

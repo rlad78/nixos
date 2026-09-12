@@ -55,6 +55,10 @@ in
     "/services/unifi.nix"
   ] (p: root-config-dir + p);
 
+  # this is here for legacy reasons,
+  #  can probably remove after hass transfer
+  virtualisation.oci-containers.backend = "docker";
+
   # needed for Jellyfin YouTube metadata plugin
   environment.systemPackages = with pkgs; [
     yt-dlp

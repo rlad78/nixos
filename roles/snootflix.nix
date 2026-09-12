@@ -310,7 +310,7 @@ in
       group = "wizarr";
     };
 
-    virtualisation.docker.enable = true;
+    # virtualisation.docker.enable = true;
     virtualisation.oci-containers.containers = {
       "wizarr" = {
         image = "ghcr.io/wizarrrr/wizarr";
