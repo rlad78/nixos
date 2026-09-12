@@ -90,6 +90,13 @@
             nix-flatpak.nixosModules.nix-flatpak
           ];
         };
+
+        snoothome = systemMake {
+          module-paths = [
+            ./hosts/snoothome
+            nixos-hardware.nixosModules.common-cpu-intel-cpu-only
+          ];
+        };
       };
     };
 }

@@ -52,7 +52,7 @@ in
     "/services/searxng.nix"
     "/services/palworld.nix"
     "/services/mcp-nixos.nix"
-    "/services/unifi.nix"
+    # "/services/unifi.nix"
   ] (p: root-config-dir + p);
 
   # this is here for legacy reasons,
