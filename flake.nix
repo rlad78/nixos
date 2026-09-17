@@ -64,7 +64,6 @@
         nixarf = systemMake {
           module-paths = [
             ./hosts/nixarf
-            unifi-os-server.nixosModules.unifi-os-server
           ];
         };
 
@@ -94,6 +93,7 @@
         snoothome = systemMake {
           module-paths = [
             ./hosts/snoothome
+            unifi-os-server.nixosModules.unifi-os-server
             nixos-hardware.nixosModules.common-cpu-intel-cpu-only
           ];
         };

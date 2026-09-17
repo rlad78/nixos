@@ -15,7 +15,7 @@ in
   };
 
   imports = [
-    # ./hardware-configuration.nix
+    ./hardware-configuration.nix
   ]
   ++ lib.lists.forEach [
     "/system"
@@ -30,7 +30,7 @@ in
   ] (p: root-config-dir + p);
 
   networking.networkmanager.enable = true;
-  networking.hostname = "snoothome";
+  networking.hostName = "snoothome";
 
   system.stateVersion = "26.05";
 }
