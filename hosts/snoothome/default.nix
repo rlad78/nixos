@@ -1,4 +1,4 @@
-{ lib, ... }:
+{ lib, hosts, ... }:
 let
   root-config-dir = ./../..;
 in
@@ -12,7 +12,7 @@ in
       ];
     };
     builders = [ "nixarf" ];
-    unifi.ip = "10.69.2.2";
+    unifi.ip = hosts.snoothome.local-ip;
   };
 
   imports = [
