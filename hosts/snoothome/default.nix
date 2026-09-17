@@ -12,6 +12,7 @@ in
       ];
     };
     builders = [ "nixarf" ];
+    unifi.ip = "10.69.2.2";
   };
 
   imports = [
