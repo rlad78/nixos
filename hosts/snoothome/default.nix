@@ -28,6 +28,7 @@ in
     "/services/tailscale.nix"
     "/services/sshd.nix"
     "/services/unifi.nix"
+    "/services/adguard.nix"
   ] (p: root-config-dir + p);
 
   networking.networkmanager.enable = true;
