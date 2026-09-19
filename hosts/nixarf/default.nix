@@ -63,6 +63,7 @@ in
   environment.systemPackages = with pkgs; [
     yt-dlp
     ffmpeg
+    sqlite
   ];
 
   boot.kernelParams = [

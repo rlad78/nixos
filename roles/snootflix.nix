@@ -82,6 +82,10 @@ in
       inner-nat = true;
     };
 
+    environment.systemPackages = with pkgs; [
+      sqlite
+    ];
+
     systemd.targets.${disks-target-name} =
       let
         media-mounts =
