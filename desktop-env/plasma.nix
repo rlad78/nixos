@@ -31,7 +31,7 @@
     # spell checking
     aspell
     aspellDicts.en
-    aspellDicts.en-computers
+    # aspellDicts.en-computers
 
     # disk quota widget
     kdePackages.plasma-disks
