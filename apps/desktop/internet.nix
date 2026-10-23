@@ -16,6 +16,11 @@
     };
   };
 
+  programs.localsend = {
+    enable = true;
+    openFirewall = true;
+  };
+
   services.flatpak.enable = true;
   services.flatpak.update.onActivation = true;
 
