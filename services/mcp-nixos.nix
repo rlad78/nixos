@@ -1,7 +1,7 @@
-{ pkgs, ... }:
+{ pkgs, nixos-mcp, ... }:
 {
   users.users.richard.packages = with pkgs; [
-    mcp-nixos
+    nixos-mcp.packages.${pkgs.stdenv.hostPlatform.system}.default
     uv
     ripgrep
     fd
