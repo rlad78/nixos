@@ -46,7 +46,7 @@ in
     "/services/nix-builder.nix"
     "/services/hass.nix"
     # "/services/rustdesk.nix"
-    "/services/pinchflat.nix"
+    # "/services/pinchflat.nix"
     # "/services/fah.nix"
     # "/services/hytale.nix"
     "/services/searxng.nix"
