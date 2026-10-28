@@ -70,7 +70,7 @@
 
         snootflix = systemMake {
           module-paths = [
-            ./hosts/snootflix2
+            ./hosts/snootflix
             nixarr.nixosModules.default
           ];
         };
