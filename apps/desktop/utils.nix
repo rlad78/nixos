@@ -2,11 +2,11 @@
 {
   users.users.richard.packages = with pkgs; [
     peazip
+    filezilla
   ];
 
   services.flatpak.packages = [
     "com.github.tchx84.Flatseal"
-    "org.filezillaproject.Filezilla"
   ];
 
   services.flatpak.enable = true;
