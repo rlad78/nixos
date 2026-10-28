@@ -20,7 +20,15 @@
   ];
 
   # don't install discover
-  environment.plasma6.excludePackages = [ pkgs.kdePackages.discover ];
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    discover
+    elisa
+    kmail
+    kmail-account-wizard
+    kontact
+    ktnef
+    merkuro
+  ];
 
   # install and enable KDE partition-manager
   programs.partition-manager = {
