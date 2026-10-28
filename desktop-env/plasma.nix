@@ -12,7 +12,7 @@
   services.displayManager.sddm.wayland.enable = true;
 
   # Enable KDE Connect
-  programs.kdeconnect.enable = true;
+  programs.kdeconnect.enable = false;
 
   # Fonts for Plasma
   fonts.packages = with pkgs; [
