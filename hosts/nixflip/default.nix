@@ -22,5 +22,5 @@ in
   environment.systemPackages = [ pkgs.iio-sensor-proxy ];
 
   networking.hostName = "nixflip";
-  system.stateVersion = "26.04";
+  system.stateVersion = "26.05";
 }
