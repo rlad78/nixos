@@ -98,6 +98,15 @@
             nixos-hardware.nixosModules.common-cpu-intel-cpu-only
           ];
         };
+
+        nixflip = systemMake {
+          module-paths = [
+            ./hosts/nixflip
+            nix-flatpak.nixosModules.nix-flatpak
+            nixos-hardware.nixosModules.common-cpu-amd
+            nixos-hardware.nixosModules.common-pc-laptop-ssd
+          ];
+        };
       };
     };
 }
