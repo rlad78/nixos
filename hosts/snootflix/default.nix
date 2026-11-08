@@ -4,6 +4,14 @@ let
 in
 {
   arf = {
+    snootflix = {
+      mediaDiskLabels = [
+        "usb-4T-1"
+        "usb-4T-2"
+        "usb-2T-1"
+        "usb-2T-2"
+      ];
+    };
     cli = {
       theme = "jonathan";
       plugins = [
@@ -28,16 +36,12 @@ in
 
   imports = [
     ./hardware-configuration.nix
-    ./media-storage.nix
+    # ./media-storage.nix
   ]
   ++ lib.lists.forEach [
     # "/roles/snootflix.nix"
-    "/system"
-    "/desktop-env/no-desktop.nix"
-    "/apps/cli"
+    "/roles/new-snootflix.nix"
     "/services/tailscale.nix"
-    "/services/sshd.nix"
-    "/services/scrutiny.nix"
     "/system/systemd-boot.nix"
     "/hosts/common/nvidia.nix"
     # "/services/romm.nix"
