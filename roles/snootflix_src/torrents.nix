@@ -1,5 +1,8 @@
 {
   config,
+  lib,
+  hosts,
+  util,
   ...
 }:
 let
@@ -27,7 +30,6 @@ in
   users.users.transmission = mediaUserCfg;
   services.transmission = {
     enable = true;
-    home = "${cfg.stateRootDir}/transmission";
     user = "transmission";
     group = "media";
     openFirewall = true;
@@ -37,8 +39,6 @@ in
       download-dir = "${cfg.mediaRootDir}/torrents/manual";
       incomplete-dir = "${cfg.mediaRootDir}/torrents/.incomplete";
       incomplete-dir-enabled = true;
-      watch-dir = "${cfg.mediaRootDir}/torrents/watch";
-      watch-dir-enabled = true;
 
       speed-limit-down = 37500;
       speed-limit-down-enabled = true;
@@ -47,7 +47,8 @@ in
 
       trash-original-torrent-files = true;
 
-      rpc-host-whitelist = "snootflix,10.0.0.10";
+      rpc-whitelist = (lib.strings.join "," (util.gatherAllHostIPs hosts)) + ",127.0.0.1";
+      rpc-host-whitelist-enabled = false;
       rpc-bind-address = "0.0.0.0";
     };
   };
