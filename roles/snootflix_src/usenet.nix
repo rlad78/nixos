@@ -56,6 +56,20 @@ in
           connections = 18;
           ssl = true;
           ssl_verify = 2;
+          priority = 50;
+          expire_date = "2027-11-01";
+        };
+        "news.newsgroup.ninja" = {
+          name = "news.newsgroup.ninja";
+          displayname = "Newsgroup Ninja";
+          host = "news.newsgroup.ninja";
+          port = 563;
+          timeout = 60;
+          connections = 40;
+          ssl = true;
+          ssl_verify = 2;
+          priority = 0;
+          expire_date = "2028-02-09";
         };
       };
     };
