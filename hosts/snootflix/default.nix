@@ -11,6 +11,10 @@ in
         "usb-2T-1"
         "usb-2T-2"
       ];
+      bandwidth = {
+        downMegabits = 900;
+        upMegabits = 900;
+      };
     };
     # romm = {
     #   enable = true;

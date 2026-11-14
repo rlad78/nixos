@@ -11,6 +11,8 @@ let
     isSystemUser = true;
     group = "media";
   };
+
+  bandwidth-megabytes = builtins.ceil (cfg.bandwidth.downMegabits / 8.0);
 in
 {
   systemd.tmpfiles.rules = [
@@ -38,8 +40,8 @@ in
         port = 6336;
         host_whitelist =
           "${config.networking.hostName}," + toString (hosts.${config.networking.hostName}.tail-ip);
-        bandwidth_max = "112M";
-        bandwidth_perc = 80;
+        bandwidth_max = "${toString bandwidth-megabytes}M";
+        bandwidth_perc = cfg.bandwidth.usenetDownPercentage;
         cache_limit = "1G";
         complete_dir = "${cfg.mediaRootDir}/usenet/manual";
         dirscan_dir = "${cfg.mediaRootDir}/usenet/watch";

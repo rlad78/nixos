@@ -50,6 +50,25 @@ in
       default = "/config";
     };
 
+    bandwidth = {
+      downMegabits = mkOption { type = types.ints.positive; };
+      upMegabits = mkOption { type = types.ints.positive; };
+
+      usenetDownPercentage = mkOption {
+        type = types.ints.between 1 100;
+        default = 70;
+      };
+
+      torrentDownPercentage = mkOption {
+        type = types.ints.between 1 100;
+        default = 50;
+      };
+      torrentUpPercentage = mkOption {
+        type = types.ints.between 1 100;
+        default = 50;
+      };
+    };
+
     ports = {
       sonarr-anime = mkOption {
         type = types.port;

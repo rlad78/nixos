@@ -12,6 +12,10 @@ let
     isSystemUser = true;
     group = "media";
   };
+
+  # the math works here, don't question it c:
+  download-speed = cfg.bandwidth.downMegabits * 10 * cfg.bandwidth.torrentDownPercentage;
+  upload-speed = cfg.bandwidth.upMegabits * 10 * cfg.bandwidth.torrentUpPercentage;
 in
 {
   systemd.tmpfiles.rules = [
@@ -40,9 +44,9 @@ in
       incomplete-dir = "${cfg.mediaRootDir}/torrents/.incomplete";
       incomplete-dir-enabled = true;
 
-      speed-limit-down = 37500;
+      speed-limit-down = download-speed;
       speed-limit-down-enabled = true;
-      speed-limit-up = 37500;
+      speed-limit-up = upload-speed;
       speed-limit-up-enabled = true;
 
       trash-original-torrent-files = true;
