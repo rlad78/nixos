@@ -4,6 +4,7 @@
   ...
 }:
 let
+  flake-root-dir = ./../..;
   cfg = config.arf.snootflix;
 
   mediaUserCfg = {
@@ -13,8 +14,6 @@ let
 in
 {
   systemd.tmpfiles.rules = [
-    "d ${cfg.stateRootDir}/sabnzbd 0700 sabnzbd media"
-
     "d ${cfg.mediaRootDir}/usenet 0755 root media"
     "d ${cfg.mediaRootDir}/usenet/radarr 0775 sabnzbd media"
     "d ${cfg.mediaRootDir}/usenet/sonarr 0775 sabnzbd media"
@@ -28,11 +27,11 @@ in
     enable = true;
     group = "media";
     openFirewall = true;
+    allowConfigWrite = true;
     secretFiles = [
-      (cfg.stateRootDir + "/secrets/sabnzbd_secrets.ini")
+      (flake-root-dir + "/secrets/sabnzbd_secrets.ini")
       ./sabnzbd_extra.ini
     ];
-    configFile = null;
     settings = {
       misc = {
         host = "0.0.0.0";
