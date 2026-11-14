@@ -12,6 +12,10 @@ in
         "usb-2T-2"
       ];
     };
+    # romm = {
+    #   enable = true;
+    #   libraryDir = /snoot/romm;
+    # };
     cli = {
       theme = "jonathan";
       plugins = [
