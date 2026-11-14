@@ -8,6 +8,8 @@ let
   flake-root-dir = ./..;
   cfg = config.arf.snootflix;
 
+  media-gid = 990;
+
   mediaUserCfg = {
     isSystemUser = true;
     group = "media";
@@ -48,6 +50,18 @@ in
     stateRootDir = mkOption {
       type = types.str;
       default = "/config";
+    };
+
+    networking = {
+      hostVirtualAddress = mkOption {
+        type = types.str;
+        default = "10.0.0.10";
+      };
+
+      containerVirtualAddress = mkOption {
+        type = types.str;
+        default = "10.0.0.69";
+      };
     };
 
     bandwidth = {
@@ -116,7 +130,9 @@ in
       "d ${cfg.stateRootDir}/wizarr 0700 wizarr media"
     ];
 
-    users.groups.media = { };
+    users.groups.media = {
+      gid = media-gid;
+    };
 
     users.users.jellyfin = mediaUserCfg;
     services.jellyfin = {

@@ -51,7 +51,10 @@ in
 
       trash-original-torrent-files = true;
 
-      rpc-whitelist = (lib.strings.join "," (util.gatherAllHostIPs hosts)) + ",127.0.0.1";
+      rpc-whitelist =
+        (lib.strings.join "," (util.gatherAllHostIPs hosts))
+        + ",127.0.0.1"
+        + ",${cfg.networking.containerVirtualAddress}";
       rpc-host-whitelist-enabled = false;
       rpc-bind-address = "0.0.0.0";
     };

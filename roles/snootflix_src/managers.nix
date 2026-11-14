@@ -6,15 +6,13 @@
 }:
 let
   cfg = config.arf.snootflix;
+  hostConfig = config;
+
+  sonarr-anime-uid = 8981;
 
   mediaUserCfg = {
     isSystemUser = true;
     group = "media";
-  };
-
-  sonarr-anime-cfg = {
-    # hostPort = 8981;
-    uid = 8981;
   };
 in
 {
@@ -52,38 +50,26 @@ in
   };
 
   users.users.sonarr-anime = mediaUserCfg // {
-    uid = sonarr-anime-cfg.uid;
+    uid = sonarr-anime-uid;
   };
   containers.sonarr-anime =
     let
-      fromHost = {
-        user = {
-          name = "sonarr-anime";
-          uid = sonarr-anime-cfg.uid;
-        };
-        group = {
-          name = "media";
-          gid = config.users.groups.media.gid;
-        };
-        sonarr-package = pkgs.sonarr;
-        media-dir = cfg.mediaRootDir;
-        config-dir = cfg.stateRootDir;
-        state-version = config.system.stateVersion;
-      };
+      sonarr-package = pkgs.sonarr;
+      state-version = config.system.stateVersion;
     in
     {
       autoStart = true;
       privateNetwork = true;
-      hostAddress = "10.0.0.10";
-      localAddress = "10.0.0.69";
+      hostAddress = cfg.networking.hostVirtualAddress;
+      localAddress = cfg.networking.containerVirtualAddress;
       ephemeral = true;
       bindMounts = {
-        "${fromHost.media-dir}" = {
-          hostPath = fromHost.media-dir;
+        "${cfg.mediaRootDir}" = {
+          hostPath = cfg.mediaRootDir;
           isReadOnly = false;
         };
-        "${fromHost.config-dir}/sonarr-anime" = {
-          hostPath = "${fromHost.config-dir}/sonarr-anime";
+        "${cfg.stateRootDir}/sonarr-anime" = {
+          hostPath = "${cfg.stateRootDir}/sonarr-anime";
           isReadOnly = false;
         };
       };
@@ -99,29 +85,28 @@ in
         { ... }:
         {
           users = {
-            users."${fromHost.user.name}" = {
-              uid = fromHost.user.uid;
+            users.sonarr-anime = {
+              uid = hostConfig.users.users.sonarr-anime.uid;
               isSystemUser = true;
-              group = fromHost.group.name;
+              group = "media";
             };
-            groups."${fromHost.group.name}" = {
-              gid = fromHost.group.gid;
-
+            groups.media = {
+              gid = hostConfig.users.groups.media.gid;
             };
           };
           services.sonarr = {
             enable = true;
-            package = fromHost.sonarr-package;
+            package = sonarr-package;
             openFirewall = true;
-            user = fromHost.user.name;
-            group = fromHost.group.name;
-            dataDir = "${fromHost.config-dir}/sonarr-anime";
+            user = "sonarr-anime";
+            group = "media";
+            dataDir = "${cfg.stateRootDir}/sonarr-anime";
           };
 
           networking.useHostResolvConf = lib.mkForce false;
           services.resolved.enable = true;
 
-          system.stateVersion = fromHost.state-version;
+          system.stateVersion = state-version;
         };
     };
 }
