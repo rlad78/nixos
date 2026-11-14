@@ -131,7 +131,7 @@ in
     services.seerr = {
       enable = true;
       port = cfg.ports.seerr;
-      configDir = "${cfg.stateRootDir}/seerr";
+      # configDir = "${cfg.stateRootDir}/seerr";
       openFirewall = true;
     };
 
