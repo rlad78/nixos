@@ -48,7 +48,7 @@ in
   ]
   ++ lib.lists.forEach [
     # "/roles/snootflix.nix"
-    "/roles/new-snootflix.nix"
+    "/roles/snootflix.nix"
     "/services/tailscale.nix"
     "/system/systemd-boot.nix"
     "/hosts/common/nvidia.nix"

@@ -2,14 +2,9 @@
   description = "Nixos config flake";
 
   inputs = {
-    # nixpkgs.url = "github:nixos/nixpkgs/nixos-26.05";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nix-flatpak.url = "github:gmodena/nix-flatpak/?ref=latest";
-    nixarr = {
-      url = "github:rasmus-kirk/nixarr";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-    };
     psonewserv = {
       url = "github:rlad78/newserv";
       flake = false;
@@ -26,7 +21,6 @@
       nixpkgs-unstable,
       nixos-hardware,
       nix-flatpak,
-      nixarr,
       psonewserv,
       unifi-os-server,
       mcp-nixos,
@@ -44,7 +38,6 @@
         builders = builtins.fromJSON (builtins.readFile "${self}/system/builders.json");
 
         inherit nix-flatpak;
-        inherit nixarr;
         inherit psonewserv;
         inherit unifi-os-server;
         nixos-mcp = mcp-nixos;
@@ -71,7 +64,6 @@
         snootflix = systemMake {
           module-paths = [
             ./hosts/snootflix
-            nixarr.nixosModules.default
           ];
         };
 

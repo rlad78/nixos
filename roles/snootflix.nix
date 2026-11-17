@@ -2,73 +2,102 @@
   config,
   lib,
   pkgs,
-  hosts,
-  secrets,
   ...
 }:
 let
-  root-config-dir = ./..;
+  flake-root-dir = ./..;
   cfg = config.arf.snootflix;
 
-  media-root-dir-name = "snoot";
-  media-root-dir = "/${media-root-dir-name}";
-  disks-target-name = "snoot-disks";
+  media-gid = 990;
 
-  wizarr-uid = 8100;
-  wizarr-gid = 8100;
-
-  sonarr-anime = {
-    config-dir = "${config.nixarr.stateDir}/sonarr-anime";
-    hostPort = 8981;
-    uid = 8981;
-    media-gid = config.users.groups.media.gid;
+  mediaUserCfg = {
+    isSystemUser = true;
+    group = "media";
   };
 
-  wizarr-config = {
-    config-dir = "${config.nixarr.stateDir}/wizarr";
-    hostPort = 5690;
-    uid = 8100;
-    gid = 8100;
+  wizarr-cfg = {
+    # hostPort = 5690;
+    uid = 5690;
+    gid = 5690;
   };
-
-  my-device-ips =
-    with lib;
-    lists.unique (
-      lists.flatten (
-        map (a: attrsets.attrValues a) (
-          map (
-            x:
-            attrsets.filterAttrs (
-              n: v:
-              builtins.elem n [
-                "tail-ip"
-                "local-ip"
-              ]
-            ) x
-          ) (builtins.attrValues hosts)
-        )
-      )
-    );
 in
 {
-  imports = lib.lists.forEach [
-    "/system"
-    "/desktop-env/no-desktop.nix"
-    "/apps/cli"
-    "/services/tailscale.nix"
-    "/services/sshd.nix"
-    "/services/scrutiny.nix"
-  ] (p: root-config-dir + p);
+  imports =
+    lib.lists.forEach [
+      "/system"
+      "/desktop-env/no-desktop.nix"
+      "/apps/cli"
+      "/services/sshd.nix"
+      "/services/scrutiny.nix"
+    ] (p: flake-root-dir + p)
+    ++ [ ./snootflix_src ];
 
   options.arf.snootflix = with lib; {
+    mediaDiskLabels = mkOption {
+      type = types.listOf types.str;
+    };
+
     mediaDiskPrefix = mkOption {
       type = types.str;
       default = "mediadisk";
     };
 
+    mediaRootDir = mkOption {
+      type = types.str;
+      default = "/snoot";
+    };
+
     stateRootDir = mkOption {
-      type = types.path;
-      default = /config;
+      type = types.str;
+      default = "/config";
+    };
+
+    networking = {
+      hostVirtualAddress = mkOption {
+        type = types.str;
+        default = "10.0.0.10";
+      };
+
+      containerVirtualAddress = mkOption {
+        type = types.str;
+        default = "10.0.0.69";
+      };
+    };
+
+    bandwidth = {
+      downMegabits = mkOption { type = types.ints.positive; };
+      upMegabits = mkOption { type = types.ints.positive; };
+
+      usenetDownPercentage = mkOption {
+        type = types.ints.between 1 100;
+        default = 70;
+      };
+
+      torrentDownPercentage = mkOption {
+        type = types.ints.between 1 100;
+        default = 50;
+      };
+      torrentUpPercentage = mkOption {
+        type = types.ints.between 1 100;
+        default = 50;
+      };
+    };
+
+    ports = {
+      sonarr-anime = mkOption {
+        type = types.port;
+        default = 8981;
+      };
+
+      wizarr = mkOption {
+        type = types.port;
+        default = 5690;
+      };
+
+      seerr = mkOption {
+        type = types.port;
+        default = 5055;
+      };
     };
   };
 
@@ -86,235 +115,68 @@ in
       sqlite
     ];
 
-    systemd.targets.${disks-target-name} =
-      let
-        media-mounts =
-          with lib;
-          lists.forEach (range 1 4) (n: "mnt-${cfg.mediaDiskPrefix}${toString n}.mount");
-      in
-      {
-        requires = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
-        after = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
-        bindsTo = [ "${media-root-dir-name}.mount" ] ++ media-mounts;
-        wantedBy = [ "multi-user.target" ];
-      };
-
-    systemd.services =
-      let
-        snoot-group-def = {
-          bindsTo = [ "${disks-target-name}.target" ];
-          partOf = [ "${disks-target-name}.target" ];
-          after = [ "${disks-target-name}.target" ];
-          wantedBy = [ "${disks-target-name}.target" ];
-        };
-      in
-      lib.attrsets.genAttrs [
-        "jellyfin"
-        "seerr"
-        "prowlarr"
-        "sonarr"
-        "container@sonarr-anime"
-        "sabnzbd"
-        "transmission"
-      ] (n: snoot-group-def);
-
-    nixarr = {
-      enable = true;
-      mediaUsers = [ "richard" ];
-      mediaDir = media-root-dir;
-      stateDir = toString cfg.stateRootDir;
-
-      jellyfin = {
-        enable = true;
-        openFirewall = true;
-      };
-
-      seerr = {
-        enable = true;
-        openFirewall = true;
-        port = 5055;
-      };
-
-      prowlarr = {
-        enable = true;
-        openFirewall = true;
-        port = 9696;
-      };
-
-      radarr = {
-        enable = true;
-        openFirewall = true;
-        port = 7878;
-      };
-
-      recyclarr = {
-        enable = true;
-        configuration = import ./snootflix_src/recyclarr.nix { inherit secrets; };
-      };
-
-      sonarr = {
-        enable = true;
-        openFirewall = true;
-        port = 8989;
-      };
-
-      transmission = {
-        enable = true;
-        extraAllowedIps = my-device-ips ++ [
-          "10.0.0.69"
-          "10.0.0.10"
-        ];
-        flood.enable = true;
-        extraSettings = {
-          speed-limit-down = 37500;
-          speed-limit-down-enabled = true;
-          speed-limit-up = 37500;
-          speed-limit-up-enabled = true;
-
-          trash-can-enabled = false;
-          trash-original-torrent-files = true;
-
-          rpc-host-whitelist = "snootflix,10.0.0.10";
-          rpc-bind-address = "0.0.0.0";
-        };
-      };
-    };
-
-    services.sabnzbd = {
-      enable = true;
-      group = "media";
-      openFirewall = true;
-      secretFiles = [
-        (root-config-dir + "/secrets/sabnzbd_secrets.ini")
-        ./snootflix_src/sabnzbd_extra.ini
-      ];
-      configFile = null;
-      settings = {
-        misc = {
-          host = "0.0.0.0";
-          port = 6336;
-          host_whitelist =
-            "${config.networking.hostName}," + toString (hosts.${config.networking.hostName}.tail-ip);
-          bandwidth_max = "112M";
-          bandwidth_perc = 80;
-          cache_limit = "1G";
-          complete_dir = "${media-root-dir}/usenet/manual";
-          dirscan_dir = "${media-root-dir}/usenet/watch";
-          download_dir = "${media-root-dir}/usenet/.incomplete";
-          permissions = "775";
-        };
-        servers = {
-          "sslreader.eweka.nl" = {
-            name = "sslreader.eweka.nl";
-            displayname = "Eweka";
-            host = "sslreader.eweka.nl";
-            port = 563;
-            timeout = 60;
-            connections = 18;
-            ssl = true;
-            ssl_verify = 2;
-          };
-        };
-      };
-    };
-
-    # sonarr-anime
-    users.users.sonarr-anime = {
-      isSystemUser = true;
-      group = "media";
-      uid = sonarr-anime.uid;
-    };
-
     systemd.tmpfiles.rules = [
-      "d ${sonarr-anime.config-dir} 0700 sonarr-anime media"
-      "d ${media-root-dir}/library/anime 0775 root media"
-      "d ${media-root-dir}/usenet/sonarr-anime 0775 sabnzbd media"
-      "d ${media-root-dir}/torrents/sonarr-anime 0755 transmission media"
+      "d ${cfg.mediaRootDir} 0755 root media"
+      "d ${cfg.mediaRootDir}/library 0755 root media"
+      "d ${cfg.mediaRootDir}/library/movies 0775 root media"
+      "d ${cfg.mediaRootDir}/library/shows 0775 root media"
+      "d ${cfg.mediaRootDir}/library/anime 0775 root media"
+      "d ${cfg.mediaRootDir}/library/christmas 0775 root media"
+      "d ${cfg.mediaRootDir}/library/halloween 0775 root media"
 
-      "d ${media-root-dir}/library/christmas 0775 root media"
-      "d ${media-root-dir}/library/halloween 0775 root media"
-
-      "d ${wizarr-config.config-dir} 0700 wizarr root"
+      "d ${cfg.stateRootDir} 0750 root media"
+      "d ${cfg.stateRootDir}/jellyfin 0700 jellyfin media"
+      "d ${cfg.stateRootDir}/seerr 0700 seerr media"
+      "d ${cfg.stateRootDir}/wizarr 0700 wizarr media"
     ];
 
-    containers.sonarr-anime =
-      let
-        fromHost = {
-          user = {
-            name = "sonarr-anime";
-            uid = sonarr-anime.uid;
-          };
-          group = {
-            name = "media";
-            gid = sonarr-anime.media-gid;
-          };
-          sonarr-package = pkgs.sonarr;
-          media-dir = media-root-dir;
-        };
-      in
-      {
-        autoStart = true;
-        privateNetwork = true;
-        hostAddress = "10.0.0.10";
-        localAddress = "10.0.0.69";
-        ephemeral = true;
-        bindMounts = {
-          "${fromHost.media-dir}" = {
-            hostPath = fromHost.media-dir;
-            isReadOnly = false;
-          };
-          "${sonarr-anime.config-dir}" = {
-            hostPath = sonarr-anime.config-dir;
-            isReadOnly = false;
-          };
-        };
-        forwardPorts = [
-          {
-            containerPort = 8989;
-            hostPort = sonarr-anime.hostPort;
-            protocol = "tcp";
-          }
-        ];
+    users.groups.media = {
+      gid = media-gid;
+    };
 
-        config =
-          { ... }:
-          {
-            users = {
-              users."${fromHost.user.name}" = {
-                uid = fromHost.user.uid;
-                isSystemUser = true;
-                group = fromHost.group.name;
-              };
-              groups."${fromHost.group.name}" = {
-                gid = fromHost.group.gid;
-
-              };
-            };
-            services.sonarr = {
-              enable = true;
-              package = fromHost.sonarr-package;
-              openFirewall = true;
-              user = fromHost.user.name;
-              group = fromHost.group.name;
-              dataDir = "${sonarr-anime.config-dir}";
-            };
-
-            networking.useHostResolvConf = lib.mkForce false;
-            services.resolved.enable = true;
-
-            system.stateVersion = "25.11";
-          };
+    users.users.jellyfin = mediaUserCfg;
+    services.jellyfin = {
+      enable = true;
+      user = "jellyfin";
+      group = "media";
+      dataDir = "${cfg.stateRootDir}/jellyfin";
+      openFirewall = true;
+      hardwareAcceleration = {
+        enable = true;
+        device = "/dev/dri/renderD128";
+        type = "nvenc";
       };
+      transcoding = {
+        enableHardwareEncoding = true;
+        enableToneMapping = true;
+        hardwareEncodingCodecs = {
+          hevc = true;
+        };
+        hardwareDecodingCodecs = {
+          vc1 = true;
+          vp8 = true;
+          vp9 = true;
+          h264 = true;
+          hevc = true;
+          hevc10bit = true;
+        };
+      };
+    };
 
-    # wizarr
-    users.groups.wizarr.gid = wizarr-config.gid;
+    services.seerr = {
+      enable = true;
+      port = cfg.ports.seerr;
+      # configDir = "${cfg.stateRootDir}/seerr";
+      openFirewall = true;
+    };
+
+    users.groups.wizarr.gid = wizarr-cfg.gid;
     users.users.wizarr = {
       isSystemUser = true;
-      uid = wizarr-config.uid;
+      uid = wizarr-cfg.uid;
       group = "wizarr";
     };
 
-    # virtualisation.docker.enable = true;
     virtualisation.oci-containers.containers = {
       "wizarr" = {
         image = "ghcr.io/wizarrrr/wizarr";
@@ -322,11 +184,11 @@ in
           "--pull=always"
           "--network=host"
         ];
-        ports = [ "5690:5690" ];
-        volumes = [ "/config/wizarr:/data" ];
+        ports = [ "${toString cfg.ports.wizarr}:5690" ];
+        volumes = [ "${cfg.stateRootDir}/wizarr:/data" ];
         environment = {
-          PUID = toString wizarr-uid;
-          PGID = toString wizarr-gid;
+          PUID = toString wizarr-cfg.uid;
+          PGID = toString wizarr-cfg.gid;
           TZ = "America/New_York";
         };
       };
@@ -340,28 +202,42 @@ in
       recommendedProxySettings = true;
     };
 
+    security.acme = {
+      acceptTerms = true;
+      defaults.email = "goobysc@gmail.com";
+    };
     services.nginx.virtualHosts = {
       "snootflix.com" = {
+        enableACME = true;
+        forceSSL = true;
         serverAliases = [ "www.snootflix.com" ];
         locations."/" = {
           proxyPass = "http://127.0.0.1:8096";
           proxyWebsockets = true;
         };
       };
-      "invite.snootflix.com".locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString wizarr-config.hostPort}";
-        proxyWebsockets = true;
+      "invite.snootflix.com" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.ports.wizarr}";
+          proxyWebsockets = true;
+        };
       };
-      "request.snootflix.com".locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString config.nixarr.seerr.port}";
-        proxyWebsockets = true;
+      "request.snootflix.com" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.ports.seerr}";
+          proxyWebsockets = true;
+        };
       };
     };
 
     networking.firewall.allowedTCPPorts = [
       80
       443
-      9091
+      # 9091
     ];
   };
 }
