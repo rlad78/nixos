@@ -202,21 +202,35 @@ in
       recommendedProxySettings = true;
     };
 
+    security.acme = {
+      acceptTerms = true;
+      defaults.email = "goobysc@gmail.com";
+    };
     services.nginx.virtualHosts = {
       "snootflix.com" = {
+        enableACME = true;
+        forceSSL = true;
         serverAliases = [ "www.snootflix.com" ];
         locations."/" = {
           proxyPass = "http://127.0.0.1:8096";
           proxyWebsockets = true;
         };
       };
-      "invite.snootflix.com".locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.ports.wizarr}";
-        proxyWebsockets = true;
+      "invite.snootflix.com" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.ports.wizarr}";
+          proxyWebsockets = true;
+        };
       };
-      "request.snootflix.com".locations."/" = {
-        proxyPass = "http://127.0.0.1:${toString cfg.ports.seerr}";
-        proxyWebsockets = true;
+      "request.snootflix.com" = {
+        enableACME = true;
+        forceSSL = true;
+        locations."/" = {
+          proxyPass = "http://127.0.0.1:${toString cfg.ports.seerr}";
+          proxyWebsockets = true;
+        };
       };
     };
 
