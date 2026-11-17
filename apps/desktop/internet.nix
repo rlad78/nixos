@@ -18,5 +18,6 @@
     "com.bitwarden.desktop"
     "app.zen_browser.zen"
     "org.gabmus.whatip"
+    "nl.jknaapen.fladder"
   ];
 }
