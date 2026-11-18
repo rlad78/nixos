@@ -1,3 +1,7 @@
+# in builders.json, to get publicHostKey, take the public host key
+# (found using 'ssh-keyscan -t ed25519 <host>') and grab ONLY
+# the key value starting with "ssh-" (ignore the hostname),
+# THEN run 'echo "<KEY_VALUE>" | base64 -w0' to get the string
 {
   config,
   lib,
