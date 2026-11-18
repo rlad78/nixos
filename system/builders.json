@@ -32,7 +32,7 @@
         "maxJobs": 3,
         "speedFactor": 6,
         "supportedFeatures": [ "nixos-test", "benchmark", "big-parallel", "kvm" ],
-        "publicHostKey": "c25vb3RmbGl4IHNzaC1lZDI1NTE5IEFBQUFDM056YUMxbFpESTFOVEU1QUFBQUlQWEM0NnB1bjB5TDhFdk9jYzdlR0JSb2VnQk1UTTdtemlGN05wZXlBMG1VCg=="
+        "publicHostKey": "c3NoLWVkMjU1MTkgQUFBQUMzTnphQzFsWkRJMU5URTVBQUFBSVBYQzQ2cHVuMHlMOEV2T2NjN2VHQlJvZWdCTVRNN216aUY3TnBleUEwbVUgcm9vdEBuaXhvcwo="
     },
     "gateway-station": {
         "hostName": "gateway-station",
