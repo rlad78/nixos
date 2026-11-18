@@ -6,13 +6,7 @@
 }:
 with lib;
 let
-  cfg = config.arf;
-
-  this-host = config.networking.hostName;
-  build-subs = config.nix.settings.trusted-substituters;
-  build-server =
-    if build-subs != [ ] then lists.last (strings.splitString "//" (builtins.head build-subs)) else "";
-  build-dir = toString (config.users.users.richard.home + "/builds");
+  cfg = config.arf.remoteBuilds;
 
   builder-names = builtins.attrNames builders;
   builder-extra-attrs = [
@@ -23,37 +17,44 @@ let
     wanted: builtins.attrValues (attrsets.filterAttrs (n: v: builtins.elem n wanted) builders);
 
   getWantedBuilderAttrs = attr: wanted: attrsets.catAttrs attr (getWantedBuilders wanted);
-
-  pull-alias = ''
-    nix copy --from ssh-ng://${build-server} $(ssh ${build-server} -- \
-    "find ${build-dir}/ -maxdepth 1 -type l -name '*${this-host}*' -printf '%T@&%p\n' \
-    | sort -nr | head -n 1 | cut -d '&' -f 2 | xargs readlink")
-  '';
-
-  shell-aliases = {
-    nxpull = pull-alias;
-  };
 in
 {
-  options.arf.builders = mkOption {
-    type = types.listOf (types.enum builder-names);
-    default = [ ];
+  options.arf.remoteBuilds = {
+    builders = mkOption {
+      type = types.listOf (types.enum builder-names);
+      default = [ ];
+    };
+
+    localCores = mkOption {
+      type = types.nullOr types.ints.unsigned;
+      default = null;
+      example = 2;
+      description = ''
+        Number of cores requested per local build, or null to leave the host's
+        existing setting unchanged. Zero means all available cores.
+      '';
+    };
+
+    localMaxJobs = mkOption {
+      type = types.nullOr types.ints.unsigned;
+      default = null;
+      example = 1;
+      description = ''
+        Maximum concurrent local builds, or null to leave the host's existing
+        setting unchanged. Zero disables local builds and therefore local fallback.
+      '';
+    };
   };
 
   config = mkIf ((lists.length cfg.builders) > 0) {
-    nix.settings.trusted-public-keys = getWantedBuilderAttrs "public-key" cfg.builders;
-
-    nix.settings.trusted-substituters = lists.forEach (getWantedBuilderAttrs "hostName" cfg.builders) (
-      host: "ssh-ng://${host}"
-    );
-
-    nix.distributedBuilds = true;
-    nix.extraOptions = ''
-      builders-use-substitutes = true
-    '';
-
-    nix.buildMachines = map (b: removeAttrs b builder-extra-attrs) (getWantedBuilders cfg.builders);
-
-    environment.shellAliases = shell-aliases;
+    nix = {
+      distributedBuilds = true;
+      sbuildMachines = map (b: removeAttrs b builder-extra-attrs) (getWantedBuilders cfg.builders);
+      settings = {
+        builders-use-substitutes = true;
+        max-jobs = cfg.localMaxJobs;
+        cores = cfg.localCores;
+      };
+    };
   };
 }

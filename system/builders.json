@@ -27,11 +27,12 @@
         "hostName": "snootflix",
         "system": "x86_64-linux",
         "protocol": "ssh-ng",
-        "sshUser": "richard",
-        "sshKey": "/home/richard/.ssh/id_ed25519",
+        "sshUser": "nixbuilder",
+        "sshKey": "/root/.ssh/id_ed25519",
         "maxJobs": 3,
         "speedFactor": 6,
-        "supportedFeatures": [ "nixos-test", "benchmark", "big-parallel", "kvm" ]
+        "supportedFeatures": [ "nixos-test", "benchmark", "big-parallel", "kvm" ],
+        "publicHostKey": "c25vb3RmbGl4IHNzaC1lZDI1NTE5IEFBQUFDM056YUMxbFpESTFOVEU1QUFBQUlQWEM0NnB1bjB5TDhFdk9jYzdlR0JSb2VnQk1UTTdtemlGN05wZXlBMG1VCg=="
     },
     "gateway-station": {
         "hostName": "gateway-station",

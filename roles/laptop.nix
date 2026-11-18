@@ -35,7 +35,11 @@ in
         "systemd"
         "z"
       ];
-      builders = [ "nixarf" ];
+      remoteBuilds = {
+        builders = [ "snootflix" ];
+        localCores = 6;
+        localMaxJobs = 3;
+      };
     };
 
     # add udev rules for 8bitdo web updater

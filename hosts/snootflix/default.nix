@@ -16,15 +16,16 @@ in
         upMegabits = 900;
       };
     };
-    # romm = {
-    #   enable = true;
-    #   libraryDir = /snoot/romm;
-    # };
     cli = {
       theme = "jonathan";
       plugins = [
         "systemd"
         "z"
+      ];
+    };
+    nixBuilder = {
+      authorizedKeys = [
+        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDb+4coRe5EocasxqwkrjYxZBpFfhYXlcXXNpIxBzMdW root@nixpad"
       ];
     };
     # romm = {
@@ -55,6 +56,7 @@ in
     # "/services/romm.nix"
     "/services/mcp-nixos.nix"
     "/services/searxng.nix"
+    "/services/nix-builder-new.nix"
   ] (p: root-config-dir + p);
 
   networking.hostName = "snootflix";
