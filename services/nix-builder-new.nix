@@ -16,6 +16,8 @@ let
   cfg = config.arf.nixBuilder;
 in
 {
+  imports = [ ./sshd.nix ];
+
   options.arf.nixBuilder = {
     user = lib.mkOption {
       type = lib.types.str;
@@ -38,8 +40,6 @@ in
   };
 
   config = {
-    imports = [ ./sshd.nix ];
-
     services.openssh = {
       settings.AllowUsers = [ cfg.user ];
     };

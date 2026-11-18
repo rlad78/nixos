@@ -49,7 +49,7 @@ in
   config = mkIf ((lists.length cfg.builders) > 0) {
     nix = {
       distributedBuilds = true;
-      sbuildMachines = map (b: removeAttrs b builder-extra-attrs) (getWantedBuilders cfg.builders);
+      buildMachines = map (b: removeAttrs b builder-extra-attrs) (getWantedBuilders cfg.builders);
       settings = {
         builders-use-substitutes = true;
         max-jobs = cfg.localMaxJobs;
