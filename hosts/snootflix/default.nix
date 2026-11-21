@@ -11,6 +11,16 @@ in
         "usb-2T-1"
         "usb-2T-2"
       ];
+      mediaDiskServices = [
+        "jellyfin"
+        "seerr"
+        "prowlarr"
+        "sonarr"
+        "container@sonarr-anime"
+        "sabnzbd"
+        "transmission"
+        "romm"
+      ];
       bandwidth = {
         downMegabits = 900;
         upMegabits = 900;

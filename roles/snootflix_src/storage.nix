@@ -8,15 +8,16 @@
 let
   cfg = config.arf.snootflix;
   mount-target-name = "snoot-disks";
-  target-services = [
-    "jellyfin"
-    "seerr"
-    "prowlarr"
-    "sonarr"
-    "container@sonarr-anime"
-    "sabnzbd"
-    "transmission"
-  ];
+  # target-services = [
+  #   "jellyfin"
+  #   "seerr"
+  #   "prowlarr"
+  #   "sonarr"
+  #   "container@sonarr-anime"
+  #   "sabnzbd"
+  #   "transmission"
+  #   "romm"
+  # ];
 
   btrfs-options = [
     "compress-force=zstd:11"
@@ -83,5 +84,5 @@ in
         wantedBy = [ "${mount-target-name}.target" ];
       };
     in
-    lib.attrsets.genAttrs target-services (n: disk-group-def);
+    lib.attrsets.genAttrs cfg.mediaDiskServices (n: disk-group-def);
 }
