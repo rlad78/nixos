@@ -45,7 +45,7 @@ in
     mediaDiskServices = mkOption {
       type = types.listOf types.str;
       default = [];
-    }
+    };
 
     mediaRootDir = mkOption {
       type = types.str;
