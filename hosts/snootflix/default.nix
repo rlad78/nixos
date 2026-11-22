@@ -19,7 +19,7 @@ in
         "container@sonarr-anime"
         "sabnzbd"
         "transmission"
-        "romm"
+        "podman-romm"
       ];
       bandwidth = {
         downMegabits = 900;
@@ -38,14 +38,14 @@ in
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDb+4coRe5EocasxqwkrjYxZBpFfhYXlcXXNpIxBzMdW root@nixpad"
       ];
     };
-    # romm = {
-    #   enable = true;
-    #   libraryDir = /snoot/romm;
-    #   hosting = {
-    #     enable = true;
-    #     url = "retro.snootflix.com";
-    #   };
-    # };
+    romm = {
+      enable = true;
+      libraryDir = /snoot/romm;
+      hosting = {
+        enable = true;
+        url = "retro.snootflix.com";
+      };
+    };
     searxng = {
       bind-address = hosts.snootflix.tail-ip;
       waitForTailscale = true;
@@ -55,15 +55,13 @@ in
 
   imports = [
     ./hardware-configuration.nix
-    # ./media-storage.nix
   ]
   ++ lib.lists.forEach [
-    # "/roles/snootflix.nix"
     "/roles/snootflix.nix"
     "/services/tailscale.nix"
     "/system/systemd-boot.nix"
     "/hosts/common/nvidia.nix"
-    # "/services/romm.nix"
+    "/services/romm.nix"
     "/services/mcp-nixos.nix"
     "/services/searxng.nix"
     "/services/nix-builder-new.nix"
