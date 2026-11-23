@@ -33,11 +33,6 @@ in
         "z"
       ];
     };
-    nixBuilder = {
-      authorizedKeys = [
-        "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDb+4coRe5EocasxqwkrjYxZBpFfhYXlcXXNpIxBzMdW root@nixpad"
-      ];
-    };
     romm = {
       enable = true;
       libraryDir = /snoot/romm;

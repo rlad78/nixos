@@ -14,6 +14,10 @@
 { config, lib, ... }:
 let
   cfg = config.arf.nixBuilder;
+  client-pub-keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDb+4coRe5EocasxqwkrjYxZBpFfhYXlcXXNpIxBzMdW root@nixpad"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgwruElNIg2ngE2sgrMsCntQVaNbVQbOiMKW29SWC/P root@snoothome"
+  ];
 in
 {
   imports = [ ./sshd.nix ];
@@ -50,15 +54,12 @@ in
       group = cfg.user;
       useDefaultShell = true;
       openssh.authorizedKeys = {
-        keys = cfg.authorizedKeys;
+        keys = client-pub-keys;
         keyFiles = cfg.authorizedKeyFiles;
       };
     };
 
     # Nix trusted users have root-equivalent authority on this machine.
     nix.settings.trusted-users = [ cfg.user ];
-
-    warnings = lib.optional (cfg.authorizedKeys == [ ] && cfg.authorizedKeyFiles == [ ])
-      "arf.nixBuilder: no SSH public keys configured; remote builder login will not work until a key is authorized.";
   };
 }
