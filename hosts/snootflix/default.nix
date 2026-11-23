@@ -53,6 +53,9 @@ in
     "/services/mcp-nixos.nix"
     "/services/searxng.nix"
     "/services/nix-builder.nix"
+    # "/services/syncthing.nix"
+    # "/services/pdf.nix"
+    # "/services/palworld.nix"
   ] (p: root-config-dir + p);
 
   networking.hostName = "snootflix";
