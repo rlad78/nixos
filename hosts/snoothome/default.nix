@@ -11,7 +11,11 @@ in
         "z"
       ];
     };
-    builders = [ "nixarf" ];
+    remoteBuilds = {
+      builders = [ "snootflix" ];
+      localCores = 1;
+      localMaxJobs = 1;
+    };
     unifi.ip = hosts.snoothome.local-ip;
   };
 
