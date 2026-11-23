@@ -11,16 +11,16 @@
 with lib;
 let
   cfg = config.arf.remoteBuilds;
-
   builder-names = builtins.attrNames builders;
-  builder-extra-attrs = [
-    "public-key"
-  ];
+
+  builder-base-values = {
+    sshUser = "nixbuilder";
+    sshKey = "/root/.ssh/id_ed25519";
+    protocol = "ssh-ng";
+  };
 
   getWantedBuilders =
     wanted: builtins.attrValues (attrsets.filterAttrs (n: v: builtins.elem n wanted) builders);
-
-  getWantedBuilderAttrs = attr: wanted: attrsets.catAttrs attr (getWantedBuilders wanted);
 in
 {
   options.arf.remoteBuilds = {
@@ -53,7 +53,7 @@ in
   config = mkIf ((lists.length cfg.builders) > 0) {
     nix = {
       distributedBuilds = true;
-      buildMachines = map (b: removeAttrs b builder-extra-attrs) (getWantedBuilders cfg.builders);
+      buildMachines = map (b: b // builder-base-values) (getWantedBuilders cfg.builders);
       settings = {
         builders-use-substitutes = true;
         max-jobs = cfg.localMaxJobs;
