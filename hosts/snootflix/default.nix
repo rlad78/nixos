@@ -52,7 +52,7 @@ in
     "/services/romm.nix"
     "/services/mcp-nixos.nix"
     "/services/searxng.nix"
-    "/services/nix-builder-new.nix"
+    "/services/nix-builder.nix"
   ] (p: root-config-dir + p);
 
   networking.hostName = "snootflix";

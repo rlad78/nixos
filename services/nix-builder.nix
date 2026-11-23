@@ -1,60 +1,65 @@
-{ config, pkgs, ... }:
+# Import this module on a machine that will accept remote Nix builds.
+#
+# Example host configuration:
+#   imports = [ ../../system/nix-builder-new.nix ];
+#   arf.nixBuilder = {
+#     authorizedKeys = [ "ssh-ed25519 AAAA... nixpad-builder" ];
+#     # Set this if the host already restricts SSH with AllowUsers.
+#     addToAllowUsers = true;
+#   };
+#
+# The client must separately configure nix.buildMachines, an SSH private key
+# readable by its Nix daemon, and host-key verification. This module does not
+# create private keys, configure a binary cache, or select client builders.
+{ config, lib, ... }:
 let
-  builder-username = "richard";
-  secret-key-dir = "/home/${builder-username}/.k";
-  setup-commands = ''
-    \'
-        sudo --user=${builder-username} \
-        mkdir -p ${secret-key-dir}
-        && sudo --user=${builder-username} \
-        nix-store --generate-binary-cache-key ${builder-username} \
-        ${secret-key-dir}/cache-priv-key.pem \
-        ${secret-key-dir}/cache-pub-key.pem \
-        && sudo nix sign-paths --all -k ${secret-key-dir}/cache-priv-key.pem
-        \'
-  '';
-
-  nix-cmd = "nom";
-  home-dir = config.users.users.richard.home;
-  nix-dir = toString (home-dir + "/nixos");
-  build-dir = toString (home-dir + "/builds");
-  build-func = ''
-    nxbuild() {
-      screen -dmL -Logfile ${build-dir}/logs/''${1}_$(date -Iminutes) -S ''${1}-build zsh -c \
-        "cd ${nix-dir} && ${nix-cmd} build --out-link ${build-dir}/''${1}_$(date -Iminutes) \
-        --show-trace .#nixosConfigurations.''${1}.config.system.build.toplevel \
-        && find ${build-dir} -mtime +7 -execdir rm -- '{}' \;"
-    }
-  '';
+  cfg = config.arf.nixBuilder;
+  client-pub-keys = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDb+4coRe5EocasxqwkrjYxZBpFfhYXlcXXNpIxBzMdW root@nixpad"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBgwruElNIg2ngE2sgrMsCntQVaNbVQbOiMKW29SWC/P root@snoothome"
+  ];
 in
 {
   imports = [ ./sshd.nix ];
 
-  services.openssh.settings = {
-    PermitRootLogin = "yes";
-    AllowUsers = [ "root" ];
-  };
+  options.arf.nixBuilder = {
+    user = lib.mkOption {
+      type = lib.types.str;
+      default = "nixbuilder";
+      description = "Dedicated system user and group for the remote builder.";
+    };
 
-  environment = {
-    systemPackages = with pkgs; [ nix-output-monitor ];
-    shellAliases = {
-      init-builder = setup-commands;
+    authorizedKeys = lib.mkOption {
+      type = lib.types.listOf lib.types.str;
+      default = [ ];
+      example = [ "ssh-ed25519 AAAA... nixpad-builder" ];
+      description = "Public SSH keys allowed to connect as the builder user. Never put private keys here.";
+    };
+
+    authorizedKeyFiles = lib.mkOption {
+      type = lib.types.listOf lib.types.path;
+      default = [ ];
+      description = "Files containing public SSH authorized keys for the builder user.";
     };
   };
 
-  programs.zsh.promptInit = build-func;
+  config = {
+    services.openssh = {
+      settings.AllowUsers = [ cfg.user ];
+    };
 
-  nix.extraOptions = ''
-    secret-key-files = /home/${builder-username}/.k/cache-priv-key.pem
-  '';
-  nix.settings.trusted-users = [
-    "root"
-    "richard"
-    builder-username
-  ];
+    users.groups.${cfg.user} = { };
+    users.users.${cfg.user} = {
+      isSystemUser = true;
+      group = cfg.user;
+      useDefaultShell = true;
+      openssh.authorizedKeys = {
+        keys = client-pub-keys;
+        keyFiles = cfg.authorizedKeyFiles;
+      };
+    };
 
-  systemd.tmpfiles.rules = [
-    "d ${build-dir} 755 richard users"
-    "d ${build-dir}/logs 755 richard users"
-  ];
+    # Nix trusted users have root-equivalent authority on this machine.
+    nix.settings.trusted-users = [ cfg.user ];
+  };
 }
