@@ -44,7 +44,7 @@ in
 
     mediaDiskServices = mkOption {
       type = types.listOf types.str;
-      default = [];
+      default = [ ];
     };
 
     mediaRootDir = mkOption {
@@ -112,6 +112,13 @@ in
         enable = true;
         frequency = "weekly";
         older-than = 14;
+      };
+      cli = {
+        theme = "jonathan";
+        plugins = [
+          "systemd"
+          "z"
+        ];
       };
       inner-nat = true;
     };

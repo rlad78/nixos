@@ -26,13 +26,6 @@ in
         upMegabits = 900;
       };
     };
-    cli = {
-      theme = "jonathan";
-      plugins = [
-        "systemd"
-        "z"
-      ];
-    };
     romm = {
       enable = true;
       libraryDir = /snoot/romm;
