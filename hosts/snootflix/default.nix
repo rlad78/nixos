@@ -39,6 +39,10 @@ in
       waitForTailscale = true;
       port = 5454;
     };
+    mindwtr = {
+      url = "mindwtr.snoothome.net";
+      public = true;
+    };
   };
 
   imports = [
@@ -56,6 +60,7 @@ in
     # "/services/syncthing.nix"
     # "/services/pdf.nix"
     # "/services/palworld.nix"
+    "/services/mindwtr-server.nix"
   ] (p: root-config-dir + p);
 
   networking.hostName = "snootflix";
