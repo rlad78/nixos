@@ -153,9 +153,10 @@ in
       group = "media";
       dataDir = "${cfg.stateRootDir}/jellyfin";
       openFirewall = true;
+      forceEncodingConfig = true;
       hardwareAcceleration = {
         enable = true;
-        device = "/dev/dri/renderD128";
+        device = "/dev/nvidia0";
         type = "nvenc";
       };
       transcoding = {
@@ -174,6 +175,10 @@ in
         };
       };
     };
+    systemd.services.jellyfin.serviceConfig.DeviceAllow = [
+      "/dev/nvidiactl rw"
+      "/dev/nvidia-uvm rw"
+    ];
 
     services.seerr = {
       enable = true;
