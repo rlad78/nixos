@@ -59,7 +59,7 @@ in
     "/services/nix-builder.nix"
     "/services/syncthing.nix"
     # "/services/pdf.nix"
-    # "/services/palworld.nix"
+    "/services/palworld.nix"
     "/services/mindwtr-server.nix"
   ] (p: root-config-dir + p);
 
