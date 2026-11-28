@@ -10,9 +10,6 @@ let
   idle-pause-timer-minutes = 10;
 in
 {
-  # virtualisation.docker.enable = true;
-  # users.users.richard.extraGroups = [ "docker" ];
-
   users.groups.palworld.gid = palworld-gid;
 
   users.users.palworld = {
@@ -25,11 +22,14 @@ in
     "d /palworld 0700 palworld palworld"
   ];
 
-  # virtualisation.oci-containers.backend = "docker";
   virtualisation.oci-containers.containers = {
     palworld = {
-      image = "thijsvanloef/palworld-server-docker:latest";
-      extraOptions = [ "--pull=always" ];
+      image = "docker.io/thijsvanloef/palworld-server-docker:latest";
+      extraOptions = [
+        "--pull=always"
+        "--cap-add=NET_RAW"
+        "--cap-add=NET_ADMIN"
+      ];
       autoStart = true;
       volumes = [
         "/palworld:/palworld"
@@ -64,7 +64,7 @@ in
         REST_API_ENABLED = "true";
         ENABLE_PLAYER_LOGGING = "true";
         AUTO_PAUSE_ENABLED = "true";
-        AUTO_PAUSE_TIMEOUT_EST = toString(60 * idle-pause-timer-minutes);
+        AUTO_PAUSE_TIMEOUT_EST = toString (60 * idle-pause-timer-minutes);
 
         # WORLD CONFIG
         ENABLE_INVADER_ENEMY = "False";
